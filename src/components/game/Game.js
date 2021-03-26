@@ -24,6 +24,8 @@ const PlayerContainer = styled.li`
   justify-content: center;
 `;
 
+//this is a test comment
+
 class Game extends React.Component {
   constructor() {
     super();

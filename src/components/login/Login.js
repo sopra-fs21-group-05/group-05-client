@@ -21,7 +21,7 @@ const Form = styled.div`
   justify-content: center;
   width: 60%;
   height: 375px;
-  font-size: 16px;
+  font-size: 30px;
   font-weight: 300;
   padding-left: 37px;
   padding-right: 37px;
@@ -75,8 +75,8 @@ class Login extends React.Component {
   constructor() {
     super();
     this.state = {
-      name: null,
-      username: null
+      username: null,
+      password: null
     };
   }
   /**
@@ -88,9 +88,9 @@ class Login extends React.Component {
     try {
       const requestBody = JSON.stringify({
         username: this.state.username,
-        name: this.state.name
+        password: this.state.password
       });
-      const response = await api.post('/users', requestBody);
+      const response = await api.post('/login', requestBody);
 
       // Get the returned user and update a new object.
       const user = new User(response.data);
@@ -127,37 +127,47 @@ class Login extends React.Component {
 
   render() {
     return (
-      <BaseContainer>
-        <FormContainer>
-          <Form>
-            <Label>Username</Label>
-            <InputField
-              placeholder="Enter here.."
-              onChange={e => {
-                this.handleInputChange('username', e.target.value);
-              }}
-            />
-            <Label>Name</Label>
-            <InputField
-              placeholder="Enter here.."
-              onChange={e => {
-                this.handleInputChange('name', e.target.value);
-              }}
-            />
-            <ButtonContainer>
-              <Button
-                disabled={!this.state.username || !this.state.name}
-                width="50%"
-                onClick={() => {
-                  this.login();
-                }}
-              >
-                Login
-              </Button>
-            </ButtonContainer>
-          </Form>
-        </FormContainer>
-      </BaseContainer>
+        <BaseContainer>
+          <FormContainer>
+            <Form>
+              <Label>Username</Label>
+              <InputField
+                  placeholder="Enter here.."
+                  onChange={e => {
+                    this.handleInputChange('username', e.target.value);
+                  }}
+              />
+              <Label>Password</Label>
+              <InputField
+                  placeholder="Enter here.."
+                  onChange={e => {
+                    this.handleInputChange('password', e.target.value);
+                  }}
+              />
+              <ButtonContainer>
+                <Button
+                    disabled={!this.state.username || !this.state.password}
+                    width="50%"
+                    onClick={() => {
+                      this.login();
+                    }}
+                >
+                  Login
+                </Button>
+              </ButtonContainer>
+              <ButtonContainer>
+                <Button
+                    width="50%"
+                    onClick={() => {
+                      this.props.history.push(`/Register`);
+                    }}
+                >
+                  Register
+                </Button>
+              </ButtonContainer>
+            </Form>
+          </FormContainer>
+        </BaseContainer>
     );
   }
 }

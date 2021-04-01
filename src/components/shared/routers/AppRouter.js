@@ -4,6 +4,10 @@ import { GameGuard } from "../routeProtectors/GameGuard";
 import GameRouter from "./GameRouter";
 import { LoginGuard } from "../routeProtectors/LoginGuard";
 import Login from "../../login/Login";
+import {RegisterGuard} from "../routeProtectors/RegisterGuard";
+import Register from "../../register/Register";
+import {GameroomGuard} from "../routeProtectors/GameroomGuard";
+import Gameroom from "../../gameroom/Gameroom"
 
 /**
  * Main router of your application.
@@ -15,34 +19,53 @@ import Login from "../../login/Login";
  * Documentation about routing in React: https://reacttraining.com/react-router/web/guides/quick-start
  */
 class AppRouter extends React.Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <Switch>
-          <div>
-            <Route
-              path="/game"
-              render={() => (
-                <GameGuard>
-                  <GameRouter base={"/game"} />
-                </GameGuard>
-              )}
-            />
-            <Route
-              path="/login"
-              exact
-              render={() => (
-                <LoginGuard>
-                  <Login />
-                </LoginGuard>
-              )}
-            />
-            <Route path="/" exact render={() => <Redirect to={"/game"} />} />
-          </div>
-        </Switch>
-      </BrowserRouter>
-    );
-  }
+    render() {
+        return (
+            <BrowserRouter>
+                <Switch>
+                    <div>
+                        <Route
+                            path="/game"
+                            render={() => (
+                                <GameGuard>
+                                    <GameRouter base={"/game"} />
+                                </GameGuard>
+                            )}
+                        />
+                        <Route
+                            path="/login"
+                            exact
+                            render={() => (
+                                <LoginGuard>
+                                    <Login />
+                                </LoginGuard>
+                            )}
+                        />
+                        <Route
+                            path="/register"
+                            exact
+                            render={() => (
+                                <RegisterGuard>
+                                    <Register />
+                                </RegisterGuard>
+                            )}
+                        />
+                        <Route
+                            path="/gamerooms"
+                            exact
+                            render={() => (
+                                <GameroomGuard>
+                                    <Gameroom />
+                                </GameroomGuard>
+                            )}
+                        />
+                        />
+                        <Route path="/" exact render={() => <Redirect to={"/game"} />} />
+                    </div>
+                </Switch>
+            </BrowserRouter>
+        );
+    }
 }
 /*
 * Don't forget to export your component!

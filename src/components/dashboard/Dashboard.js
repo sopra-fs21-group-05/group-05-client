@@ -65,7 +65,7 @@ const ButtonContainer = styled.div`
  * https://reactjs.org/docs/react-component.html
  * @Class
  */
-class Gameroom extends React.Component {
+class Dashboard extends React.Component {
     /**
      * If you don’t initialize the state and you don’t bind methods, you don’t need to implement a constructor for your React component.
      * The constructor for a React component is called before it is mounted (rendered).
@@ -129,7 +129,7 @@ class Gameroom extends React.Component {
         return (
             <BaseContainer>
                 <FormContainer>
-                    <h2>Gameroom</h2>
+                    <h2>Dashboard</h2>
                     <Form>
                         <Label>Username</Label>
                         <InputField
@@ -177,4 +177,4 @@ class Gameroom extends React.Component {
  * You can get access to the history object's properties via the withRouter.
  * withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
  */
-export default withRouter(Gameroom);
+export default withRouter(Dashboard);

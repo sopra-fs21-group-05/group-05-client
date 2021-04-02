@@ -8,6 +8,8 @@ import {RegisterGuard} from "../routeProtectors/RegisterGuard";
 import Register from "../../register/Register";
 import {GameroomGuard} from "../routeProtectors/GameroomGuard";
 import Gameroom from "../../gameroom/Gameroom"
+import Game from "../../game/Game";
+import Dashboard from "../../dashboard/Dashboard";
 
 /**
  * Main router of your application.
@@ -18,6 +20,9 @@ import Gameroom from "../../gameroom/Gameroom"
  * /game renders a Router that contains other sub-routes that render in turn other react components
  * Documentation about routing in React: https://reacttraining.com/react-router/web/guides/quick-start
  */
+
+/*Dashboard will need to be behind a guard later on!
+*/
 class AppRouter extends React.Component {
     render() {
         return (
@@ -59,6 +64,12 @@ class AppRouter extends React.Component {
                                 </GameroomGuard>
                             )}
                         />
+                        <Route
+                            exact
+                            path={"/dashboard"}
+                            render={() => <Dashboard />}
+                        />
+                        <Route
                         />
                         <Route path="/" exact render={() => <Redirect to={"/game"} />} />
                     </div>

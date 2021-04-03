@@ -9,7 +9,8 @@ body {
   font-family: "Open Sans", sans-serif;
   /*background: #0e3d61;*/
   background: linear-gradient(360deg, #EED8B9 -2.18%, rgba(255, 255, 255, 0) 34.77%), #FFFFFF;
-  width: 1920px;
+  /*width: 1920px;*/
+  /*background: linear-gradient(#e66465, #9198e5);*/
   height: 1080px;
   left: 0px;
   top: 0px;

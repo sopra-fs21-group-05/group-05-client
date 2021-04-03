@@ -5,6 +5,8 @@ import { api, handleError } from '../../helpers/api';
 import User from '../shared/models/User';
 import { withRouter } from 'react-router-dom';
 import { Button } from '../../views/design/Button';
+import { ButtonWhite } from '../../views/design/ButtonWhite';
+import logo from "./logoSmall.png"
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -26,34 +28,16 @@ const Form = styled.div`
   padding-left: 37px;
   padding-right: 37px;
   border-radius: 5px;
-  background: linear-gradient(rgb(27, 124, 186), rgb(2, 46, 101));
   transition: opacity 0.5s ease, transform 0.5s ease;
 `;
 
-const InputField = styled.input`
-  &::placeholder {
-    color: rgba(255, 255, 255, 1.0);
-  }
-  height: 35px;
-  padding-left: 15px;
-  margin-left: -4px;
-  border: none;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-`;
-
-const Label = styled.label`
-  color: white;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-`;
 
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  background: rgba(255, 255, 255, 0.2);
+
 `;
 
 /**
@@ -129,43 +113,43 @@ class Dashboard extends React.Component {
         return (
             <BaseContainer>
                 <FormContainer>
-                    <h2>Dashboard</h2>
+                    <img src={logo} width={700} />
                     <Form>
-                        <Label>Username</Label>
-                        <InputField
-                            placeholder="Enter here.."
-                            onChange={e => {
-                                this.handleInputChange('username', e.target.value);
-                            }}
-                        />
-                        <Label>Password</Label>
-                        <InputField
-                            placeholder="Enter here.."
-                            onChange={e => {
-                                this.handleInputChange('password', e.target.value);
-                            }}
-                        />
                         <ButtonContainer>
-                            <Button
-                                disabled={!this.state.username || !this.state.password}
+                            <ButtonWhite
                                 width="50%"
                                 onClick={() => {
-                                    this.login();
+                                   window.location.reload();
                                 }}
                             >
-                                Login
-                            </Button>
+                                Create Room
+                            </ButtonWhite>
                         </ButtonContainer>
+
                         <ButtonContainer>
-                            <Button
+                            <ButtonWhite
                                 width="50%"
                                 onClick={() => {
-                                    this.props.history.push(`/Register`);
+                                    window.location.reload();
                                 }}
                             >
-                                Register
-                            </Button>
+                                Join Room
+                            </ButtonWhite>
                         </ButtonContainer>
+
+
+
+                        <ButtonContainer>
+                            <ButtonWhite
+                                width="50%"
+                                onClick={() => {
+                                    this.props.history.push(`/Login`);
+                                }}
+                            >
+                                Logout
+                            </ButtonWhite>
+                        </ButtonContainer>
+
                     </Form>
                 </FormContainer>
             </BaseContainer>

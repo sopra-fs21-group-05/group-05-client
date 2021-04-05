@@ -59,8 +59,7 @@ class Dashboard extends React.Component {
     constructor() {
         super();
         this.state = {
-            username: null,
-            password: null
+            userId: null
         };
     }
     /**
@@ -68,24 +67,26 @@ class Dashboard extends React.Component {
      * If the request is successful, a new user is returned to the front-end
      * and its token is stored in the localStorage.
      */
-    async login() {
+    async logout() {
         try {
             const requestBody = JSON.stringify({
-                username: this.state.username,
-                password: this.state.password
+                userId: this.state.userId
             });
-            const response = await api.post('/login', requestBody);
 
-            // Get the returned user and update a new object.
+            const response = await api.post('/logout', requestBody);
+
+            console.log('request to:', response.request.responseURL);
+            console.log('status code:', response.status);
+            console.log('status text:', response.statusText);
+            console.log('requested data:', response.data);
+
             const user = new User(response.data);
 
-            // Store the token into the local storage.
-            localStorage.setItem('token', user.token);
+            localStorage.removeItem("token");
 
-            // Login successfully worked --> navigate to the route /game in the GameRouter
-            this.props.history.push(`/game`);
+            this.props.history.push(`/login`);
         } catch (error) {
-            alert(`Something went wrong during the login: \n${handleError(error)}`);
+            alert(`Something went wrong during the logout: \n${handleError(error)}`);
         }
     }
 
@@ -119,13 +120,12 @@ class Dashboard extends React.Component {
                             <ButtonWhite
                                 width="50%"
                                 onClick={() => {
-                                   window.location.reload();
+                                    this.props.history.push(`/gamerooms`);
                                 }}
                             >
                                 Create Room
                             </ButtonWhite>
                         </ButtonContainer>
-
                         <ButtonContainer>
                             <ButtonWhite
                                 width="50%"
@@ -136,14 +136,11 @@ class Dashboard extends React.Component {
                                 Join Room
                             </ButtonWhite>
                         </ButtonContainer>
-
-
-
                         <ButtonContainer>
                             <ButtonWhite
                                 width="50%"
                                 onClick={() => {
-                                    this.props.history.push(`/Login`);
+                                    this.logout();
                                 }}
                             >
                                 Logout

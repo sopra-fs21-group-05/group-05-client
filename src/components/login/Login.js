@@ -5,6 +5,8 @@ import { api, handleError } from '../../helpers/api';
 import User from '../shared/models/User';
 import { withRouter } from 'react-router-dom';
 import { Button } from '../../views/design/Button';
+import {ButtonWhite} from "../../views/design/ButtonWhite";
+import logo from "../dashboard/logoSmall.png";
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -26,13 +28,12 @@ const Form = styled.div`
   padding-left: 37px;
   padding-right: 37px;
   border-radius: 5px;
-  background: linear-gradient(rgb(27, 124, 186), rgb(2, 46, 101));
   transition: opacity 0.5s ease, transform 0.5s ease;
 `;
 
 const InputField = styled.input`
   &::placeholder {
-    color: rgba(255, 255, 255, 1.0);
+    color: rgba(0, 0, 0, 1.0);
   }
   height: 35px;
   padding-left: 15px;
@@ -40,20 +41,20 @@ const InputField = styled.input`
   border: none;
   border-radius: 20px;
   margin-bottom: 20px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  background: rgba(153, 153, 153, 0.2);
+  color: black;
 `;
 
 const Label = styled.label`
-  color: white;
+  color: black;
   margin-bottom: 10px;
-  text-transform: uppercase;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  background: rgba(255, 255, 255, 0.2);
 `;
 
 /**
@@ -129,6 +130,7 @@ class Login extends React.Component {
     return (
         <BaseContainer>
           <FormContainer>
+            <img src={logo} width={700} />
             <Form>
               <Label>Username</Label>
               <InputField
@@ -145,7 +147,7 @@ class Login extends React.Component {
                   }}
               />
               <ButtonContainer>
-                <Button
+                <ButtonWhite
                     disabled={!this.state.username || !this.state.password}
                     width="50%"
                     onClick={() => {
@@ -153,17 +155,17 @@ class Login extends React.Component {
                     }}
                 >
                   Login
-                </Button>
+                </ButtonWhite>
               </ButtonContainer>
               <ButtonContainer>
-                <Button
+                <ButtonWhite
                     width="50%"
                     onClick={() => {
                       this.props.history.push(`/Register`);
                     }}
                 >
                   Register
-                </Button>
+                </ButtonWhite>
               </ButtonContainer>
             </Form>
           </FormContainer>

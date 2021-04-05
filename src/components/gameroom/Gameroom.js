@@ -1,10 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
-import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
-import User from '../shared/models/User';
 import { withRouter } from 'react-router-dom';
-import { Button } from '../../views/design/Button';
+import styled from "styled-components";
+import {BaseContainer} from "../../helpers/layout";
+import logo from "../dashboard/logoSmall.png";
+import {ButtonWhite} from "../../views/design/ButtonWhite";
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -26,13 +26,12 @@ const Form = styled.div`
   padding-left: 37px;
   padding-right: 37px;
   border-radius: 5px;
-  background: linear-gradient(rgb(27, 124, 186), rgb(2, 46, 101));
   transition: opacity 0.5s ease, transform 0.5s ease;
 `;
 
 const InputField = styled.input`
   &::placeholder {
-    color: rgba(255, 255, 255, 1.0);
+    color: rgba(0, 0, 0, 1.0);
   }
   height: 35px;
   padding-left: 15px;
@@ -40,131 +39,95 @@ const InputField = styled.input`
   border: none;
   border-radius: 20px;
   margin-bottom: 20px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  background: rgba(153, 153, 153, 0.2);
+  color: black;
 `;
 
 const Label = styled.label`
-  color: white;
+  color: black;
   margin-bottom: 10px;
-  text-transform: uppercase;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  background: rgba(255, 255, 255, 0.2);
 `;
 
-/**
- * Classes in React allow you to have an internal state within the class and to have the React life-cycle for your component.
- * You should have a class (instead of a functional component) when:
- * - You need an internal state that cannot be achieved via props from other parent components
- * - You fetch data from the server (e.g., in componentDidMount())
- * - You want to access the DOM via Refs
- * https://reactjs.org/docs/react-component.html
- * @Class
- */
+const Boxes = styled.li`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #ffffff30;
+  border-radius: 8px; 
+`;
+
 class Gameroom extends React.Component {
-    /**
-     * If you don’t initialize the state and you don’t bind methods, you don’t need to implement a constructor for your React component.
-     * The constructor for a React component is called before it is mounted (rendered).
-     * In this case the initial state is defined in the constructor. The state is a JS object containing two fields: name and username
-     * These fields are then handled in the onChange() methods in the resp. InputFields
-     */
     constructor() {
         super();
         this.state = {
-            username: null,
-            password: null
+            gameroom: {}
         };
     }
-    /**
-     * HTTP POST request is sent to the backend.
-     * If the request is successful, a new user is returned to the front-end
-     * and its token is stored in the localStorage.
-     */
-    async login() {
-        try {
-            const requestBody = JSON.stringify({
-                username: this.state.username,
-                password: this.state.password
-            });
-            const response = await api.post('/login', requestBody);
 
-            // Get the returned user and update a new object.
-            const user = new User(response.data);
-
-            // Store the token into the local storage.
-            localStorage.setItem('token', user.token);
-
-            // Login successfully worked --> navigate to the route /game in the GameRouter
-            this.props.history.push(`/game`);
-        } catch (error) {
-            alert(`Something went wrong during the login: \n${handleError(error)}`);
-        }
-    }
-
-    /**
-     *  Every time the user enters something in the input field, the state gets updated.
-     * @param key (the key of the state for identifying the field that needs to be updated)
-     * @param value (the value that gets assigned to the identified state key)
-     */
     handleInputChange(key, value) {
-        // Example: if the key is username, this statement is the equivalent to the following one:
-        // this.setState({'username': value});
         this.setState({ [key]: value });
     }
 
-    /**
-     * componentDidMount() is invoked immediately after a component is mounted (inserted into the tree).
-     * Initialization that requires DOM nodes should go here.
-     * If you need to load data from a remote endpoint, this is a good place to instantiate the network request.
-     * You may call setState() immediately in componentDidMount().
-     * It will trigger an extra rendering, but it will happen before the browser updates the screen.
-     */
-    componentDidMount() {}
+    async componentDidMount() {
+        try {
+            const requestBody = JSON.stringify({
+                roomname: this.state.roomname,
+                password: this.state.password
+            });
+
+            const response = await api.post('/gamerooms', requestBody);
+
+            const gameroom = new Gameroom(response.data);
+
+            // Get the returned users and update the state.
+            this.setState({ gameroom: response.data });
+
+            // This is just some data for you to see what is available.
+            // Feel free to remove it.
+            console.log('request to:', response.request.responseURL);
+            console.log('status code:', response.status);
+            console.log('status text:', response.statusText);
+            console.log('requested data:', response.data);
+
+
+        } catch (error) {
+            alert(`Something went wrong while creating the gameroom: \n${handleError(error)}`);
+        }
+    }
+
+    back(){
+        this.props.history.push(`/dashboard`);
+    }
 
     render() {
         return (
             <BaseContainer>
                 <FormContainer>
-                    <h2>Gameroom</h2>
+                    <img src={logo} width={300} />
                     <Form>
-                        <Label>Username</Label>
-                        <InputField
-                            placeholder="Enter here.."
-                            onChange={e => {
-                                this.handleInputChange('username', e.target.value);
-                            }}
-                        />
-                        <Label>Password</Label>
-                        <InputField
-                            placeholder="Enter here.."
-                            onChange={e => {
-                                this.handleInputChange('password', e.target.value);
-                            }}
-                        />
+                        <Boxes>
+                            {"Roomname:"}   {this.state.gameroom.roomname}
+                        </Boxes>
+                        <Boxes>
+                            {"Password:"}   {this.state.gameroom.password}
+                        </Boxes>
                         <ButtonContainer>
-                            <Button
-                                disabled={!this.state.username || !this.state.password}
+                            <ButtonWhite
                                 width="50%"
                                 onClick={() => {
-                                    this.login();
+                                    this.back();
                                 }}
                             >
-                                Login
-                            </Button>
-                        </ButtonContainer>
-                        <ButtonContainer>
-                            <Button
-                                width="50%"
-                                onClick={() => {
-                                    this.props.history.push(`/Register`);
-                                }}
-                            >
-                                Register
-                            </Button>
+                                Back
+                            </ButtonWhite>
                         </ButtonContainer>
                     </Form>
                 </FormContainer>
@@ -172,9 +135,4 @@ class Gameroom extends React.Component {
         );
     }
 }
-
-/**
- * You can get access to the history object's properties via the withRouter.
- * withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
- */
 export default withRouter(Gameroom);

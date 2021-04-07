@@ -1,15 +1,12 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import { GameGuard } from "../routeProtectors/GameGuard";
-import GameRouter from "./GameRouter";
 import { LoginGuard } from "../routeProtectors/LoginGuard";
 import Login from "../../login/Login";
 import {RegisterGuard} from "../routeProtectors/RegisterGuard";
 import Register from "../../register/Register";
-import {GameroomGuard} from "../routeProtectors/GameroomGuard";
-import Gameroom from "../../gameroom/Gameroom"
-import Game from "../../game/Game";
 import Dashboard from "../../dashboard/Dashboard";
+import StartGame from "../../gameroom/StartGame";
+import CreateGameroom from "../../gameroom/CreateGameroom";
 
 /**
  * Main router of your application.
@@ -30,14 +27,6 @@ class AppRouter extends React.Component {
                 <Switch>
                     <div>
                         <Route
-                            path="/game"
-                            render={() => (
-                                <GameGuard>
-                                    <GameRouter base={"/game"} />
-                                </GameGuard>
-                            )}
-                        />
-                        <Route
                             path="/login"
                             exact
                             render={() => (
@@ -47,7 +36,7 @@ class AppRouter extends React.Component {
                             )}
                         />
                         <Route
-                            path="/register"
+                            path="/users"
                             exact
                             render={() => (
                                 <RegisterGuard>
@@ -59,7 +48,14 @@ class AppRouter extends React.Component {
                             path="/gamerooms"
                             exact
                             render={() => (
-                                    <Gameroom />
+                                    <CreateGameroom />
+                            )}
+                        />
+                        <Route
+                            path="/gamerooms/:roomId"
+                            exact
+                            render={() => (
+                                <StartGame />
                             )}
                         />
                         <Route
@@ -69,7 +65,7 @@ class AppRouter extends React.Component {
                         />
                         <Route
                         />
-                        <Route path="/" exact render={() => <Redirect to={"/game"} />} />
+                        <Route path="/" exact render={() => <Redirect to={"/dashboard"} />} />
                     </div>
                 </Switch>
             </BrowserRouter>

@@ -80,11 +80,8 @@ class Register extends React.Component {
             console.log('status text:', response.statusText);
             console.log('requested data:', response.data);
 
-            //Login the created User
-            const responseNew = await api.post('/login', requestBody);
-
             // Get the returned user and update a new object.
-            const user = new User(responseNew.data);
+            const user = new User(response.data);
 
             // Store the token into the local storage.
             localStorage.setItem('token', user.token);
@@ -92,7 +89,7 @@ class Register extends React.Component {
             alert("You are registered now")
 
             // Login successfully worked --> navigate to the route /game in the GameRouter
-            this.props.history.push('/game');
+            this.props.history.push('/dashboard');
         } catch (error) {
             alert(`Something went wrong during the registration. Try again: \n${handleError(error)}`);
         }

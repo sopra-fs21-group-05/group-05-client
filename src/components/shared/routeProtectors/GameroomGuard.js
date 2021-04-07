@@ -9,5 +9,5 @@ export const GameroomGuard = props => {
     if (!localStorage.getItem("token")) {
         return props.children;
     }
-    return <Redirect to={"/game"} />;
+    return <Redirect to={"/dashboard"} />;
 };

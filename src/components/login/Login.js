@@ -161,7 +161,7 @@ class Login extends React.Component {
                 <ButtonWhite
                     width="50%"
                     onClick={() => {
-                      this.props.history.push(`/Register`);
+                      this.props.history.push(`/users`);
                     }}
                 >
                   Register

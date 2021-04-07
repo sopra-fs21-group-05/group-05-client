@@ -70,7 +70,8 @@ class Dashboard extends React.Component {
     async logout() {
         try {
             const requestBody = JSON.stringify({
-                userId: this.state.userId
+                userId: this.state.userId,
+                token: this.state.token
             });
 
             const response = await api.post('/logout', requestBody);

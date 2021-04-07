@@ -5,6 +5,7 @@ import styled from "styled-components";
 import {BaseContainer} from "../../helpers/layout";
 import logo from "../dashboard/logoSmall.png";
 import {ButtonWhite} from "../../views/design/ButtonWhite";
+import Gameroom from "../shared/models/Gameroom";
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -64,11 +65,11 @@ const Boxes = styled.li`
   border-radius: 8px; 
 `;
 
-class Gameroom extends React.Component {
+class CreateGameroom extends React.Component {
     constructor() {
         super();
         this.state = {
-            gameroom: {}
+            gameroom: {},
         };
     }
 
@@ -76,7 +77,7 @@ class Gameroom extends React.Component {
         this.setState({ [key]: value });
     }
 
-    async componentDidMount() {
+    async createGameroom() {
         try {
             const requestBody = JSON.stringify({
                 roomname: this.state.roomname,
@@ -85,11 +86,6 @@ class Gameroom extends React.Component {
 
             const response = await api.post('/gamerooms', requestBody);
 
-            const gameroom = new Gameroom(response.data);
-
-            // Get the returned users and update the state.
-            this.setState({ gameroom: response.data });
-
             // This is just some data for you to see what is available.
             // Feel free to remove it.
             console.log('request to:', response.request.responseURL);
@@ -97,6 +93,16 @@ class Gameroom extends React.Component {
             console.log('status text:', response.statusText);
             console.log('requested data:', response.data);
 
+            const newResponse = await api.get('/gamerooms');
+
+            // This is just some data for you to see what is available.
+            // Feel free to remove it.
+            console.log('request to:', newResponse.request.responseURL);
+            console.log('status code:', newResponse.status);
+            console.log('status text:', newResponse.statusText);
+            console.log('requested data:', newResponse.data);
+
+            this.setState({ gameroom: newResponse.data });
 
         } catch (error) {
             alert(`Something went wrong while creating the gameroom: \n${handleError(error)}`);
@@ -113,12 +119,31 @@ class Gameroom extends React.Component {
                 <FormContainer>
                     <img src={logo} width={300} />
                     <Form>
-                        <Boxes>
-                            {"Roomname:"}   {this.state.gameroom.roomname}
-                        </Boxes>
-                        <Boxes>
-                            {"Password:"}   {this.state.gameroom.password}
-                        </Boxes>
+                        <Label>Roomname</Label>
+                        <InputField
+                            placeholder={this.state.gameroom.roomname}
+                            onChange={e => {
+                                this.handleInputChange("roomname", e.target.value);
+                            }}
+                        />
+                        <Label>Password</Label>
+                        <InputField
+                            placeholder={this.state.gameroom.password}
+                            onChange={e => {
+                                this.handleInputChange("password", e.target.value);
+                            }}
+                        />
+                        <ButtonContainer>
+                            <ButtonWhite
+                                width="50%"
+                                onClick={() => {
+                                    this.createGameroom();
+                                    this.props.history.push(`/gamerooms/${this.state.roomId}`)
+                                }}
+                            >
+                                Go to Gameroom
+                            </ButtonWhite>
+                        </ButtonContainer>
                         <ButtonContainer>
                             <ButtonWhite
                                 width="50%"
@@ -135,4 +160,4 @@ class Gameroom extends React.Component {
         );
     }
 }
-export default withRouter(Gameroom);
+export default withRouter(CreateGameroom);

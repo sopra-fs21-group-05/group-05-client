@@ -11,14 +11,9 @@ const Container = styled.div`
   border: 1px solid #ffffff26;
 `;
 
-const UserName = styled.div`
+const Roomname = styled.div`
   font-weight: lighter;
   margin-left: 5px;
-`;
-
-const Name = styled.div`
-  font-weight: bold;
-  color: #06c4ff;
 `;
 
 const Id = styled.div`
@@ -35,13 +30,13 @@ const Id = styled.div`
  * https://reactjs.org/docs/components-and-props.html
  * @FunctionalComponent
  */
-const Player = ({ user }) => {
+const GameroomElement = ({ gameroom }) => {
   return (
     <Container>
-      <Name>{user.name}</Name> <UserName>{user.username}</UserName>
-      <Id>Id: {user.id}</Id>
+      <Roomname>{gameroom.roomname}</Roomname>
+      <Id>Id: {gameroom.roomId}</Id>
     </Container>
   );
 };
 
-export default Player;
+export default GameroomElement;

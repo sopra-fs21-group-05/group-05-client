@@ -56,46 +56,54 @@ const ButtonContainer = styled.div`
   background: rgba(255, 255, 255, 0.2);
 `;
 
+const Boxes = styled.li`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #ffffff30;
+  border-radius: 8px; 
+`;
 
-class CreateGameroom extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            roomname: null,
-            password: null,
+class JoinGameroom extends React.Component {
+    state = {
             gameroom: {},
-            user:{}
-        };
-    }
+            user: {}
+    };
 
     handleInputChange(key, value) {
         this.setState({ [key]: value });
     }
 
-    async createGameroom() {
+    async joinGameroom() {
         try {
+            const pathname = this.props.location.pathname;
+            let numb = pathname.match(/\d/g);
+            numb = numb.join("");
+
             const requestBody = JSON.stringify({
+                roomId: this.state.gameroom.roomId,
                 roomname: this.state.gameroom.roomname,
                 password: this.state.gameroom.password,
-                id: this.state.user.id
+                userId: this.state.user.id
             });
 
-            const response = await api.post('/gamerooms', requestBody);
+            const response = await api.put('/gamerooms/list/:roomId', requestBody);
 
-            const newResponse = await api.get(`gamerooms/${this.state.gameroom.roomname}`);
-            const gameroom = new Gameroom(newResponse.data)
+            console.log('request to:', response.request.responseURL);
+            console.log('status code:', response.status);
+            console.log('status text:', response.statusText);
+            console.log('requested data:', response.data);
 
-            this.setState(gameroom)
-
-            this.props.history.push(`/gamerooms/${this.state.gameroom.roomId}`)
+            this.props.history.push(`/gamerooms/${numb}`);
 
         } catch (error) {
-            alert(`Something went wrong while creating the gameroom: \n${handleError(error)}`);
+            alert(`Something went wrong while joining the gameroom: \n${handleError(error)}`);
         }
     }
 
     back(){
-        this.props.history.push(`/dashboard`);
+        this.props.history.push(`/gamerooms/list`);
     }
 
     render() {
@@ -105,12 +113,9 @@ class CreateGameroom extends React.Component {
                     <img src={logo} width={300} />
                     <Form>
                         <Label>Roomname</Label>
-                        <InputField
-                            placeholder={this.state.gameroom.roomname}
-                            onChange={e => {
-                                this.handleInputChange("roomname", e.target.value);
-                            }}
-                        />
+                        <Boxes>
+                            {this.state.gameroom.roomname}
+                        </Boxes>
                         <Label>Password</Label>
                         <InputField
                             placeholder={this.state.gameroom.password}
@@ -122,10 +127,10 @@ class CreateGameroom extends React.Component {
                             <ButtonWhite
                                 width="50%"
                                 onClick={() => {
-                                    this.createGameroom();
+                                    this.joinGameroom();
                                 }}
                             >
-                                Create Gameroom
+                                Join Gameroom
                             </ButtonWhite>
                         </ButtonContainer>
                         <ButtonContainer>
@@ -144,4 +149,4 @@ class CreateGameroom extends React.Component {
         );
     }
 }
-export default withRouter(CreateGameroom);
+export default withRouter(JoinGameroom);

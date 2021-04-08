@@ -77,7 +77,8 @@ class Login extends React.Component {
     super();
     this.state = {
       username: null,
-      password: null
+      password: null,
+      user:{}
     };
   }
   /**
@@ -98,9 +99,10 @@ class Login extends React.Component {
 
       // Store the token into the local storage.
       localStorage.setItem('token', user.token);
+      this.setState(user)
 
       // Login successfully worked --> navigate to the route /game in the GameRouter
-      this.props.history.push(`/game`);
+      this.props.history.push(`/dashboard`);
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }

@@ -59,8 +59,9 @@ class Dashboard extends React.Component {
     constructor() {
         super();
         this.state = {
-            userId: null
-        };
+            id: null,
+            token: null
+        }
     }
     /**
      * HTTP POST request is sent to the backend.
@@ -70,7 +71,7 @@ class Dashboard extends React.Component {
     async logout() {
         try {
             const requestBody = JSON.stringify({
-                userId: this.state.userId,
+                id: this.state.id,
                 token: this.state.token
             });
 
@@ -81,7 +82,7 @@ class Dashboard extends React.Component {
             console.log('status text:', response.statusText);
             console.log('requested data:', response.data);
 
-            const user = new User(response.data);
+            const user = new User(response.data)
 
             localStorage.removeItem("token");
 
@@ -131,7 +132,7 @@ class Dashboard extends React.Component {
                             <ButtonWhite
                                 width="50%"
                                 onClick={() => {
-                                    window.location.reload();
+                                    this.props.history.push(`gamerooms/list`)
                                 }}
                             >
                                 Join Room

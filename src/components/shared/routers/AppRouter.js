@@ -7,6 +7,8 @@ import Register from "../../register/Register";
 import Dashboard from "../../dashboard/Dashboard";
 import StartGame from "../../gameroom/StartGame";
 import CreateGameroom from "../../gameroom/CreateGameroom";
+import GameroomList from "../../gameroom/GameroomList";
+import JoinGameroom from "../../gameroom/JoinGameroom";
 
 /**
  * Main router of your application.
@@ -30,25 +32,21 @@ class AppRouter extends React.Component {
                             path="/login"
                             exact
                             render={() => (
-                                <LoginGuard>
-                                    <Login />
-                                </LoginGuard>
+                                <Login />
                             )}
                         />
                         <Route
                             path="/users"
                             exact
                             render={() => (
-                                <RegisterGuard>
-                                    <Register />
-                                </RegisterGuard>
+                                <Register />
                             )}
                         />
                         <Route
                             path="/gamerooms"
                             exact
                             render={() => (
-                                    <CreateGameroom />
+                                <CreateGameroom />
                             )}
                         />
                         <Route
@@ -59,13 +57,27 @@ class AppRouter extends React.Component {
                             )}
                         />
                         <Route
+                            path="/gamerooms/list"
+                            exact
+                            render={() => (
+                                <GameroomList />
+                            )}
+                        />
+                        <Route
+                            path="/gamerooms/list/:roomId"
+                            exact
+                            render={() => (
+                                <JoinGameroom />
+                            )}
+                        />
+                        <Route
                             exact
                             path={"/dashboard"}
                             render={() => <Dashboard />}
                         />
                         <Route
                         />
-                        <Route path="/" exact render={() => <Redirect to={"/dashboard"} />} />
+                        <Route path="/" exact render={() => <Redirect to={"/login"} />} />
                     </div>
                 </Switch>
             </BrowserRouter>

@@ -2,7 +2,6 @@ import React from 'react';
 import styled from "styled-components";
 import {ButtonWhite} from "../../views/design/ButtonWhite";
 import withRouter from "react-router-dom/es/withRouter";
-import {Spinner} from "../../views/design/Spinner";
 import {api, handleError} from "../../helpers/api";
 import {BaseContainer} from "../../helpers/layout";
 
@@ -29,7 +28,8 @@ const Boxes = styled.li`
 
 class StartGame extends React.Component {
     state = {
-        gameroom: {}
+        id: null,
+        roomname: null
     };
 
     async componentDidMount() {
@@ -40,7 +40,7 @@ class StartGame extends React.Component {
 
             await new Promise(resolve => setTimeout(resolve, 1000));
 
-            this.setState({ gameroom: response.data });
+            this.setState({ id: response.data.id, roomname: response.data.roomname });
 
         }  catch (error) {
             alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
@@ -52,24 +52,19 @@ class StartGame extends React.Component {
         return (
             <Container>
                 <h1>Gameroom</h1>
-                {!this.state.gameroom ? (
-                    <Spinner />
-                ) : (
                     <div>
                         <Boxes>
-                            {"Id:"}   {this.state.gameroom.roomId}
+                            {"Id:"}   {this.state.id}
                         </Boxes>
                         <Boxes>
-                            {"Roomname:"}   {this.state.gameroom.roomname}
+                            {"Roomname:"}   {this.state.roomname}
                         </Boxes>
                         <Boxes>
-                            {"Users:"}   {this.state.gameroom.userList}
                         </Boxes>
-                        <ButtonContainer>
+                        //<ButtonContainer>
                             <ButtonWhite
-                                disabled={this.state.gameroom.userList <= 3}
                                 width="50%"
-                                onClick={() => {
+                               onClick={() => {
                                     this.window.reload()
                                 }}
                             >
@@ -77,7 +72,6 @@ class StartGame extends React.Component {
                             </ButtonWhite>
                         </ButtonContainer>
                     </div>
-                )}
             </Container>
         );
     }

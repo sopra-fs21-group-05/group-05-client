@@ -63,31 +63,25 @@ class CreateGameroom extends React.Component {
         this.state = {
             roomname: null,
             password: null,
-            gameroom: {},
-            user:{}
         };
-    }
-
-    handleInputChange(key, value) {
-        this.setState({ [key]: value });
     }
 
     async createGameroom() {
         try {
+            let userId = localStorage.getItem("loginId");
+
             const requestBody = JSON.stringify({
-                roomname: this.state.gameroom.roomname,
-                password: this.state.gameroom.password,
-                id: this.state.user.id
+                roomname: this.state.roomname,
+                password: this.state.password,
+                userId: userId
             });
 
             const response = await api.post('/gamerooms', requestBody);
 
-            const newResponse = await api.get(`gamerooms/${this.state.gameroom.roomname}`);
-            const gameroom = new Gameroom(newResponse.data)
+            let roomId = response.match(/\d+/g);
+            localStorage.setItem('roomId', roomId);
 
-            this.setState(gameroom)
-
-            this.props.history.push(`/gamerooms/${this.state.gameroom.roomId}`)
+            this.props.history.push(`/gamerooms/${roomId}`);
 
         } catch (error) {
             alert(`Something went wrong while creating the gameroom: \n${handleError(error)}`);
@@ -98,6 +92,12 @@ class CreateGameroom extends React.Component {
         this.props.history.push(`/dashboard`);
     }
 
+    handleInputChange(key, value) {
+        this.setState({ [key]: value });
+    }
+
+    componentDidMount() {}
+
     render() {
         return (
             <BaseContainer>
@@ -106,14 +106,14 @@ class CreateGameroom extends React.Component {
                     <Form>
                         <Label>Roomname</Label>
                         <InputField
-                            placeholder={this.state.gameroom.roomname}
+                            placeholder={this.state.roomname}
                             onChange={e => {
                                 this.handleInputChange("roomname", e.target.value);
                             }}
                         />
                         <Label>Password</Label>
                         <InputField
-                            placeholder={this.state.gameroom.password}
+                            placeholder={this.state.password}
                             onChange={e => {
                                 this.handleInputChange("password", e.target.value);
                             }}

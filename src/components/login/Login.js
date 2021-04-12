@@ -77,8 +77,7 @@ class Login extends React.Component {
     super();
     this.state = {
       username: null,
-      password: null,
-      user:{}
+      password: null
     };
   }
   /**
@@ -92,14 +91,16 @@ class Login extends React.Component {
         username: this.state.username,
         password: this.state.password
       });
-      const response = await api.post('/login', requestBody);
+
+      const response = await api.put('/login', requestBody);
 
       // Get the returned user and update a new object.
       const user = new User(response.data);
 
       // Store the token into the local storage.
       localStorage.setItem('token', user.token);
-      this.setState(user)
+      localStorage.setItem('loginId', user.id)
+
 
       // Login successfully worked --> navigate to the route /game in the GameRouter
       this.props.history.push(`/dashboard`);

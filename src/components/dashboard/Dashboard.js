@@ -58,10 +58,6 @@ class Dashboard extends React.Component {
      */
     constructor() {
         super();
-        this.state = {
-            id: null,
-            token: null
-        }
     }
     /**
      * HTTP POST request is sent to the backend.
@@ -70,21 +66,21 @@ class Dashboard extends React.Component {
      */
     async logout() {
         try {
+            let id_local = localStorage.getItem("loginId")
+
             const requestBody = JSON.stringify({
-                id: this.state.id,
-                token: this.state.token
+                id: id_local
             });
 
-            const response = await api.post('/logout', requestBody);
+            const response = await api.put('/logout', requestBody);
 
             console.log('request to:', response.request.responseURL);
             console.log('status code:', response.status);
             console.log('status text:', response.statusText);
             console.log('requested data:', response.data);
 
-            const user = new User(response.data)
-
             localStorage.removeItem("token");
+            localStorage.removeItem('loginId');
 
             this.props.history.push(`/login`);
         } catch (error) {

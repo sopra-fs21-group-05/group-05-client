@@ -80,13 +80,14 @@ class Register extends React.Component {
             console.log('status text:', response.statusText);
             console.log('requested data:', response.data);
 
-            const newResponse = await api.post('/login', requestBody);
+            const newResponse = await api.put('/login', requestBody);
 
             // Get the returned user and update a new object.
             const user = new User(newResponse.data);
 
             // Store the token into the local storage.
             localStorage.setItem('token', user.token);
+            localStorage.setItem('loginId', user.id)
 
             alert("You are registered now")
 

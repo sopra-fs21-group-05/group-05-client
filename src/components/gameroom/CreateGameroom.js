@@ -78,7 +78,7 @@ class CreateGameroom extends React.Component {
 
             const response = await api.post('/gamerooms', requestBody);
 
-            let roomId = response.match(/\d+/g);
+            let roomId = response.data.match(/\d+(?!.*\d)/g)
             localStorage.setItem('roomId', roomId);
 
             this.props.history.push(`/gamerooms/${roomId}`);

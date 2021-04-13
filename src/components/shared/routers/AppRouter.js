@@ -9,6 +9,7 @@ import StartGame from "../../gameroom/StartGame";
 import CreateGameroom from "../../gameroom/CreateGameroom";
 import GameroomList from "../../gameroom/GameroomList";
 import JoinGameroom from "../../gameroom/JoinGameroom";
+import Game from "../../game/Game";
 
 /**
  * Main router of your application.
@@ -77,6 +78,14 @@ class AppRouter extends React.Component {
                         />
                         <Route
                         />
+                        <Route
+                            exact
+                            path={"/game"}
+                            render={() => <Game />}
+                        />
+                        <Route
+                        />
+
                         <Route path="/" exact render={() => <Redirect to={"/login"} />} />
                     </div>
                 </Switch>

@@ -1,15 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import { Spinner } from '../../views/design/Spinner';
 import { withRouter } from 'react-router-dom';
 import GameroomElement from "../../views/Player";
+import logo from "../dashboard/logoSmall.png";
 
 
-const Container = styled(BaseContainer)`
-  color: white;
-  text-align: center;
+const FormContainer = styled.div`
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 300px;
+  justify-content: center;
 `;
 
 const Gamerooms = styled.ul`
@@ -52,30 +56,29 @@ class GameroomList extends React.Component {
     }
 
     joinGameroom = (roomId) => {
-        this.props.history.push(`gamerooms/list/${roomId}`)
+        this.props.history.push(`list/${roomId}`)
     }
 
     render() {
         return (
-            <Container>
+            <FormContainer>
+                <img src={logo} width={300} />
                 <h2>Gamerooms Overview </h2>
                 <p>Get all gamerooms from secure end point:</p>
                 {!this.state.gamerooms ? (
                     <Spinner />
                 ) : (
-                    <div>
                         <Gamerooms>
                             {this.state.gamerooms.map(gameroom => {
                                 return (
-                                    <GameroomContainer onClick={() => this.joinGameroom(gameroom.roomId)}>
+                                    <GameroomContainer onClick={() => this.joinGameroom(gameroom.id)}>
                                         <GameroomElement gameroom={gameroom}/>
                                     </GameroomContainer>
                                 );
                             })}
                         </Gamerooms>
-                    </div>
                 )}
-            </Container>
+            </FormContainer>
         );
     }
 }

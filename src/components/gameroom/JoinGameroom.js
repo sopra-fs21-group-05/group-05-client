@@ -56,20 +56,14 @@ const ButtonContainer = styled.div`
   background: rgba(255, 255, 255, 0.2);
 `;
 
-const Boxes = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 3px solid #ffffff30;
-  border-radius: 8px; 
-`;
-
 class JoinGameroom extends React.Component {
-    state = {
-            gameroom: {},
-            user: {}
-    };
+    constructor() {
+        super();
+        this.state = {
+            password: null,
+        };
+    }
+
 
     handleInputChange(key, value) {
         this.setState({ [key]: value });
@@ -79,13 +73,13 @@ class JoinGameroom extends React.Component {
         try {
             const pathname = this.props.location.pathname;
             let numb = pathname.match(/\d/g);
-            numb = numb.join("");
+
+            let userId = localStorage.getItem("loginId");
 
             const requestBody = JSON.stringify({
-                roomId: this.state.gameroom.roomId,
-                roomname: this.state.gameroom.roomname,
-                password: this.state.gameroom.password,
-                userId: this.state.user.id
+                roomId: numb,
+                password: this.state.password,
+                userId: userId
             });
 
             const response = await api.put('/gamerooms/list/:roomId', requestBody);
@@ -95,7 +89,7 @@ class JoinGameroom extends React.Component {
             console.log('status text:', response.statusText);
             console.log('requested data:', response.data);
 
-            this.props.history.push(`/gamerooms/${numb}`);
+            this.props.history.push(`/gamerooms/overview/${numb}`);
 
         } catch (error) {
             alert(`Something went wrong while joining the gameroom: \n${handleError(error)}`);
@@ -110,15 +104,11 @@ class JoinGameroom extends React.Component {
         return (
             <BaseContainer>
                 <FormContainer>
-                    <img src={logo} width={300} />
+                    <img src={logo} width={700} />
                     <Form>
-                        <Label>Roomname</Label>
-                        <Boxes>
-                            {this.state.gameroom.roomname}
-                        </Boxes>
                         <Label>Password</Label>
                         <InputField
-                            placeholder={this.state.gameroom.password}
+                            placeholder={this.state.password}
                             onChange={e => {
                                 this.handleInputChange("password", e.target.value);
                             }}

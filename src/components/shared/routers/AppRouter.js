@@ -50,13 +50,6 @@ class AppRouter extends React.Component {
                             )}
                         />
                         <Route
-                            path="/gamerooms/:roomId"
-                            exact
-                            render={() => (
-                                <StartGame />
-                            )}
-                        />
-                        <Route
                             path="/gamerooms/list"
                             exact
                             render={() => (
@@ -74,6 +67,13 @@ class AppRouter extends React.Component {
                             exact
                             path={"/dashboard"}
                             render={() => <Dashboard />}
+                        />
+                        <Route
+                            path="/gamerooms/overview/:roomId"
+                            exact
+                            render={() => (
+                                <StartGame />
+                            )}
                         />
                         <Route
                         />

@@ -9,6 +9,7 @@ import { EllipseH} from "../../views/design/EllipseH";
 import { EllipseV} from "../../views/design/EllipseV";
 import { ButtonWhite } from '../../views/design/ButtonWhite';
 import { Container, Row, Col, setConfiguration  } from 'react-grid-system';
+import {Spinner} from "../../views/design/Spinner";
 
 setConfiguration({
     defaultScreenClass: 'sm',
@@ -69,7 +70,8 @@ class Game extends React.Component {
         super();
         this.state = {
             id: null,
-            token: null
+            token: null,
+            picture: null
         }
     }
     /**
@@ -119,9 +121,20 @@ class Game extends React.Component {
      * You may call setState() immediately in componentDidMount().
      * It will trigger an extra rendering, but it will happen before the browser updates the screen.
      */
-    componentDidMount() {}
+    async componentDidMount() {
+        try {
+            const p = await api.get('/game/setup/2')
+            this.setState({picture: p.data});
+            console.log(this.state.picture[0]);
+        } catch (error) {
+            console.log("error while getting image: " + error);
+        }
+    }
 
+    //Work in Progress:
+    async getImage(){
 
+    }
 
     render() {
         return (
@@ -129,55 +142,58 @@ class Game extends React.Component {
                 <FormContainer>
                     {/*<Ellipse>e1 </Ellipse>*/}
 
+                    {!this.state.picture ? (
+                        <div>
+                            <FormContainer>
+                                Fetching Images
+                                <Spinner />
+                            </FormContainer>
+                        </div>
+                    ): (
+                        <Container fluid style={{ width: '800px' }}>
 
-
-                    <Container fluid style={{ width: '800px' }}>
-
-                        {/*https://www.npmjs.com/package/react-grid-system*/}
-                        {/*https://sealninja.github.io/react-grid-system/#col*/}
+                    {/*https://www.npmjs.com/package/react-grid-system*/}
+                    {/*https://sealninja.github.io/react-grid-system/#col*/}
                         <Row justify="around"  >
-                            {/*<Col debug></Col>*/}
-                            {/*<Col debug> <img src={logo} width={65}  /> </Col>*/}
-                            <EllipseH> 1 </EllipseH>
-                            <EllipseH> 2 </EllipseH>
-                            <EllipseH> 3 </EllipseH>
-                            <EllipseH> 4 </EllipseH>
-                            {/*<Col debug>3</Col>*/}
-                            {/*<Col debug>4</Col>*/}
+                        <EllipseH> 1 </EllipseH>
+                        <EllipseH> 2 </EllipseH>
+                        <EllipseH> 3 </EllipseH>
+                        <EllipseH> 4 </EllipseH>
+                        </Row>
+                        <Row align="center"  >
+                        <EllipseV>a</EllipseV>
+                            <Col >  <img src={"data:image/jpg;base64," + this.state.picture[0]} alt={"pic"} width="150" />  </Col>
+                            <Col >  <img src={"data:image/jpg;base64," + this.state.picture[1]} alt={"pic"} width="150" />  </Col>
+                            <Col >  <img src={"data:image/jpg;base64," + this.state.picture[2]} alt={"pic"} width="150" />  </Col>
+                            <Col >  <img src={"data:image/jpg;base64," + this.state.picture[3]} alt={"pic"} width="150" />  </Col>
                         </Row>
                         {/*<br />*/}
-                        <Row align="center"  >
-                            <EllipseV>a</EllipseV>
-                            <Col debug>Pic</Col>
-                            <Col debug>Pic</Col>
-                            <Col debug>Pic</Col>
-                            <Col debug>Pic</Col>
+                        <Row align="center" style={{ }} >
+                        <EllipseV> b </EllipseV>
+                            <Col >  <img src={"data:image/jpg;base64," + this.state.picture[4]} alt={"pic"} width="150" />  </Col>
+                            <Col >  <img src={"data:image/jpg;base64," + this.state.picture[5]} alt={"pic"} width="150" />  </Col>
+                            <Col >  <img src={"data:image/jpg;base64," + this.state.picture[6]} alt={"pic"} width="150" />  </Col>
+                            <Col >  <img src={"data:image/jpg;base64," + this.state.picture[7]} alt={"pic"} width="150" />  </Col>
                         </Row>
-                        <br />
-                        <Row align="center" style={{ }} debug>
-                            <EllipseV> b </EllipseV>
-                            <Col debug>Pic</Col>
-                            <Col debug>Pic</Col>
-                            <Col debug>Pic</Col>
-                            <Col debug>Pic</Col>
+                        {/*<br />*/}
+                        <Row align="center" style={{ }} >
+                        <EllipseV> c </EllipseV>
+                            <Col >  <img src={"data:image/jpg;base64," + this.state.picture[8]} alt={"pic"} width="150" />  </Col>
+                            <Col >  <img src={"data:image/jpg;base64," + this.state.picture[9]} alt={"pic"} width="150" />  </Col>
+                            <Col >  <img src={"data:image/jpg;base64," + this.state.picture[10]} alt={"pic"} width="150" />  </Col>
+                            <Col >  <img src={"data:image/jpg;base64," + this.state.picture[11]} alt={"pic"} width="150" />  </Col>
                         </Row>
-                        <br />
-                        <Row align="center" style={{ }} debug>
-                            <EllipseV> c </EllipseV>
-                            <Col debug>Pic</Col>
-                            <Col debug>Pic</Col>
-                            <Col debug>Pic</Col>
-                            <Col debug>Pic</Col>
+                        {/*<br />*/}
+                        <Row align="center" style={{ }} >
+                        <EllipseV> d </EllipseV>
+                            <Col >  <img src={"data:image/jpg;base64," + this.state.picture[12]} alt={"pic"} width="150" />  </Col>
+                            <Col >  <img src={"data:image/jpg;base64," + this.state.picture[13]} alt={"pic"} width="150" />  </Col>
+                            <Col >  <img src={"data:image/jpg;base64," + this.state.picture[14]} alt={"pic"} width="150" />  </Col>
+                            <Col >  <img src={"data:image/jpg;base64," + this.state.picture[15]} alt={"pic"} width="150" />  </Col>
                         </Row>
-                        <br />
-                        <Row align="center" style={{ }} debug>
-                            <EllipseV> d </EllipseV>
-                            <Col debug>Pic</Col>
-                            <Col debug>Pic</Col>
-                            <Col debug>Pic</Col>
-                            <Col debug>Pic</Col>
-                        </Row>
-                    </Container>
+                        </Container>)
+                    }
+
                     <Form>
                         <ButtonContainer>
                             <ButtonWhite
@@ -206,8 +222,9 @@ class Game extends React.Component {
                                 Logout
                             </ButtonWhite>
                         </ButtonContainer>
-
                     </Form>
+
+
                 </FormContainer>
             </BaseContainer>
         );

@@ -10,6 +10,18 @@ import { EllipseV} from "../../views/design/EllipseV";
 import { ButtonWhite } from '../../views/design/ButtonWhite';
 import { Container, Row, Col, setConfiguration  } from 'react-grid-system';
 import {Spinner} from "../../views/design/Spinner";
+import logo from "../dashboard/logoSmall.png";
+
+
+import stick1 from  './assets/BuildingMaterials/SticksStones/stick1.png'
+import stick2 from  './assets/BuildingMaterials/SticksStones/stick2.png'
+import stick3 from  './assets/BuildingMaterials/SticksStones/stick3.png'
+import stick4 from  './assets/BuildingMaterials/SticksStones/stick4.png'
+import stone1 from  './assets/BuildingMaterials/SticksStones/stone1.png'
+import stone2 from  './assets/BuildingMaterials/SticksStones/stone2.png'
+import stone3 from  './assets/BuildingMaterials/SticksStones/stone3.png'
+import stone4 from  './assets/BuildingMaterials/SticksStones/stone4.png'
+
 
 setConfiguration({
     defaultScreenClass: 'sm',
@@ -74,34 +86,7 @@ class Game extends React.Component {
             picture: null
         }
     }
-    /**
-     * HTTP POST request is sent to the backend.
-     * If the request is successful, a new user is returned to the front-end
-     * and its token is stored in the localStorage.
-     */
-    async logout() {
-        try {
-            const requestBody = JSON.stringify({
-                id: this.state.id,
-                token: this.state.token
-            });
 
-            const response = await api.post('/logout', requestBody);
-
-            console.log('request to:', response.request.responseURL);
-            console.log('status code:', response.status);
-            console.log('status text:', response.statusText);
-            console.log('requested data:', response.data);
-
-            const user = new User(response.data)
-
-            localStorage.removeItem("token");
-
-            this.props.history.push(`/login`);
-        } catch (error) {
-            alert(`Something went wrong during the logout: \n${handleError(error)}`);
-        }
-    }
 
     /**
      *  Every time the user enters something in the input field, the state gets updated.
@@ -121,7 +106,11 @@ class Game extends React.Component {
      * You may call setState() immediately in componentDidMount().
      * It will trigger an extra rendering, but it will happen before the browser updates the screen.
      */
-    async componentDidMount() {
+    componentDidMount() {
+        this.getImage();
+    }
+
+    async getImage(){
         try {
             const p = await api.get('/game/setup/2')
             this.setState({picture: p.data});
@@ -131,11 +120,6 @@ class Game extends React.Component {
         }
     }
 
-    //Work in Progress:
-    async getImage(){
-
-    }
-
     render() {
         return (
             <BaseContainer>
@@ -143,18 +127,20 @@ class Game extends React.Component {
                     {/*<Ellipse>e1 </Ellipse>*/}
 
                     {!this.state.picture ? (
-                        <div>
-                            <FormContainer>
-                                Fetching Images
+                        <Container fluid style={{ height: '400px' }}>
+                            <Row justify="around"  >
+                                Fetching Images, please wait
+                            </Row>
+                            <Row justify="around"   >
                                 <Spinner />
-                            </FormContainer>
-                        </div>
+                            </Row>
+                        </Container>
                     ): (
-                        <Container fluid style={{ width: '800px' }}>
 
+                        <Container fluid style={{ width: '800px' }}>
                     {/*https://www.npmjs.com/package/react-grid-system*/}
                     {/*https://sealninja.github.io/react-grid-system/#col*/}
-                        <Row justify="around"  >
+                        <Row justify="around" style={{ height: '30px' }}>
                         <EllipseH> 1 </EllipseH>
                         <EllipseH> 2 </EllipseH>
                         <EllipseH> 3 </EllipseH>
@@ -194,6 +180,23 @@ class Game extends React.Component {
                         </Container>)
                     }
 
+                    {/*for debugging and testing the asset-loading:*/}
+                    <Container fluid style={{ width: '450px' }}>
+                        <Row align="center" justify="around" >
+                            <Col >  <img src={stick1} height={100} />  </Col>
+                            <Col >  <img src={stick2} height={100} />  </Col>
+                            <Col >  <img src={stick3} height={100} />  </Col>
+                            <Col >  <img src={stick4} height={100} />  </Col>
+                        </Row>
+                        <Row align="center" justify="around" >
+                            <Col >  <img src={stone1} height={50} />  </Col>
+                            <Col >  <img src={stone2} height={50} />  </Col>
+                            <Col >  <img src={stone3} height={50} />  </Col>
+                            <Col >  <img src={stone4} height={50} />  </Col>
+                        </Row>
+                    </Container>
+
+
                     <Form>
                         <ButtonContainer>
                             <ButtonWhite
@@ -223,6 +226,8 @@ class Game extends React.Component {
                             </ButtonWhite>
                         </ButtonContainer>
                     </Form>
+
+
 
 
                 </FormContainer>

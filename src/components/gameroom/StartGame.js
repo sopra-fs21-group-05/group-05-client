@@ -72,6 +72,33 @@ class StartGame extends React.Component {
 
     }
 
+    canStart(){
+        if( this.state.users === null){
+            return false;
+        }
+        if( this.state.users.length<3){
+            return false;
+        }
+        return true;
+    }
+
+    async startGameCall() {
+        try{
+            // /gamerooms/{roomId}
+            const response = await api.put('/gamerooms/:roomId');
+
+            console.log('request to:', response.request.responseURL);
+            console.log('status code:', response.status);
+            console.log('status text:', response.statusText);
+            console.log('requested data:', response.data);
+
+            //now redirect to the game
+            // this.props.history.push(`/gamerooms/overview/${numb}`);
+        }  catch (error) {
+            alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
+        }
+    }
+
     render() {
         return (
                 <FormContainer>
@@ -98,8 +125,11 @@ class StartGame extends React.Component {
                         )}
                     <ButtonContainer>
                         <ButtonWhite
+                            // we wait for a list of users that is not null and at least three players long
+                            disabled={!this.canStart() }
                             width="100%"
                             onClick={() => {
+                                this.startGameCall();
                             }}
                         >
                             Start Game

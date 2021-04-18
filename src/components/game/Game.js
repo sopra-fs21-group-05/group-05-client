@@ -197,35 +197,35 @@ class Game extends React.Component {
                     </Container>
 
 
-                    <Form>
-                        <ButtonContainer>
-                            <ButtonWhite
-                                width="50%"
-                                onClick={() => {
-                                }}
-                            >
-                                Create Room
-                            </ButtonWhite>
-                        </ButtonContainer>
-                        <ButtonContainer>
-                            <ButtonWhite
-                                width="50%"
-                                onClick={() => {
-                                }}
-                            >
-                                Join Room
-                            </ButtonWhite>
-                        </ButtonContainer>
-                        <ButtonContainer>
-                            <ButtonWhite
-                                width="50%"
-                                onClick={() => {
-                                }}
-                            >
-                                Logout
-                            </ButtonWhite>
-                        </ButtonContainer>
-                    </Form>
+                    {/*<Form>*/}
+                    {/*    <ButtonContainer>*/}
+                    {/*        <ButtonWhite*/}
+                    {/*            width="50%"*/}
+                    {/*            onClick={() => {*/}
+                    {/*            }}*/}
+                    {/*        >*/}
+                    {/*            Create Room*/}
+                    {/*        </ButtonWhite>*/}
+                    {/*    </ButtonContainer>*/}
+                    {/*    <ButtonContainer>*/}
+                    {/*        <ButtonWhite*/}
+                    {/*            width="50%"*/}
+                    {/*            onClick={() => {*/}
+                    {/*            }}*/}
+                    {/*        >*/}
+                    {/*            Join Room*/}
+                    {/*        </ButtonWhite>*/}
+                    {/*    </ButtonContainer>*/}
+                    {/*    <ButtonContainer>*/}
+                    {/*        <ButtonWhite*/}
+                    {/*            width="50%"*/}
+                    {/*            onClick={() => {*/}
+                    {/*            }}*/}
+                    {/*        >*/}
+                    {/*            Logout*/}
+                    {/*        </ButtonWhite>*/}
+                    {/*    </ButtonContainer>*/}
+                    {/*</Form>*/}
 
 
 

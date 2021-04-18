@@ -69,17 +69,35 @@ class StartGame extends React.Component {
         }  catch (error) {
             alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
         }
+        this.pingPlayerCount();
 
     }
 
+    async pingPlayerCount(){
+
+        console.log("playerCount updated");
+
+        //same functin as in DidMount, but we need to ping the playercount and update the state accordingly
+        const pathname = this.props.location.pathname;
+        const response = await api.get(pathname);
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        this.setState({ id: response.data.id, roomname: response.data.roomname, users: response.data.users });
+    }
+
+    //check how many players there are, if null or less than 3 we cant start,
+    //if 5 we start automatically, else the button is enabled and we can start if we want
     canStart(){
-        if( this.state.users === null){
+        if( this.state.users === null){ //null check to prevent errors if the request has not yet returned at the start
             return false;
         }
         if( this.state.users.length<3){
             return false;
         }
+        if(this.state.users.length >= 5){ //should never be more than 5 but whatever
+            this.startGameCall();
+        }
         return true;
+
     }
 
     async startGameCall() {
@@ -135,6 +153,19 @@ class StartGame extends React.Component {
                             Start Game
                         </ButtonWhite>
                     </ButtonContainer>
+
+                    <ButtonContainer>
+                        <ButtonWhite
+                            // manually ping the playercount as automatically pinging caused memory leaks in the infinite loop
+                            width="100%"
+                            onClick={() => {
+                                this.pingPlayerCount();
+                            }}
+                        >
+                           Update Players
+                        </ButtonWhite>
+                    </ButtonContainer>
+
                 </FormContainer>
         );
     }

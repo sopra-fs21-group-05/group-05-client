@@ -10,6 +10,7 @@ import CreateGameroom from "../../gameroom/CreateGameroom";
 import GameroomList from "../../gameroom/GameroomList";
 import JoinGameroom from "../../gameroom/JoinGameroom";
 import Game from "../../game/Game";
+import GameviewUser from "../../game/GameviewUser";
 
 /**
  * Main router of your application.
@@ -77,15 +78,17 @@ class AppRouter extends React.Component {
                             )}
                         />
                         <Route
-                        />
-                        <Route
                             exact
                             path={"/game"}
                             render={() => <Game />}
                         />
                         <Route
+                            path="/game/:gameId/:userId"
+                            exact
+                            render={() => (
+                                <GameviewUser />
+                            )}
                         />
-
                         <Route path="/" exact render={() => <Redirect to={"/login"} />} />
                     </div>
                 </Switch>

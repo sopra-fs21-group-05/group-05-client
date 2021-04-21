@@ -11,7 +11,7 @@ import { ButtonWhite } from '../../views/design/ButtonWhite';
 import { Container, Row, Col, setConfiguration  } from 'react-grid-system';
 import {Spinner} from "../../views/design/Spinner";
 import logo from "../dashboard/logoSmall.png";
-
+import Draggable, {DraggableCore} from 'react-draggable'; // Both at the same time
 
 import stick1 from  './assets/BuildingMaterials/SticksStones/stick1.png'
 import stick2 from  './assets/BuildingMaterials/SticksStones/stick2.png'
@@ -21,7 +21,6 @@ import stone1 from  './assets/BuildingMaterials/SticksStones/stone1.png'
 import stone2 from  './assets/BuildingMaterials/SticksStones/stone2.png'
 import stone3 from  './assets/BuildingMaterials/SticksStones/stone3.png'
 import stone4 from  './assets/BuildingMaterials/SticksStones/stone4.png'
-
 
 setConfiguration({
     defaultScreenClass: 'sm',
@@ -60,6 +59,7 @@ const ButtonContainer = styled.div`
   margin-top: 20px;
   background: rgba(255, 255, 255, 0.0);
 `;
+
 
 
 /**
@@ -120,7 +120,82 @@ class Game extends React.Component {
         }
     }
 
+
+//ReactDraggable Stuff:
+//########################################################################
+    state = {
+        activeDrags: 0,
+        deltaPosition: {
+            x: 0, y: 0
+        },
+        controlledPosition: {
+            x: -400, y: 200
+        }
+    };
+    handleDrag = (e, ui) => {
+        const {x, y} = this.state.deltaPosition;
+        this.setState({
+            deltaPosition: {
+                x: x + ui.deltaX,
+                y: y + ui.deltaY,
+            }
+        });
+    };
+
+    onStart = () => {
+        this.setState({activeDrags: ++this.state.activeDrags});
+    };
+
+    onStop = () => {
+        this.setState({activeDrags: --this.state.activeDrags});
+    };
+    onDrop = (e) => {
+        this.setState({activeDrags: --this.state.activeDrags});
+        if (e.target.classList.contains("drop-target")) {
+            alert("Dropped!");
+            e.target.classList.remove('hovered');
+        }
+    };
+    onDropAreaMouseEnter = (e) => {
+        if (this.state.activeDrags) {
+            e.target.classList.add('hovered');
+        }
+    }
+    onDropAreaMouseLeave = (e) => {
+        e.target.classList.remove('hovered');
+    }
+
+    // For controlled component
+    adjustXPos = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const {x, y} = this.state.controlledPosition;
+        this.setState({controlledPosition: {x: x - 10, y}});
+    };
+
+    adjustYPos = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const {controlledPosition} = this.state;
+        const {x, y} = controlledPosition;
+        this.setState({controlledPosition: {x, y: y - 10}});
+    };
+
+    onControlledDrag = (e, position) => {
+        const {x, y} = position;
+        this.setState({controlledPosition: {x, y}});
+    };
+
+    onControlledDragStop = (e, position) => {
+        this.onControlledDrag(e, position);
+        this.onStop();
+    };
+
+//########################################################################
+
     render() {
+        const dragHandlers = {onStart: this.onStart, onStop: this.onStop};
+        const {deltaPosition, controlledPosition} = this.state;
         return (
             <BaseContainer>
                 <FormContainer>
@@ -183,7 +258,7 @@ class Game extends React.Component {
                     {/*for debugging and testing the asset-loading:*/}
                     <Container fluid style={{ width: '450px' }}>
                         <Row align="center" justify="around" >
-                            <Col >  <img src={stick1} height={100} />  </Col>
+                            <Col >  <image src={stick1} height={100} />  </Col>
                             <Col >  <img src={stick2} height={100} />  </Col>
                             <Col >  <img src={stick3} height={100} />  </Col>
                             <Col >  <img src={stick4} height={100} />  </Col>
@@ -197,42 +272,99 @@ class Game extends React.Component {
                     </Container>
 
 
-                    {/*<Form>*/}
-                    {/*    <ButtonContainer>*/}
-                    {/*        <ButtonWhite*/}
-                    {/*            width="50%"*/}
-                    {/*            onClick={() => {*/}
-                    {/*            }}*/}
-                    {/*        >*/}
-                    {/*            Create Room*/}
-                    {/*        </ButtonWhite>*/}
-                    {/*    </ButtonContainer>*/}
-                    {/*    <ButtonContainer>*/}
-                    {/*        <ButtonWhite*/}
-                    {/*            width="50%"*/}
-                    {/*            onClick={() => {*/}
-                    {/*            }}*/}
-                    {/*        >*/}
-                    {/*            Join Room*/}
-                    {/*        </ButtonWhite>*/}
-                    {/*    </ButtonContainer>*/}
-                    {/*    <ButtonContainer>*/}
-                    {/*        <ButtonWhite*/}
-                    {/*            width="50%"*/}
-                    {/*            onClick={() => {*/}
-                    {/*            }}*/}
-                    {/*        >*/}
-                    {/*            Logout*/}
-                    {/*        </ButtonWhite>*/}
-                    {/*    </ButtonContainer>*/}
-                    {/*</Form>*/}
+                    <div>
+                        <h1>React Draggable</h1>
+                        <p>Active DragHandlers: {this.state.activeDrags}</p>
+                        <p>
+                            <a href="https://github.com/STRML/react-draggable/blob/master/example/example.js">Demo Source</a>
+                        </p>
+                        <Draggable {...dragHandlers}>
+                            <div className="box">I can be dragged anywhere</div>
+                        </Draggable>
 
+                        <Draggable {...dragHandlers}>
+                            <img src={stick1} height={100} />
+                        </Draggable>
+                    </div>
+                    <Draggable handle="strong" {...dragHandlers}>
+                        <div className="box no-cursor">
+                            <strong className="cursor"><div>Drag here</div></strong>
+                            <div>You must click my handle to drag me</div>
+                        </div>
+                    </Draggable>
+                    <Draggable {...dragHandlers}>
+                        <RemWrapper>
+                            <div className="box rem-position-fix" style={{position: 'absolute', bottom: '6.25rem', right: '18rem'}}>
+                                I use <span style={{ fontWeight: 700 }}>rem</span> instead of <span style={{ fontWeight: 700 }}>px</span> for my transforms. I also have absolute positioning.
 
+                                <br /><br />
+                                I depend on a CSS hack to avoid double absolute positioning.
+                            </div>
+                        </RemWrapper>
+                    </Draggable>
 
+                    <div className="box" style={{height: '500px', width: '500px', position: 'relative', overflow: 'auto', padding: '0', background: "white", border: "black"}}>
+                        <div style={{height: '1000px', width: '1000px', padding: '10px'}}>
+                            <Draggable bounds="parent" {...dragHandlers}>
+                                <div className="box">
+                                    I can only be moved within my offsetParent.<br /><br />
+                                    Both parent padding and child margin work properly.
+                                </div>
+                            </Draggable>
+                            <Draggable bounds="parent" {...dragHandlers}>
+                                <div className="box">
+                                    I also can only be moved within my offsetParent.<br /><br />
+                                    Both parent padding and child margin work properly.
+                                </div>
+                            </Draggable>
+                        </div>
+                    </div>
 
                 </FormContainer>
             </BaseContainer>
+
+
         );
+    }
+}
+
+
+class RemWrapper extends React.Component {
+    // PropTypes is not available in this environment, but here they are.
+    // static propTypes = {
+    //   style: PropTypes.shape({
+    //     transform: PropTypes.string.isRequired
+    //   }),
+    //   children: PropTypes.node.isRequired,
+    //   remBaseline: PropTypes.number,
+    // }
+
+    translateTransformToRem(transform, remBaseline = 16) {
+        const convertedValues = transform.replace('translate(', '').replace(')', '')
+            .split(',')
+            .map(px => px.replace('px', ''))
+            .map(px => parseInt(px, 10) / remBaseline)
+            .map(x => `${x}rem`)
+        const [x, y] = convertedValues
+
+        return `translate(${x}, ${y})`
+    }
+
+    render() {
+        const { children, remBaseline = 16, style } = this.props
+        const child = React.Children.only(children)
+
+        const editedStyle = {
+            ...child.props.style,
+            ...style,
+            transform: this.translateTransformToRem(style.transform, remBaseline),
+        }
+
+        return React.cloneElement(child, {
+            ...child.props,
+            ...this.props,
+            style: editedStyle
+        })
     }
 }
 

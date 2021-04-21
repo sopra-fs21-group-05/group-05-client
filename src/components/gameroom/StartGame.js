@@ -57,31 +57,21 @@ class StartGame extends React.Component {
     }
 
     async componentDidMount() {
-        try {
-            const pathname = this.props.location.pathname;
-
-            const response = await api.get(pathname);
-
-            await new Promise(resolve => setTimeout(resolve, 1000));
-
-            this.setState({ id: response.data.id, roomname: response.data.roomname, users: response.data.users });
-
-        }  catch (error) {
-            alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
-        }
+        console.log("starting ComponentDidMount");
         this.pingPlayerCount();
 
     }
 
     async pingPlayerCount(){
-
-        console.log("playerCount updated");
-
-        //same functin as in DidMount, but we need to ping the playercount and update the state accordingly
-        const pathname = this.props.location.pathname;
-        const response = await api.get(pathname);
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        this.setState({ id: response.data.id, roomname: response.data.roomname, users: response.data.users });
+        try {
+            const pathname = this.props.location.pathname;
+            const response = await api.get(pathname);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            this.setState({ id: response.data.id, roomname: response.data.roomname, users: response.data.users });
+            console.log("playerCount updated");
+        }  catch (error) {
+            alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
+        }
     }
 
     //check how many players there are, if null or less than 3 we cant start,

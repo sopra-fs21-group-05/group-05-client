@@ -96,3 +96,17 @@ button {
 [data-popup='tooltip'].popup-overlay {
   background: transparent;
 }
+
+.rotate {
+  animation: rotate-keyframes 1s;
+}
+
+@keyframes rotate-keyframes {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(180deg);
+  }
+}

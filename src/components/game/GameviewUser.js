@@ -69,16 +69,18 @@ class GameviewUser extends React.Component {
         super();
         this.state = {
             picture: null,
-            coordinates: null,
             materialSet: null
         }
     }
 
     async getPicture() {
         try {
-            const response = await api.get('game/:gameId/:userId/picture');
+            const pathname = this.props.location.pathname;
+            const pathname_str = pathname + "/picture";
 
-            this.setState({picture: response.data.picture, coordinates: response.data.coordinates});
+            const response = await api.get(pathname_str);
+
+            this.setState({picture: response.data});
 
         } catch (error) {
             alert(`Something went wrong while getting the picture and material set: \n${handleError(error)}`);
@@ -87,9 +89,13 @@ class GameviewUser extends React.Component {
 
     async getMaterialSet() {
         try {
-            const response = await api.get('game/:gameId/:userId/set');
+            const pathname = this.props.location.pathname;
+            const pathname_str = pathname + "/set";
 
-            this.setState({materialSet: response.data.materialSet})
+            const response_set = await api.get(pathname_str);
+            let setNr = response_set.data
+
+            this.setState({materialSet: setNr})
 
         } catch (error) {
             alert(`Something went wrong while getting the picture and material set: \n${handleError(error)}`);
@@ -109,7 +115,7 @@ class GameviewUser extends React.Component {
                 <FormContainer>
                     <Container>
                         <Label>Coordinates</Label>
-                        <EllipseH> {this.state.coordinates} </EllipseH>
+                        <EllipseH> </EllipseH>
                         <Form>
                             {this.state.picture}
                         </Form>
@@ -147,6 +153,7 @@ class GameviewUser extends React.Component {
                         </Form>
                     <ButtonContainer>
                         <ButtonWhite
+                            disabled={this.state.materialSet!== null}
                             width="100%"
                             onClick={() => {
                                 this.getMaterialSet();

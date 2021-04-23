@@ -11,6 +11,7 @@ import GameroomList from "../../gameroom/GameroomList";
 import JoinGameroom from "../../gameroom/JoinGameroom";
 import Game from "../../game/Game";
 import GameviewUser from "../../game/GameviewUser";
+import OverviewRecreations from "../../game/OverviewRecreations";
 
 /**
  * Main router of your application.
@@ -87,6 +88,13 @@ class AppRouter extends React.Component {
                             exact
                             render={() => (
                                 <GameviewUser />
+                            )}
+                        />
+                        <Route
+                            path="/game/recreations/overview/:gameId"
+                            exact
+                            render={() => (
+                                <OverviewRecreations />
                             )}
                         />
                         <Route path="/" exact render={() => <Redirect to={"/login"} />} />

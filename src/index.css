@@ -110,3 +110,32 @@ button {
     transform: rotate(180deg);
   }
 }
+
+.rotated {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  background-color: #3e6ac2;
+}
+
+figure:nth-child(2) {
+  transform: rotate(45deg);
+}
+
+
+body {
+  display: grid;
+  margin: 0;
+  place-items: center;
+  height: 100vh;
+}
+figure {
+  margin: 10px;
+}
+figcaption {
+  font: bold 20px system-ui, sans-serif;
+}
+body > div {
+  display: flex;
+}

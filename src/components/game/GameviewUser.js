@@ -69,7 +69,8 @@ class GameviewUser extends React.Component {
         super();
         this.state = {
             picture: null,
-            materialSet: null
+            materialSet: null,
+            restricted: null,
         }
     }
 
@@ -99,6 +100,22 @@ class GameviewUser extends React.Component {
 
         } catch (error) {
             alert(`Something went wrong while getting the picture and material set: \n${handleError(error)}`);
+        }
+    }
+
+    //todo: check if this actually is the correct request, not in rest spec yet!!!
+    async checkRestriction() {
+        try {
+            const pathname = this.props.location.pathname;
+            const pathname_str = pathname + "/restricted";
+
+            const response_set = await api.get(pathname_str);
+            let restriction = response_set.data
+
+            this.setState({materialSet: restriction})
+
+        } catch (error) {
+            alert(`Something went wrong while getting the restriction state for the current user: \n${handleError(error)}`);
         }
     }
 

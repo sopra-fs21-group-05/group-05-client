@@ -1,63 +1,53 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BaseContainer } from '../../helpers/layout';
-import { api, handleError } from '../../helpers/api';
-import User from '../shared/models/User';
-import { withRouter } from 'react-router-dom';
-import { Button } from '../../views/design/Button';
-import { EllipseH} from "../../views/design/EllipseH";
-import { EllipseV} from "../../views/design/EllipseV";
-import { ButtonWhite } from '../../views/design/ButtonWhite';
-import { Container, Row, Col, setConfiguration  } from 'react-grid-system';
+import {BaseContainer} from '../../helpers/layout';
+import {api} from '../../helpers/api';
+import {withRouter} from 'react-router-dom';
+import {EllipseH} from "../../views/design/EllipseH";
+import {EllipseV} from "../../views/design/EllipseV";
+import {Col, Container, Row, setConfiguration} from 'react-grid-system';
 import {Spinner} from "../../views/design/Spinner";
-import Draggable, {DraggableCore} from 'react-draggable'; // Both at the same time
+import Draggable from 'react-draggable'; // Both at the same time
 
+import stick1 from './assets/BuildingMaterials/SticksStones/stick1.png'
+import stick2 from './assets/BuildingMaterials/SticksStones/stick2.png'
+import stick3 from './assets/BuildingMaterials/SticksStones/stick3.png'
+import stick4 from './assets/BuildingMaterials/SticksStones/stick4.png'
+import stone1 from './assets/BuildingMaterials/SticksStones/stone1.png'
+import stone2 from './assets/BuildingMaterials/SticksStones/stone2.png'
+import stone3 from './assets/BuildingMaterials/SticksStones/stone3.png'
+import stone4 from './assets/BuildingMaterials/SticksStones/stone4.png'
+import stick1r from './assets/BuildingMaterials/SticksStones/stick1r.png'
+import stick2r from './assets/BuildingMaterials/SticksStones/stick2r.png'
+import stick3r from './assets/BuildingMaterials/SticksStones/stick3r.png'
+import stick4r from './assets/BuildingMaterials/SticksStones/stick4r.png'
 
-import stick1 from  './assets/BuildingMaterials/SticksStones/stick1.png'
-import stick2 from  './assets/BuildingMaterials/SticksStones/stick2.png'
-import stick3 from  './assets/BuildingMaterials/SticksStones/stick3.png'
-import stick4 from  './assets/BuildingMaterials/SticksStones/stick4.png'
-import stone1 from  './assets/BuildingMaterials/SticksStones/stone1.png'
-import stone2 from  './assets/BuildingMaterials/SticksStones/stone2.png'
-import stone3 from  './assets/BuildingMaterials/SticksStones/stone3.png'
-import stone4 from  './assets/BuildingMaterials/SticksStones/stone4.png'
-import stick1r from  './assets/BuildingMaterials/SticksStones/stick1r.png'
-import stick2r from  './assets/BuildingMaterials/SticksStones/stick2r.png'
-import stick3r from  './assets/BuildingMaterials/SticksStones/stick3r.png'
-import stick4r from  './assets/BuildingMaterials/SticksStones/stick4r.png'
+import cubeBlack from './assets/BuildingMaterials/ColouredCubes/cubeBlack.png'
+import cubeBlue from './assets/BuildingMaterials/ColouredCubes/cubeBlue.png'
+import cubeBrown from './assets/BuildingMaterials/ColouredCubes/cubeBrown.png'
+import cubeGreen from './assets/BuildingMaterials/ColouredCubes/cubeGreen.png'
+import cubeGrey from './assets/BuildingMaterials/ColouredCubes/cubeGrey.png'
+import cubeRed from './assets/BuildingMaterials/ColouredCubes/cubeRed.png'
+import cubeWhite from './assets/BuildingMaterials/ColouredCubes/cubeWhite.png'
+import cubeYellow from './assets/BuildingMaterials/ColouredCubes/cubeYellow.png'
 
-import cubeBlack from  './assets/BuildingMaterials/ColouredCubes/cubeBlack.png'
-import cubeBlue from  './assets/BuildingMaterials/ColouredCubes/cubeBlue.png'
-import cubeBrown from  './assets/BuildingMaterials/ColouredCubes/cubeBrown.png'
-import cubeGreen from  './assets/BuildingMaterials/ColouredCubes/cubeGreen.png'
-import cubeGrey from  './assets/BuildingMaterials/ColouredCubes/cubeGrey.png'
-import cubeRed from  './assets/BuildingMaterials/ColouredCubes/cubeRed.png'
-import cubeWhite from  './assets/BuildingMaterials/ColouredCubes/cubeWhite.png'
-import cubeYellow from  './assets/BuildingMaterials/ColouredCubes/cubeYellow.png'
-
-import arch from  './assets/BuildingMaterials/Blocks/arch.png'
-import archR1 from  './assets/BuildingMaterials/Blocks/archR1.png'
-import archR2 from  './assets/BuildingMaterials/Blocks/archR2.png'
-import circle from  './assets/BuildingMaterials/Blocks/circle.png'
-import rectangularCuboid from  './assets/BuildingMaterials/Blocks/rectangularCuboid.png'
-import rectangularCuboidR from  './assets/BuildingMaterials/Blocks/rectangularCuboidR.png'
-import square from  './assets/BuildingMaterials/Blocks/square.png'
-import squareCuboid from  './assets/BuildingMaterials/Blocks/squareCuboid.png'
-import squareCuboidR from  './assets/BuildingMaterials/Blocks/squareCuboidR.png'
-import triangle from  './assets/BuildingMaterials/Blocks/triangle.png'
-import triangleR from  './assets/BuildingMaterials/Blocks/triangleR.png'
-
-
-
+import arch from './assets/BuildingMaterials/Blocks/arch.png'
+import archR1 from './assets/BuildingMaterials/Blocks/archR1.png'
+import archR2 from './assets/BuildingMaterials/Blocks/archR2.png'
+import circle from './assets/BuildingMaterials/Blocks/circle.png'
+import rectangularCuboid from './assets/BuildingMaterials/Blocks/rectangularCuboid.png'
+import rectangularCuboidR from './assets/BuildingMaterials/Blocks/rectangularCuboidR.png'
+import square from './assets/BuildingMaterials/Blocks/square.png'
+import squareCuboid from './assets/BuildingMaterials/Blocks/squareCuboid.png'
+import squareCuboidR from './assets/BuildingMaterials/Blocks/squareCuboidR.png'
+import triangle from './assets/BuildingMaterials/Blocks/triangle.png'
+import triangleR from './assets/BuildingMaterials/Blocks/triangleR.png'
 
 
 setConfiguration({
     defaultScreenClass: 'sm',
     containerWidths: [540, 740, 960, 1140, 1540]
 });
-
-
-
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -117,7 +107,7 @@ class Game extends React.Component {
             token: null,
             picture: null,
             reload: false,
-            set: 3,
+            set: 2,
             sticksAndStones: [false, false, false, false, false, false, false, false, false, false, false, false, ],
             colouredCubes: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,],
             blocks: [false, false, false, false, false, false, false, false, false, false, false, ],

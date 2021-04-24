@@ -10,9 +10,8 @@ import { EllipseV} from "../../views/design/EllipseV";
 import { ButtonWhite } from '../../views/design/ButtonWhite';
 import { Container, Row, Col, setConfiguration  } from 'react-grid-system';
 import {Spinner} from "../../views/design/Spinner";
-import logo from "../dashboard/logoSmall.png";
 import Draggable, {DraggableCore} from 'react-draggable'; // Both at the same time
-// import ReactPanZoom from 'react-image-pan-zoom-rotate';
+
 
 import stick1 from  './assets/BuildingMaterials/SticksStones/stick1.png'
 import stick2 from  './assets/BuildingMaterials/SticksStones/stick2.png'

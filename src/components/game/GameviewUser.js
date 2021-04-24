@@ -112,7 +112,7 @@ class GameviewUser extends React.Component {
             const response_set = await api.get(pathname_str);
             let restriction = response_set.data
 
-            this.setState({materialSet: restriction})
+            this.setState({restricted: restriction})
 
         } catch (error) {
             alert(`Something went wrong while getting the restriction state for the current user: \n${handleError(error)}`);

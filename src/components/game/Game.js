@@ -31,7 +31,17 @@ import cubeRed from './assets/BuildingMaterials/ColouredCubes/cubeRed.png'
 import cubeWhite from './assets/BuildingMaterials/ColouredCubes/cubeWhite.png'
 import cubeYellow from './assets/BuildingMaterials/ColouredCubes/cubeYellow.png'
 
-
+import arch from './assets/BuildingMaterials/Blocks/arch.png'
+import archR1 from './assets/BuildingMaterials/Blocks/archR1.png'
+import archR2 from './assets/BuildingMaterials/Blocks/archR2.png'
+import circle from './assets/BuildingMaterials/Blocks/circle.png'
+import rectangularCuboid from './assets/BuildingMaterials/Blocks/rectangularCuboid.png'
+import rectangularCuboidR from './assets/BuildingMaterials/Blocks/rectangularCuboidR.png'
+import square from './assets/BuildingMaterials/Blocks/square.png'
+import squareCuboid from './assets/BuildingMaterials/Blocks/squareCuboid.png'
+import squareCuboidR from './assets/BuildingMaterials/Blocks/squareCuboidR.png'
+import triangle from './assets/BuildingMaterials/Blocks/triangle.png'
+import triangleR from './assets/BuildingMaterials/Blocks/triangleR.png'
 
 
 setConfiguration({
@@ -170,7 +180,7 @@ class Game extends React.Component {
         var cubeMax = 9;
 
         //todo: restricted option: get request to see if actually restricted
-        var restricted = true;
+        var restricted = false;
         if(restricted && ( (n>2 && n<6) || (n>8 && n<12) || (n>14 && n<18) || (n>20) )) {
             return;
         }
@@ -433,6 +443,36 @@ class Game extends React.Component {
                         </Container>
                     ): (<div></div>)}
 
+                    {/*display the set of Blocks:*/}
+                    {this.state.set===3 ? (
+                        <Container fluid style={{ width: '300px' }}>
+                            <Row justify="around" style={{ height: '100px' }}>
+                                <img src={arch} height={50} onClick={() => {this.toggleBlocks(0)}} />
+                            </Row>
+                            <Row justify="around" style={{ height: '100px' }}>
+                                <img src={archR1} width={50} onClick={() => {this.toggleBlocks(1)}}/>
+                                <img src={archR2} width={50} onClick={() => {this.toggleBlocks(2)}}/>
+                            </Row>
+                            <Row justify="around" style={{ height: '100px' }}>
+                                <img src={circle} height={75} onClick={() => {this.toggleBlocks(3)}} />
+                                <img src={square} height={75} onClick={() => {this.toggleBlocks(4)}}/>
+                            </Row>
+                            <Row justify="around" style={{ height: '200px' }}>
+                                <img src={rectangularCuboid} height={150} onClick={() => {this.toggleBlocks(5)}} />
+                                <img src={squareCuboid} height={150} onClick={() => {this.toggleBlocks(6)}}/>
+                            </Row>
+                            <Row justify="around" style={{ height: '100px' }}>
+                                <img src={rectangularCuboidR} height={50} onClick={() => {this.toggleBlocks(7)}} />
+                            </Row>
+                            <Row justify="around" style={{ height: '100px' }}>
+                                <img src={squareCuboidR} height={50} onClick={() => {this.toggleBlocks(8)}}/>
+                            </Row>
+                            <Row justify="around" style={{ height: '100px' }}>
+                                <img src={triangle} height={50} onClick={() => {this.toggleBlocks(9)}} />
+                                <img src={triangleR} height={50} onClick={() => {this.toggleBlocks(10)}} />
+                            </Row>
+                        </Container>
+                    ): (<div></div>)}
 
 
 
@@ -553,6 +593,21 @@ class Game extends React.Component {
                             {this.state.colouredCubes[23] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeYellow} height={50} /></Draggable>): (<div></div>)}
 
 
+                            {/*Blocks: ###################################################################################################################*/}
+                            {this.state.blocks[0] ? (<Draggable bounds="parent" {...dragHandlers}><img src={arch} height={50} /></Draggable>): (<div></div>)}
+                            {this.state.blocks[1] ? (<Draggable bounds="parent" {...dragHandlers}><img src={archR1} height={50} /></Draggable>): (<div></div>)}
+                            {this.state.blocks[2] ? (<Draggable bounds="parent" {...dragHandlers}><img src={archR2} height={50} /></Draggable>): (<div></div>)}
+
+                            {this.state.blocks[3] ? (<Draggable bounds="parent" {...dragHandlers}><img src={circle} height={50} /></Draggable>): (<div></div>)}
+                            {this.state.blocks[4] ? (<Draggable bounds="parent" {...dragHandlers}><img src={square} height={50} /></Draggable>): (<div></div>)}
+                            {this.state.blocks[5] ? (<Draggable bounds="parent" {...dragHandlers}><img src={rectangularCuboid} height={50} /></Draggable>): (<div></div>)}
+
+                            {this.state.blocks[6] ? (<Draggable bounds="parent" {...dragHandlers}><img src={squareCuboid} height={50} /></Draggable>): (<div></div>)}
+                            {this.state.blocks[7] ? (<Draggable bounds="parent" {...dragHandlers}><img src={rectangularCuboidR} height={50} /></Draggable>): (<div></div>)}
+                            {this.state.blocks[8] ? (<Draggable bounds="parent" {...dragHandlers}><img src={squareCuboidR} height={50} /></Draggable>): (<div></div>)}
+
+                            {this.state.blocks[9] ? (<Draggable bounds="parent" {...dragHandlers}><img src={triangle} height={50} /></Draggable>): (<div></div>)}
+                            {this.state.blocks[10] ? (<Draggable bounds="parent" {...dragHandlers}><img src={triangleR} height={50} /></Draggable>): (<div></div>)}
 
 
                         {/*<Draggable bounds="parent" {...dragHandlers}>*/}

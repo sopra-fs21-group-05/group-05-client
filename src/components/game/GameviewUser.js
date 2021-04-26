@@ -1,11 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
 import { ButtonWhite } from '../../views/design/ButtonWhite';
 import {EllipseH} from "../../views/design/EllipseH";
-import stick1 from "../game/assets/BuildingMaterials/SticksStones/stick1.png"
 
 
 const FormContainer = styled.div`
@@ -16,6 +14,7 @@ const FormContainer = styled.div`
   min-height: 700px;
   justify-content: center;
 `;
+
 
 const Container = styled.div`
   margin-top: 2em;
@@ -55,6 +54,16 @@ const Label = styled.label`
   margin-bottom: 10px;
 `;
 
+const PictureContainer = styled.li`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+`;
+
+
 /**
  * Classes in React allow you to have an internal state within the class and to have the React life-cycle for your component.
  * You should have a class (instead of a functional component) when:
@@ -68,11 +77,12 @@ class GameviewUser extends React.Component {
     constructor() {
         super();
         this.state = {
-            picture: null,
             materialSet: null,
             restricted: null,
+            picture: null,
+            coordinate: null
         }
-    }
+    };
 
     async getPicture() {
         try {
@@ -80,8 +90,10 @@ class GameviewUser extends React.Component {
             const pathname_str = pathname + "/picture";
 
             const response = await api.get(pathname_str);
+            let coordinate = response.data.coordinate;
+            let picture = response.data.picture;
 
-            this.setState({picture: response.data});
+            this.setState({picture: picture, coordinate: coordinate})
 
         } catch (error) {
             alert(`Something went wrong while getting the picture and material set: \n${handleError(error)}`);
@@ -131,13 +143,14 @@ class GameviewUser extends React.Component {
         return (
                 <FormContainer>
                     <Container>
-                        <Label>Coordinates</Label>
-                        <EllipseH> </EllipseH>
-                        <Form>
-                            {this.state.picture}
-                        </Form>
+                        <Label>Picture</Label>
+                        <EllipseH> {this.state.coordinate} </EllipseH>
+                        <PictureContainer>
+                            <img src={"data:image/jpg;base64," + this.state.picture} alt={"pic"} width="400" />
+                        </PictureContainer>
                     <ButtonContainer>
                         <ButtonWhite
+                            disabled={this.state.picture!== null}
                             width="100%"
                             onClick={() => {
                                 this.getPicture();

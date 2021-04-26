@@ -120,7 +120,7 @@ class CreateGameroom extends React.Component {
                         />
                         <ButtonContainer>
                             <ButtonWhite
-                                width="50%"
+                                width="80%"
                                 onClick={() => {
                                     this.createGameroom();
                                 }}

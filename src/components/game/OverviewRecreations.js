@@ -120,18 +120,23 @@ class GameviewUser extends React.Component {
         }
     }
 
-    componentDidMount() {
-        this.getImage();
-    }
 
     async getImage(){
         try {
-            const p = await api.get('/game/setup/2')
-            this.setState({picturesGrid: p.data});
-            console.log(this.state.picturesGrid[0]);
+            let gameId = localStorage.getItem("gameId");
+            const endpoint = 'game/grid/' + gameId;
+
+            const response = await api.get(endpoint);
+
+            this.setState({picturesGrid: response.data});
+
         } catch (error) {
             console.log("error while getting image: " + error);
         }
+    }
+
+    componentDidMount() {
+        this.getImage();
     }
 
     handleInputChange(key, value) {
@@ -168,34 +173,34 @@ class GameviewUser extends React.Component {
                             </Row>
                             <Row align="center"  >
                                 <EllipseV>a</EllipseV>
-                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid[0]} alt={"pic"} width="150" />  </Col>
-                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid[1]} alt={"pic"} width="150" />  </Col>
-                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid[2]} alt={"pic"} width="150" />  </Col>
-                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid[3]} alt={"pic"} width="150" />  </Col>
+                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['A1']} alt={"pic"} width="150" />  </Col>
+                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['A2']} alt={"pic"} width="150" />  </Col>
+                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['A3']} alt={"pic"} width="150" />  </Col>
+                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['A4']} alt={"pic"} width="150" />  </Col>
                             </Row>
                             {/*<br />*/}
                             <Row align="center" style={{ }} >
                                 <EllipseV> b </EllipseV>
-                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid[4]} alt={"pic"} width="150" />  </Col>
-                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid[5]} alt={"pic"} width="150" />  </Col>
-                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid[6]} alt={"pic"} width="150" />  </Col>
-                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid[7]} alt={"pic"} width="150" />  </Col>
+                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['B1']} alt={"pic"} width="150" />  </Col>
+                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['B2']} alt={"pic"} width="150" />  </Col>
+                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['B3']} alt={"pic"} width="150" />  </Col>
+                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['B4']} alt={"pic"} width="150" />  </Col>
                             </Row>
                             {/*<br />*/}
                             <Row align="center" style={{ }} >
                                 <EllipseV> c </EllipseV>
-                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid[8]} alt={"pic"} width="150" />  </Col>
-                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid[9]} alt={"pic"} width="150" />  </Col>
-                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid[10]} alt={"pic"} width="150" />  </Col>
-                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid[11]} alt={"pic"} width="150" />  </Col>
+                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['C1']} alt={"pic"} width="150" />  </Col>
+                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['C2']} alt={"pic"} width="150" />  </Col>
+                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['C3']} alt={"pic"} width="150" />  </Col>
+                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['C4']} alt={"pic"} width="150" />  </Col>
                             </Row>
                             {/*<br />*/}
                             <Row align="center" style={{ }} >
                                 <EllipseV> d </EllipseV>
-                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid[12]} alt={"pic"} width="150" />  </Col>
-                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid[13]} alt={"pic"} width="150" />  </Col>
-                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid[14]} alt={"pic"} width="150" />  </Col>
-                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid[15]} alt={"pic"} width="150" />  </Col>
+                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['D1']} alt={"pic"} width="150" />  </Col>
+                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['D2']} alt={"pic"} width="150" />  </Col>
+                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['D3']} alt={"pic"} width="150" />  </Col>
+                                <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['D4']} alt={"pic"} width="150" />  </Col>
                             </Row>
                         </Container>)
                     }

@@ -8,7 +8,6 @@ import {BaseContainer} from "../../helpers/layout";
 import {Col, Row} from "react-grid-system";
 import {Spinner} from "../../views/design/Spinner";
 import {EllipseV} from "../../views/design/EllipseV";
-import stick from "../game/assets/BuildingMaterials/SticksStones/stick1.png";
 
 
 const FormContainer = styled.div`
@@ -25,11 +24,12 @@ const InputField = styled.input`
     color: rgba(0, 0, 0, 1.0);
   }
   height: 35px;
-  padding-left: 10px;
-  margin-left: -4px;
+  padding-left: 5px;
+  margin-left: 0px;
+  margin-right: 5px;
   border: none;
-  border-radius: 20px;
-  margin-bottom: 20px;
+  border-radius: 10px;
+  margin-bottom: 10px;
   background: rgba(153, 153, 153, 0.2);
   color: black;
 `;
@@ -96,18 +96,19 @@ class GameviewUser extends React.Component {
     constructor() {
         super();
         this.state = {
+            userId: null,
             picturesGrid: null,
-            recreations: null,
+            recreations: {},
+            recreations_keys: {},
             guess1: null,
             guess2: null,
             guess3: null,
             guess4: null,
-            guess5: null,
-            guesses: []
+            guess5: null
         }
     };
 
-    async getPicture() {
+    async getRecreations() {
         try {
             const pathname = this.props.location.pathname;
 
@@ -115,16 +116,20 @@ class GameviewUser extends React.Component {
 
             this.setState({recreations: response.data});
 
+            var keys = Object.keys(this.state.recreations);
+
+            this.setState({recreations_keys: keys})
+
         } catch (error) {
-            alert(`Something went wrong while getting the picture and material set: \n${handleError(error)}`);
+            alert(`Something went wrong while getting the recreations: \n${handleError(error)}`);
         }
     }
 
 
-    async getImage(){
+    async getImagesGrid(){
         try {
             let gameId = localStorage.getItem("gameId");
-            const endpoint = 'game/grid/' + gameId;
+            const endpoint = 'game/grid/' + 5;
 
             const response = await api.get(endpoint);
 
@@ -135,8 +140,43 @@ class GameviewUser extends React.Component {
         }
     }
 
+    async submit(){
+        try {
+            let userId = localStorage.getItem("loginId");
+            const endpoint = 'game/round/' + 1;
+
+            let gameId = localStorage.getItem("gameId");
+
+            var guesses = new Map();
+
+            //for loop to check which keys exist
+            guesses.set(this.state.recreations_keys[0], this.state.guess1);
+            guesses.set(this.state.recreations_keys[1], this.state.guess2);
+            guesses.set(this.state.recreations_keys[2], this.state.guess3);
+            guesses.set(this.state.recreations_keys[3], this.state.guess4);
+            guesses.set(this.state.recreations_keys[5], this.state.guess5);
+
+            const requestBody = JSON.stringify({
+                gameId: gameId,
+                guesses: guesses
+            });
+
+            const response = await api.post(endpoint, requestBody);
+
+            this.setState({picturesGrid: response.data});
+
+        } catch (error) {
+            console.log("error while posting the guesses: " + error);
+        }
+    }
+
+
     componentDidMount() {
-        this.getImage();
+        this.getImagesGrid();
+        this.getRecreations();
+
+        let userId = localStorage.getItem("loginId");
+        this.setState({userId: userId})
     }
 
     handleInputChange(key, value) {
@@ -208,45 +248,62 @@ class GameviewUser extends React.Component {
                 <Container>
                     <PictureContainer>
                         <Row align="center" style={{ }} >
-                            <Col> <img src={stick} width={50} />
-                                <InputField
+                            <Col>
+                                <Row><Label> UserId {this.state.recreations_keys[0]}</Label></Row>
+                                <Row> <img src={"data:image/jpg;base64," + this.state.recreations[1]} alt={"pic"} width="180" /> </Row>
+                                <br />
+                                <Row><InputField
                                     placeholder="Enter guess.."
                                     onChange={e => {
                                         this.handleInputChange('guess1', e.target.value);
                                     }}
-                                />
+                                /></Row>
                             </Col>
-                            <Col > <img src={stick} width={50} />
-                                <InputField
+                            <Col>
+                                <Row><Label> UserId {this.state.recreations_keys[1]} </Label></Row>
+                                <Row> <img src={"data:image/jpg;base64," + this.state.recreations[1]} alt={"pic"} width="180" /> </Row>
+                                <br />
+                                <Row><InputField
                                     placeholder="Enter guess.."
                                     onChange={e => {
                                         this.handleInputChange('guess2', e.target.value);
                                     }}
-                                />
+                                /></Row>
                             </Col>
-                            <Col > <img src={stick} width={50} />
-                                <InputField
+                            <Col>
+                                <Row><Label> UserId {this.state.recreations_keys[2]} </Label></Row>
+                                <Row> <img src={"data:image/jpg;base64," + this.state.recreations[3]} alt={"pic"} width="180" /> </Row>
+                                <br />
+                                <Row><InputField
                                     placeholder="Enter guess.."
                                     onChange={e => {
                                         this.handleInputChange('guess3', e.target.value);
                                     }}
-                                />
+                                /></Row>
                             </Col>
-                            <Col > <img src={stick} width={50} />
-                                <InputField
+                            <Col>
+                                <Row><Label> UserId {this.state.recreations_keys[3]}</Label></Row>
+                                <Row> <img src={"data:image/jpg;base64," + this.state.recreations[3]} alt={"pic"} width="180" /> </Row>
+                                <br />
+                                <Row><InputField
+                                    disabled={this.state.recreations_keys[3] == null}
                                     placeholder="Enter guess.."
                                     onChange={e => {
                                         this.handleInputChange('guess4', e.target.value);
                                     }}
-                                />
+                                /></Row>
                             </Col>
-                            <Col > <img src={stick} width={50} />
-                                <InputField
+                            <Col>
+                                <Row><Label> UserId {this.state.recreations_keys[4]}</Label></Row>
+                                <Row> <img src={"data:image/jpg;base64," + this.state.recreations[3]} alt={"pic"} width="180" /> </Row>
+                                <br />
+                                <Row><InputField
+                                    disabled={this.state.recreations_keys[4] == null}
                                     placeholder="Enter guess.."
                                     onChange={e => {
                                         this.handleInputChange('guess5', e.target.value);
                                     }}
-                                />
+                                /></Row>
                             </Col>
                         </Row>
                     </PictureContainer>
@@ -254,6 +311,7 @@ class GameviewUser extends React.Component {
                     <ButtonWhite
                         width="100%"
                         onClick={() => {
+                            this.submit();
                         }}
                     >
                         Submit Guesses

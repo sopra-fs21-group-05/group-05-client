@@ -4,7 +4,11 @@
   "private": true,
   "dependencies": {
     "axios": "^0.21.1",
+    "downloadjs": "^1.4.7",
+    "html-to-image": "^1.6.1",
+    "html2canvas": "^1.0.0-rc.7",
     "imagerotatesize": "^1.0.3",
+    "node-html-to-image": "^3.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-draggable": "^4.4.3",
@@ -15,7 +19,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.2",
     "reactjs-popup": "^2.0.4",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "ws": "^7.4.5"
   },
   "scripts": {
     "dev": "react-scripts start",

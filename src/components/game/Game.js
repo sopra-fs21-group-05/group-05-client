@@ -9,8 +9,6 @@ import {Col, Container, Row, setConfiguration} from 'react-grid-system';
 import {Spinner} from "../../views/design/Spinner";
 import Draggable from 'react-draggable'; // Both at the same time
 
-import * as htmlToImage from 'html-to-image';
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 import html2canvas from "html2canvas";
 
 import stick1 from './assets/BuildingMaterials/SticksStones/stick1.png'
@@ -88,37 +86,12 @@ import l17 from './assets/BuildingMaterials/Laces/s11.png'
 import l18 from './assets/BuildingMaterials/Laces/s12.png'
 import l19 from './assets/BuildingMaterials/Laces/s13.png'
 import l20 from './assets/BuildingMaterials/Laces/s14.png'
-import {ButtonWhite} from "../../views/design/ButtonWhite";
 
 
 setConfiguration({
     defaultScreenClass: 'sm',
     containerWidths: [540, 740, 960, 1140, 1540]
 });
-
-// html2canvas([document.getElementById('drawArea')], {
-//     onrendered: function (canvas) {
-//         document.getElementById('canvas').appendChild(canvas);
-//         var data = canvas.toDataURL('image/png');
-//         // AJAX call to send `data` to a PHP file that creates an image from the dataURI string and saves it to a directory on the server
-//
-//         var image = new Image();
-//         image.src = data;
-//         document.getElementById('image').appendChild(image);
-//     }
-// });
-
-// var node = document.getElementById('drawingArea');
-//
-// htmlToImage.toPng(node)
-//     .then(function (dataUrl) {
-//         var img = new Image();
-//         img.src = dataUrl;
-//         document.body.appendChild(img);
-//     })
-//     .catch(function (error) {
-//         console.error('oops, something went wrong!', error);
-//     });
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -128,29 +101,6 @@ const FormContainer = styled.div`
   min-height: 300px;
   justify-content: center;
   background: transparent;
-`;
-
-const Form = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 60%;
-  height: 375px;
-  font-size: 30px;
-  font-weight: 300;
-  padding-left: 37px;
-  padding-right: 37px;
-  border-radius: 5px;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  background: transparent;
-`;
-
-
-const RotatedDiv = styled.div`
-  width: 60%;
-  height: 375px;
-  transform: rotate(30deg);
-  background: black;
 `;
 
 
@@ -483,10 +433,13 @@ class Game extends React.Component {
             ).then(
                 function (canvas) {
                     try{
-                        document
-                            .getElementById('output')
-                            .appendChild(canvas);
+                        //this part will append a "canvas" object to the document
+                        // document
+                        //     .getElementById('output')
+                        //     .appendChild(canvas);
 
+                        //this will append other screenshots too, but this should not matter as we only take one and then
+                        // immediately redirect the user
                         var data = canvas.toDataURL('image/png');
                         var image = new Image();
                         image.src = data;
@@ -741,67 +694,6 @@ class Game extends React.Component {
                         </Container>
                     ): (<div></div>)}
 
-                    {/*// <!-- Include from the CDN -->*/}
-                    {/*<script src=*/}
-                    {/*            "https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">*/}
-                    {/*</script>*/}
-
-                    {/*for debugging and testing the asset-loading:*/}
-                    {/*<Container fluid style={{ width: '450px' }}>*/}
-                    {/*    <Row align="center" justify="around" >*/}
-                    {/*        <Col >  <image src={stick1} height={100} />  </Col>*/}
-                    {/*        <Col >  <img src={stick2} height={100} />  </Col>*/}
-                    {/*        <Col >  <img src={stick3} height={100} />  </Col>*/}
-                    {/*        <Col >  <img src={stick4} height={100} />  </Col>*/}
-                    {/*    </Row>*/}
-                    {/*    <Row align="center" justify="around" >*/}
-                    {/*        <Col >  <img src={stone1} height={50} />  </Col>*/}
-                    {/*        <Col >  <img src={stone2} height={50} />  </Col>*/}
-                    {/*        <Col >  <img src={stone3} height={50} />  </Col>*/}
-                    {/*        <Col >  <img src={stone4} height={50} />  </Col>*/}
-                    {/*    </Row>*/}
-                    {/*</Container>*/}
-
-
-                    {/*<div>*/}
-                    {/*    <h1>React Draggable</h1>*/}
-                    {/*    <p>Active DragHandlers: {this.state.activeDrags}</p>*/}
-                    {/*    <p>*/}
-                    {/*        <a href="https://github.com/STRML/react-draggable/blob/master/example/example.js">Demo Source</a>*/}
-                    {/*    </p>*/}
-                    {/*    <Draggable {...dragHandlers}>*/}
-                    {/*        <div className="box">I can be dragged anywhere</div>*/}
-                    {/*    </Draggable>*/}
-
-                    {/*    <Draggable {...dragHandlers}>*/}
-                    {/*        <img src={stick1} height={100} />*/}
-                    {/*    </Draggable>*/}
-                    {/*</div>*/}
-                    {/*<Draggable handle="strong" {...dragHandlers}>*/}
-                    {/*    <div className="box no-cursor">*/}
-                    {/*        <strong className="cursor"><div>Drag here</div></strong>*/}
-                    {/*        <div>You must click my handle to drag me</div>*/}
-                    {/*    </div>*/}
-                    {/*</Draggable>*/}
-                    {/*<Draggable {...dragHandlers}>*/}
-                    {/*    <RemWrapper>*/}
-                    {/*        <div className="box rem-position-fix" style={{position: 'absolute', bottom: '6.25rem', right: '18rem'}}>*/}
-                    {/*            I use <span style={{ fontWeight: 700 }}>rem</span> instead of <span style={{ fontWeight: 700 }}>px</span> for my transforms. I also have absolute positioning.*/}
-
-                    {/*            <br /><br />*/}
-                    {/*            I depend on a CSS hack to avoid double absolute positioning.*/}
-                    {/*        </div>*/}
-                    {/*    </RemWrapper>*/}
-                    {/*</Draggable>*/}
-
-                    {/*<div>*/}
-                    {/*    <ReactPanZoom image="https://drscdn.500px.org/photo/105738331/q%3D80_m%3D2000/v2?webp=true&sig=538a4f76f4966c84acb01426bb4a4a5e4a85b72a2c3bd64973d3a369f9653007" alt="document image"/>*/}
-                    {/*</div>*/}
-
-                    {/*<div className="rotated">*/}
-                    {/*    <img src={stick1} height={100} />*/}
-                    {/*</div>*/}
-
 
                     <div>
                         <button  onClick={() => {
@@ -941,10 +833,11 @@ class Game extends React.Component {
                             {this.state.laces[19] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l20} height={90} /></Draggable>): (<div></div>)}
                     </div>
 
-                    <div>
-                        <h1>Screenshot:</h1>
-                        <div id="output"></div>
-                    </div>
+                    {/*the div that would include the canvas object created in the "takeshot" function*/}
+                    {/*<div>*/}
+                    {/*    <h1>Screenshot:</h1>*/}
+                    {/*    <div id="output"></div>*/}
+                    {/*</div>*/}
 
                     <div id="image">
                         <p>Image:</p>
@@ -958,45 +851,6 @@ class Game extends React.Component {
     }
 }
 
-
-class RemWrapper extends React.Component {
-    // PropTypes is not available in this environment, but here they are.
-    // static propTypes = {
-    //   style: PropTypes.shape({
-    //     transform: PropTypes.string.isRequired
-    //   }),
-    //   children: PropTypes.node.isRequired,
-    //   remBaseline: PropTypes.number,
-    // }
-
-    translateTransformToRem(transform, remBaseline = 16) {
-        const convertedValues = transform.replace('translate(', '').replace(')', '')
-            .split(',')
-            .map(px => px.replace('px', ''))
-            .map(px => parseInt(px, 10) / remBaseline)
-            .map(x => `${x}rem`)
-        const [x, y] = convertedValues
-
-        return `translate(${x}, ${y})`
-    }
-
-    render() {
-        const { children, remBaseline = 16, style } = this.props
-        const child = React.Children.only(children)
-
-        const editedStyle = {
-            ...child.props.style,
-            ...style,
-            transform: this.translateTransformToRem(style.transform, remBaseline),
-        }
-
-        return React.cloneElement(child, {
-            ...child.props,
-            ...this.props,
-            style: editedStyle
-        })
-    }
-}
 
 /**
  * You can get access to the history object's properties via the withRouter.

@@ -231,7 +231,9 @@ class GameviewUser extends React.Component {
 
     toggleSticksAndStones(n){
         var stoneMax = 4;
-        //Todo: If restricted: stoneMax =O
+        if( this.state.restricted){
+            stoneMax=0;
+        }
 
         var stickCount =0;
         for (var i = 0; i < 8; i++) {
@@ -349,8 +351,8 @@ class GameviewUser extends React.Component {
         }else if( n>8  && this.state.blocks[n]){
             list[n] = !b;
         }
-
         this.setState({reload: false});
+
     }
 
     toggleCards(n){
@@ -517,6 +519,9 @@ class GameviewUser extends React.Component {
         return (
                 <FormContainer>
                     <Container2>
+                        <div id="image">
+                            <p>Image:</p>
+                        </div>
                         <Label>Picture</Label>
                         <EllipseH> {this.state.coordinate} </EllipseH>
                         <PictureContainer>

@@ -51,7 +51,8 @@ class Scoreboard extends React.Component {
     constructor() {
         super();
         this.state = {
-            userPoints: null,
+            userPoints: {},
+            userPoints_keys: {}
         };
     }
 
@@ -82,6 +83,10 @@ class Scoreboard extends React.Component {
 
             this.setState({userPoints: response.data.userPoints})
 
+            var keys = Object.keys(this.state.userPoints);
+
+            this.setState({userPoints_keys: keys})
+
         }  catch (error) {
             alert(`Something went wrong while fetching the scoreboard: \n${handleError(error)}`);
         }
@@ -90,7 +95,7 @@ class Scoreboard extends React.Component {
     async updateGame(){
         try {
             let gameId = localStorage.getItem("gameId");
-            const endpoint = 'game/' + gameId;
+            const endpoint = 'game/' + 5;
 
             const response = await api.put(endpoint);
 
@@ -108,11 +113,11 @@ class Scoreboard extends React.Component {
                 <img src={logo} width={700} />
                 <h1>Overview Points</h1>
                 <Form>
-                <Boxes> User 1: 20{/*{this.state.userPoints['key']}*/} </Boxes>
-                <Boxes> User 2: 20 </Boxes>
-                <Boxes> User 3: 20 </Boxes>
-                <Boxes> User 4: 20 </Boxes>
-                <Boxes> User 5: 20 </Boxes>
+                <Boxes> UserId {this.state.userPoints_keys[0]} : {this.state.userPoints[this.state.userPoints_keys[0]]} </Boxes>
+                <Boxes> UserId {this.state.userPoints_keys[1]} : {this.state.userPoints[this.state.userPoints_keys[1]]} </Boxes>
+                <Boxes> UserId {this.state.userPoints_keys[2]} : {this.state.userPoints[this.state.userPoints_keys[2]]} </Boxes>
+                <Boxes> UserId {this.state.userPoints_keys[3]} : {this.state.userPoints[this.state.userPoints_keys[3]]} </Boxes>
+                <Boxes> UserId {this.state.userPoints_keys[4]} : {this.state.userPoints[this.state.userPoints_keys[4]]} </Boxes>
                 </Form>
                 <ButtonContainer>
                     <ButtonWhite
@@ -121,7 +126,7 @@ class Scoreboard extends React.Component {
                             this.displayScoreboard();
                         }}
                     >
-                        Update Scoreboard
+                        Display Scoreboard
                     </ButtonWhite>
                 </ButtonContainer>
                 <ButtonContainer>

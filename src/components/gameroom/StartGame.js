@@ -80,6 +80,8 @@ class StartGame extends React.Component {
                 this.startGameCall();
             }
 
+            console.log("user id "+localStorage.getItem("loginId"));
+
         }  catch (error) {
             alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
         }

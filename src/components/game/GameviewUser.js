@@ -211,12 +211,10 @@ class GameviewUser extends React.Component {
         }
     }
 
-    //todo: userId is somehow null, this needs fixing!!!
     async checkRestriction() {
         try {
-            let userId = localStorage.getItem('userId');
+            let userId = localStorage.getItem('loginId');
             // console.log("User id "+userId);
-            userId = 4;
             // const pathname = this.props.location.pathname;
             // const pathname_str = pathname + "/restricted";
 
@@ -479,18 +477,17 @@ class GameviewUser extends React.Component {
     };
 
 
-    //todo: userId needs fixing, is still null!!!
     async takeshot() {
         let div = document.getElementById('drawingArea');
-        let postGameId = 5;
-        let postUserId = 4;
+        var postGameId =  localStorage.getItem("gameId");
+        var postUserId = localStorage.getItem("loginId");
 
         async function submitImage(img) {
             console.log("submit method call: "+img);
             try {
                 const requestBody = JSON.stringify({
-                    gameId: 5,
-                    userId: 4,
+                    gameId: postGameId,
+                    userId: postUserId,
                     submittedPicture: img,
                 });
 

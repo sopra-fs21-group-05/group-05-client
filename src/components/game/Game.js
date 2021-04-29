@@ -97,7 +97,7 @@ class Game extends React.Component {
     }
     async playGame(){
         let gameId = localStorage.getItem('gameId');
-        let userId = localStorage.getItem('userId');
+        let userId = localStorage.getItem('loginId'); //login id here from the login to represent the userId
         this.props.history.push(`/game/${gameId}/${userId}`)
     }
 

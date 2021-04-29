@@ -23,6 +23,7 @@ const InputField = styled.input`
   &::placeholder {
     color: rgba(0, 0, 0, 1.0);
   }
+  text-transform: uppercase;
   height: 35px;
   padding-left: 5px;
   margin-left: 0px;
@@ -104,7 +105,7 @@ class GameviewUser extends React.Component {
             guess2: null,
             guess3: null,
             guess4: null,
-            guess5: null
+            guess5: null,
         }
     };
 
@@ -143,28 +144,48 @@ class GameviewUser extends React.Component {
     async submit(){
         try {
             let userId = localStorage.getItem("loginId");
-            const endpoint = 'game/round/' + 1;
-
             let gameId = localStorage.getItem("gameId");
 
-            var guesses = new Map();
+            const endpoint = 'game/round/' + userId;
 
-            //for loop to check which keys exist
-            guesses.set(this.state.recreations_keys[0], this.state.guess1);
-            guesses.set(this.state.recreations_keys[1], this.state.guess2);
-            guesses.set(this.state.recreations_keys[2], this.state.guess3);
-            guesses.set(this.state.recreations_keys[3], this.state.guess4);
-            guesses.set(this.state.recreations_keys[5], this.state.guess5);
+            var myMap = new Map();
+            var keyObj = {};
+
+            if (this.state.recreations_keys.length === 3){
+                myMap.set(this.state.recreations_keys[0], this.state.guess1);
+                myMap.set(this.state.recreations_keys[1], this.state.guess2);
+                myMap.set(this.state.recreations_keys[2], this.state.guess3);
+            } else if (this.state.recreations_keys.length === 4){
+                myMap.set(this.state.recreations_keys[0], this.state.guess1);
+                myMap.set(this.state.recreations_keys[1], this.state.guess2);
+                myMap.set(this.state.recreations_keys[2], this.state.guess3);
+                myMap.set(this.state.recreations_keys[3], this.state.guess4);
+            } else {
+                myMap.set(this.state.recreations_keys[0], this.state.guess1);
+                myMap.set(this.state.recreations_keys[1], this.state.guess2);
+                myMap.set(this.state.recreations_keys[2], this.state.guess3);
+                myMap.set(this.state.recreations_keys[3], this.state.guess4);
+                myMap.set(this.state.recreations_keys[4], this.state.guess5);
+            }
+
+            myMap.get(keyObj);
+
+            for (var [key, value] of myMap) {
+                console.log(key + " = " + value);
+            }
+
+            const guesses_obj = Object.fromEntries(myMap)
 
             const requestBody = JSON.stringify({
-                gameId: gameId,
-                guesses: guesses
+                gameId: 5,
+                guesses: guesses_obj
             });
+
+            console.log(requestBody);
 
             const response = await api.post(endpoint, requestBody);
 
-            this.setState({picturesGrid: response.data});
-
+            this.props.history.push(`/scoreboards/5`);
         } catch (error) {
             console.log("error while posting the guesses: " + error);
         }
@@ -250,9 +271,10 @@ class GameviewUser extends React.Component {
                         <Row align="center" style={{ }} >
                             <Col>
                                 <Row><Label> UserId {this.state.recreations_keys[0]}</Label></Row>
-                                <Row> <img src={"data:image/jpg;base64," + this.state.recreations[1]} alt={"pic"} width="180" /> </Row>
+                                <Row> <img src={"data:image/jpg;base64," + this.state.recreations[this.state.recreations_keys[0]]} alt={"pic"} width="180" /> </Row>
                                 <br />
                                 <Row><InputField
+                                    disabled={this.state.recreations_keys[0] === this.state.userId}
                                     placeholder="Enter guess.."
                                     onChange={e => {
                                         this.handleInputChange('guess1', e.target.value);
@@ -261,9 +283,10 @@ class GameviewUser extends React.Component {
                             </Col>
                             <Col>
                                 <Row><Label> UserId {this.state.recreations_keys[1]} </Label></Row>
-                                <Row> <img src={"data:image/jpg;base64," + this.state.recreations[1]} alt={"pic"} width="180" /> </Row>
+                                <Row> <img src={"data:image/jpg;base64," + this.state.recreations[this.state.recreations_keys[1]]} alt={"pic"} width="180" /> </Row>
                                 <br />
                                 <Row><InputField
+                                    disabled={this.state.recreations_keys[1] === this.state.userId}
                                     placeholder="Enter guess.."
                                     onChange={e => {
                                         this.handleInputChange('guess2', e.target.value);
@@ -272,9 +295,10 @@ class GameviewUser extends React.Component {
                             </Col>
                             <Col>
                                 <Row><Label> UserId {this.state.recreations_keys[2]} </Label></Row>
-                                <Row> <img src={"data:image/jpg;base64," + this.state.recreations[3]} alt={"pic"} width="180" /> </Row>
+                                <Row> <img src={"data:image/jpg;base64," + this.state.recreations[this.state.recreations_keys[2]]} alt={"pic"} width="180" /> </Row>
                                 <br />
                                 <Row><InputField
+                                    disabled={this.state.recreations_keys[2] === this.state.userId}
                                     placeholder="Enter guess.."
                                     onChange={e => {
                                         this.handleInputChange('guess3', e.target.value);
@@ -283,10 +307,10 @@ class GameviewUser extends React.Component {
                             </Col>
                             <Col>
                                 <Row><Label> UserId {this.state.recreations_keys[3]}</Label></Row>
-                                <Row> <img src={"data:image/jpg;base64," + this.state.recreations[3]} alt={"pic"} width="180" /> </Row>
+                                <Row> <img src={"data:image/jpg;base64," + this.state.recreations[this.state.recreations_keys[3]]} alt={"pic"} width="180" /> </Row>
                                 <br />
                                 <Row><InputField
-                                    disabled={this.state.recreations_keys[3] == null}
+                                    disabled={this.state.recreations_keys[3] == null || this.state.recreations_keys[3] === this.state.userId}
                                     placeholder="Enter guess.."
                                     onChange={e => {
                                         this.handleInputChange('guess4', e.target.value);
@@ -295,10 +319,10 @@ class GameviewUser extends React.Component {
                             </Col>
                             <Col>
                                 <Row><Label> UserId {this.state.recreations_keys[4]}</Label></Row>
-                                <Row> <img src={"data:image/jpg;base64," + this.state.recreations[3]} alt={"pic"} width="180" /> </Row>
+                                <Row> <img src={"data:image/jpg;base64," + this.state.recreations[this.state.recreations_keys[4]]} alt={"pic"} width="180" /> </Row>
                                 <br />
                                 <Row><InputField
-                                    disabled={this.state.recreations_keys[4] == null}
+                                    disabled={this.state.recreations_keys[4] == null || this.state.recreations_keys[4] === this.state.userId}
                                     placeholder="Enter guess.."
                                     onChange={e => {
                                         this.handleInputChange('guess5', e.target.value);

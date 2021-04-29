@@ -85,6 +85,7 @@ import l17 from './assets/BuildingMaterials/Laces/s11.png'
 import l18 from './assets/BuildingMaterials/Laces/s12.png'
 import l19 from './assets/BuildingMaterials/Laces/s13.png'
 import l20 from './assets/BuildingMaterials/Laces/s14.png'
+import async from "async";
 
 setConfiguration({
     defaultScreenClass: 'sm',
@@ -150,6 +151,7 @@ const PictureContainer = styled.li`
 `;
 
 
+
 /**
  * Classes in React allow you to have an internal state within the class and to have the React life-cycle for your component.
  * You should have a class (instead of a functional component) when:
@@ -192,6 +194,7 @@ class GameviewUser extends React.Component {
             alert(`Something went wrong while getting the picture and material set: \n${handleError(error)}`);
         }
     }
+
 
     async getMaterialSet() {
         try {
@@ -482,8 +485,28 @@ class GameviewUser extends React.Component {
         this.onStop();
     };
 
-    takeshot() {
+    async takeshot() {
         let div = document.getElementById('drawingArea');
+        let postGameId = 5;
+        let postUserId = 4;
+
+        async function submitImage(img) {
+            console.log("submit method call: "+img);
+            try {
+                const requestBody = JSON.stringify({
+                    gameId: 5,
+                    userId: 4,
+                    submittedPicture: img,
+                });
+
+                const response = await api.post("/game/"+postUserId, requestBody);
+                let answer = response.data;
+                console.log("answer from posting image "+answer);
+            } catch (error) {
+                alert(`Something went wrong while posting the recreation: \n${handleError(error)}`);
+            }
+        }
+
         if(div!= null){
             // div.parentNode.style.overflow = 'visible';
             window.scrollTo(0, 0); // this will help to print if div hidden or on mobile screen
@@ -502,15 +525,38 @@ class GameviewUser extends React.Component {
                         var image = new Image();
                         image.src = data;
                         document.getElementById('image').appendChild(image);
+                        console.log("image data in takeshot: "+ image.src);
+                        let img = image.src.split(",")[1];
 
+                        submitImage(img);
                     }catch (error) {
                         console.log("error while setting the screenshot as an image" + error);
                     }
                 })
-            // this.setState({reload: false});
         }
-
     }
+
+
+
+
+    // async submitImage() {
+    //     try {
+    //         console.log( "state image: "+this.state.debugImage);
+    //         let img = this.state.debugImage.split(",")[0];
+    //         console.log("image in submit call"+img);
+    //
+    //         const requestBody = JSON.stringify({
+    //             gameId: this.state.username,
+    //             submittedPicture: img,
+    //         });
+    //
+    //         const response = await api.post("/game/"+this.state.id, requestBody);
+    //         let answer = response.data;
+    //         console.log("answer from posting image "+answer);
+    //     } catch (error) {
+    //         alert(`Something went wrong while sending the recreation: \n${handleError(error)}`);
+    //     }
+    // }
 
 //########################################################################
 
@@ -529,7 +575,7 @@ class GameviewUser extends React.Component {
                             <Label>Picture</Label>
                             <EllipseH> {this.state.coordinate} </EllipseH>
                             <PictureContainer>
-                                <img src={"data:image/jpg;base64," + this.state.picture} alt={""} />
+                                <img src={"data:image/jpg;base64," + this.state.picture} width={290} alt={""} />
                                 {/*<img src={ball} height={200} alt="" />*/}
                             </PictureContainer>
                             <ButtonContainer>
@@ -685,6 +731,7 @@ class GameviewUser extends React.Component {
                                     width="20%"
                                     onClick={() => {
                                         this.takeshot();
+                                        // this.submitImage();
                                     }}
                                 >
                                     Submit
@@ -890,6 +937,8 @@ class GameviewUser extends React.Component {
             </Container>
         );
     }
+
+
 }
 
 /**

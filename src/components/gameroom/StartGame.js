@@ -103,7 +103,7 @@ class StartGame extends React.Component {
 
     async startGameCall() {
         try{
-            const response = await api.put('/gamerooms/:roomId');
+            const response = await api.put('/gamerooms/overview/'+this.state.id);
 
             console.log('request to:', response.request.responseURL);
             console.log('status code:', response.status);

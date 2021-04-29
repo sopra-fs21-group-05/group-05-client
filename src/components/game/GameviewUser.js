@@ -109,6 +109,7 @@ const Container2 = styled.div`
   min-height: 300px;
   min-width: 300px;
   justify-content: center;
+  background: black;
 `;
 
 const Form = styled.div`
@@ -517,181 +518,189 @@ class GameviewUser extends React.Component {
         const dragHandlers = {onStart: this.onStart, onStop: this.onStop};
         const {deltaPosition, controlledPosition} = this.state;
         return (
-                <FormContainer>
-                    <Container2>
-                        <div id="image">
-                            <p>Image:</p>
-                        </div>
-                        <Label>Picture</Label>
-                        <EllipseH> {this.state.coordinate} </EllipseH>
-                        <PictureContainer>
-                            <img src={"data:image/jpg;base64," + this.state.picture} alt={"pic"} width="400" />
-                        </PictureContainer>
-                    <ButtonContainer>
-                        <ButtonWhite
-                            disabled={this.state.picture!== null}
-                            width="100%"
-                            onClick={() => {
-                                this.getPicture();
-                            }}
-                        >
-                            Get Picture
-                        </ButtonWhite>
-                    </ButtonContainer>
-                    </Container2>
-                    <Container2>
-                        <Label>Recreate the Picture</Label>
-                        <Form>
-                            {/*buildingArea should be placed here*/}
-                            <div id="drawingArea" className="box"
-                                 style={{height: '500px', width: '500px', position: 'relative',
-                                     overflow: 'auto',
-                                     // overflow: 'hidden', //auto, scroll, hidden, visible
-                                     padding: '0', background: "white", borderColor: "black", borderRadius: "5px"}}>
+            <Container fluid style={{ width: '1300px', background: ""}}>
+                <Row justify="around" style={{ height: '700px' }}>
 
-                                {/*<Draggable bounds="parent" {...dragHandlers}>*/}
-                                {/*    <img src={stick1} height={100} />*/}
-                                {/*</Draggable>*/}
-
-                                {/*Sticks and Stones: ###################################################################################################################*/}
-                                {this.state.sticksAndStones[0] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stick1} height={100} alt=""  /></Draggable>): ("")}
-                                {this.state.sticksAndStones[1] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stick2} height={100} alt=""  /></Draggable>): ("")}
-                                {this.state.sticksAndStones[2] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stick3} height={100} alt=""  /></Draggable>): ("")}
-                                {this.state.sticksAndStones[3] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stick4} height={100} alt=""  /></Draggable>): ("")}
-
-                                {this.state.sticksAndStones[4] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stick1r} height={20} alt=""  /></Draggable>): ("")}
-                                {this.state.sticksAndStones[5] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stick2r} height={20} alt=""  /></Draggable>): ("")}
-                                {this.state.sticksAndStones[6] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stick3r} height={20} alt=""  /></Draggable>): ("")}
-                                {this.state.sticksAndStones[7] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stick4r} height={20} alt=""  /></Draggable>): ("")}
-
-                                {this.state.sticksAndStones[8] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stone1} height={50} alt=""  /></Draggable>): ("")}
-                                {this.state.sticksAndStones[9] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stone2} height={50} alt=""  /></Draggable>): ("")}
-                                {this.state.sticksAndStones[10] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stone3} height={50} alt=""  /></Draggable>): ("")}
-                                {this.state.sticksAndStones[11] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stone4} height={50} alt=""  /></Draggable>): ("")}
-
-
-                                {/*Coloured Cubes: ###################################################################################################################*/}
-                                {this.state.colouredCubes[0] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeBlack} height={50} alt=""  /></Draggable>): ("")}
-                                {this.state.colouredCubes[1] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeBlack} height={50} alt=""  /></Draggable>): ("")}
-                                {this.state.colouredCubes[2] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeBlack} height={50} alt=""  /></Draggable>): ("")}
-
-                                {this.state.colouredCubes[3] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeBlue} height={50} alt=""  /></Draggable>): ("")}
-                                {this.state.colouredCubes[4] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeBlue} height={50} alt=""  /></Draggable>): ("")}
-                                {this.state.colouredCubes[5] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeBlue} height={50} alt=""  /></Draggable>): ("")}
-
-                                {this.state.colouredCubes[6] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeBrown} height={50} alt=""  /></Draggable>): ("")}
-                                {this.state.colouredCubes[7] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeBrown} height={50} alt=""  /></Draggable>): ("")}
-                                {this.state.colouredCubes[8] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeBrown} height={50} alt=""  /></Draggable>): ("")}
-
-                                {this.state.colouredCubes[9] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeGreen} height={50} alt=""  /></Draggable>): ("")}
-                                {this.state.colouredCubes[10] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeGreen} height={50} alt=""  /></Draggable>): ("")}
-                                {this.state.colouredCubes[11] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeGreen} height={50} alt=""  /></Draggable>): ("")}
-
-                                {this.state.colouredCubes[12] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeGrey} height={50} alt=""  /></Draggable>): ("")}
-                                {this.state.colouredCubes[13] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeGrey} height={50} alt=""  /></Draggable>): ("")}
-                                {this.state.colouredCubes[14] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeGrey} height={50} alt=""  /></Draggable>): ("")}
-
-                                {this.state.colouredCubes[15] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeRed} height={50} alt=""  /></Draggable>): ("")}
-                                {this.state.colouredCubes[16] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeRed} height={50} alt=""  /></Draggable>): ("")}
-                                {this.state.colouredCubes[17] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeRed} height={50} alt=""  /></Draggable>): ("")}
-
-                                {this.state.colouredCubes[18] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeWhite} height={50} alt=""  /></Draggable>): ("")}
-                                {this.state.colouredCubes[19] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeWhite} height={50} alt=""  /></Draggable>): ("")}
-                                {this.state.colouredCubes[20] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeWhite} height={50} alt=""  /></Draggable>): ("")}
-
-                                {this.state.colouredCubes[21] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeYellow} height={50} alt=""  /></Draggable>): ("")}
-                                {this.state.colouredCubes[22] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeYellow} height={50} alt=""  /></Draggable>): ("")}
-                                {this.state.colouredCubes[23] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeYellow} height={50} alt=""  /></Draggable>): ("")}
-
-
-                                {/*Blocks: ###################################################################################################################*/}
-                                {this.state.blocks[0] ? (<Draggable bounds="parent" {...dragHandlers}><img src={arch} height={60} alt=""  /></Draggable>): ("")}
-                                {this.state.blocks[1] ? (<Draggable bounds="parent" {...dragHandlers}><img src={archR1} height={100} alt=""  /></Draggable>): ("")}
-                                {this.state.blocks[2] ? (<Draggable bounds="parent" {...dragHandlers}><img src={archR2} height={100} alt=""  /></Draggable>): ("")}
-
-                                {this.state.blocks[3] ? (<Draggable bounds="parent" {...dragHandlers}><img src={circle} height={75} alt=""  /></Draggable>): ("")}
-                                {this.state.blocks[4] ? (<Draggable bounds="parent" {...dragHandlers}><img src={square} height={75} alt=""  /></Draggable>): ("")}
-                                {this.state.blocks[5] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cuboid1} height={150} alt=""  /></Draggable>): ("")}
-
-                                {this.state.blocks[6] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cuboid2} height={150} alt=""  /></Draggable>): ("")}
-                                {this.state.blocks[7] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cuboid1R} height={35} alt=""  /></Draggable>): ("")}
-                                {this.state.blocks[8] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cuboid2R} height={77} alt=""  /></Draggable>): ("")}
-
-                                {this.state.blocks[9] ? (<Draggable bounds="parent" {...dragHandlers}><img src={triangle} height={70} alt=""  /></Draggable>): ("")}
-                                {this.state.blocks[10] ? (<Draggable bounds="parent" {...dragHandlers}><img src={triangleR} height={70} alt=""  /></Draggable>): ("")}
-
-                                {/*Cards: ###################################################################################################################*/}
-                                {this.state.cards[0] ? (<Draggable bounds="parent" {...dragHandlers}><img src={ball} height={100} alt=""  /></Draggable>): ("")}
-                                {this.state.cards[1] ? (<Draggable bounds="parent" {...dragHandlers}><img src={bird} height={100} alt=""  /></Draggable>): ("")}
-                                {this.state.cards[2] ? (<Draggable bounds="parent" {...dragHandlers}><img src={bulb} height={100} alt=""  /></Draggable>): ("")}
-                                {this.state.cards[3] ? (<Draggable bounds="parent" {...dragHandlers}><img src={car} height={100} alt=""  /></Draggable>): ("")}
-                                {this.state.cards[4] ? (<Draggable bounds="parent" {...dragHandlers}><img src={clock} height={100} alt=""  /></Draggable>): ("")}
-
-                                {this.state.cards[5] ? (<Draggable bounds="parent" {...dragHandlers}><img src={clover} height={100} alt=""  /></Draggable>): ("")}
-                                {this.state.cards[6] ? (<Draggable bounds="parent" {...dragHandlers}><img src={face} height={100} alt=""  /></Draggable>): ("")}
-                                {this.state.cards[7] ? (<Draggable bounds="parent" {...dragHandlers}><img src={fire} height={100} alt=""  /></Draggable>): ("")}
-                                {this.state.cards[8] ? (<Draggable bounds="parent" {...dragHandlers}><img src={flash} height={100} alt=""  /></Draggable>): ("")}
-                                {this.state.cards[9] ? (<Draggable bounds="parent" {...dragHandlers}><img src={flower} height={100} alt=""  /></Draggable>): ("")}
-
-                                {this.state.cards[10] ? (<Draggable bounds="parent" {...dragHandlers}><img src={heart} height={100} alt=""  /></Draggable>): ("")}
-                                {this.state.cards[11] ? (<Draggable bounds="parent" {...dragHandlers}><img src={house} height={100} alt=""  /></Draggable>): ("")}
-                                {this.state.cards[12] ? (<Draggable bounds="parent" {...dragHandlers}><img src={poop} height={100} alt=""  /></Draggable>): ("")}
-                                {this.state.cards[13] ? (<Draggable bounds="parent" {...dragHandlers}><img src={ring} height={100} alt=""  /></Draggable>): ("")}
-                                {this.state.cards[14] ? (<Draggable bounds="parent" {...dragHandlers}><img src={shark} height={100} alt=""  /></Draggable>): ("")}
-
-                                {this.state.cards[15] ? (<Draggable bounds="parent" {...dragHandlers}><img src={shirt} height={100} alt=""  /></Draggable>): ("")}
-                                {this.state.cards[16] ? (<Draggable bounds="parent" {...dragHandlers}><img src={skull} height={100} alt=""  /></Draggable>): ("")}
-                                {this.state.cards[17] ? (<Draggable bounds="parent" {...dragHandlers}><img src={snail} height={100} alt=""  /></Draggable>): ("")}
-                                {this.state.cards[18] ? (<Draggable bounds="parent" {...dragHandlers}><img src={snow} height={100} alt=""  /></Draggable>): ("")}
-                                {this.state.cards[19] ? (<Draggable bounds="parent" {...dragHandlers}><img src={sun} height={100} alt=""  /></Draggable>): ("")}
-
-                                {/*Laces: ###################################################################################################################*/}
-                                {this.state.laces[0] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l1} height={90} alt=""  /></Draggable>): ("")}
-                                {this.state.laces[1] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l2} height={90} alt=""  /></Draggable>): ("")}
-                                {this.state.laces[2] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l3} height={90} alt=""  /></Draggable>): ("")}
-                                {this.state.laces[3] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l4} height={90} alt=""  /></Draggable>): ("")}
-
-                                {this.state.laces[4] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l5} height={90} alt=""  /></Draggable>): ("")}
-                                {this.state.laces[5] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l6} height={90} alt=""  /></Draggable>): ("")}
-                                {this.state.laces[6] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l7} height={90} alt=""  /></Draggable>): ("")}
-                                {this.state.laces[7] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l8} height={90} alt=""  /></Draggable>): ("")}
-
-                                {this.state.laces[8] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l9} height={90} alt=""  /></Draggable>): ("")}
-                                {this.state.laces[9] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l10} height={90} alt=""  /></Draggable>): ("")}
-                                {this.state.laces[10] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l11} height={90} alt=""  /></Draggable>): ("")}
-                                {this.state.laces[11] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l12} height={90} alt=""  /></Draggable>): ("")}
-
-                                {this.state.laces[12] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l13} height={90} alt=""  /></Draggable>): ("")}
-                                {this.state.laces[13] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l14} height={90} alt=""  /></Draggable>): ("")}
-                                {this.state.laces[14] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l15} height={90} alt=""  /></Draggable>): ("")}
-                                {this.state.laces[15] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l16} height={90} alt=""  /></Draggable>): ("")}
-
-                                {this.state.laces[16] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l17} height={90} alt=""  /></Draggable>): ("")}
-                                {this.state.laces[17] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l18} height={90} alt=""  /></Draggable>): ("")}
-                                {this.state.laces[18] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l19} height={90} alt=""  /></Draggable>): ("")}
-                                {this.state.laces[19] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l20} height={90} alt=""  /></Draggable>): ("")}
+                    <Container fluid style={{ width: '300px', background: "" }}>
+                            {/*to see the screenshot*/}
+                            <div id="image">
+                                <p>Screenshot:</p>
                             </div>
+                            <Label>Picture</Label>
+                            <EllipseH> {this.state.coordinate} </EllipseH>
+                            <PictureContainer>
+                                <img src={"data:image/jpg;base64," + this.state.picture} alt={""} />
+                                {/*<img src={ball} height={200} alt="" />*/}
+                            </PictureContainer>
+                            <ButtonContainer>
+                                <ButtonWhite
+                                    disabled={this.state.picture!== null}
+                                    width="100%"
+                                    onClick={() => {
+                                        this.getPicture();
+                                    }}>
 
-                        </Form>
-                    <ButtonContainer>
-                        <ButtonWhite
-                            width="100%"
-                            onClick={() => {
-                                this.takeshot();
-                            }}
-                        >
-                            Submit
-                        </ButtonWhite>
-                    </ButtonContainer>
-                    </Container2>
-                    <Container2>
+                                    Get Picture
+                                </ButtonWhite>
+                            </ButtonContainer>
+                    </Container>
+
+                    <Container fluid style={{ width: '575px', background: "" }}>
+                        {/*<Label>Recreate the Picture</Label>*/}
+                        <h1>Recreate the Picture:</h1>
+                            <Form>
+                                {/*buildingArea should be placed here*/}
+                                <div id="drawingArea" className="box"
+                                     style={{height: '500px', width: '500px', position: 'relative',
+                                         overflow: 'auto',
+                                         // overflow: 'hidden', //auto, scroll, hidden, visible
+                                         padding: '0', background: "white", borderColor: "black", borderRadius: "5px"}}>
+
+                                    {/*<Draggable bounds="parent" {...dragHandlers}>*/}
+                                    {/*    <img src={stick1} height={100} />*/}
+                                    {/*</Draggable>*/}
+
+                                    {/*Sticks and Stones: ###################################################################################################################*/}
+                                    {this.state.sticksAndStones[0] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stick1} height={100} alt=""  /></Draggable>): ("")}
+                                    {this.state.sticksAndStones[1] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stick2} height={100} alt=""  /></Draggable>): ("")}
+                                    {this.state.sticksAndStones[2] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stick3} height={100} alt=""  /></Draggable>): ("")}
+                                    {this.state.sticksAndStones[3] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stick4} height={100} alt=""  /></Draggable>): ("")}
+
+                                    {this.state.sticksAndStones[4] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stick1r} height={20} alt=""  /></Draggable>): ("")}
+                                    {this.state.sticksAndStones[5] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stick2r} height={20} alt=""  /></Draggable>): ("")}
+                                    {this.state.sticksAndStones[6] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stick3r} height={20} alt=""  /></Draggable>): ("")}
+                                    {this.state.sticksAndStones[7] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stick4r} height={20} alt=""  /></Draggable>): ("")}
+
+                                    {this.state.sticksAndStones[8] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stone1} height={50} alt=""  /></Draggable>): ("")}
+                                    {this.state.sticksAndStones[9] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stone2} height={50} alt=""  /></Draggable>): ("")}
+                                    {this.state.sticksAndStones[10] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stone3} height={50} alt=""  /></Draggable>): ("")}
+                                    {this.state.sticksAndStones[11] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stone4} height={50} alt=""  /></Draggable>): ("")}
+
+
+                                    {/*Coloured Cubes: ###################################################################################################################*/}
+                                    {this.state.colouredCubes[0] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeBlack} height={50} alt=""  /></Draggable>): ("")}
+                                    {this.state.colouredCubes[1] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeBlack} height={50} alt=""  /></Draggable>): ("")}
+                                    {this.state.colouredCubes[2] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeBlack} height={50} alt=""  /></Draggable>): ("")}
+
+                                    {this.state.colouredCubes[3] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeBlue} height={50} alt=""  /></Draggable>): ("")}
+                                    {this.state.colouredCubes[4] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeBlue} height={50} alt=""  /></Draggable>): ("")}
+                                    {this.state.colouredCubes[5] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeBlue} height={50} alt=""  /></Draggable>): ("")}
+
+                                    {this.state.colouredCubes[6] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeBrown} height={50} alt=""  /></Draggable>): ("")}
+                                    {this.state.colouredCubes[7] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeBrown} height={50} alt=""  /></Draggable>): ("")}
+                                    {this.state.colouredCubes[8] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeBrown} height={50} alt=""  /></Draggable>): ("")}
+
+                                    {this.state.colouredCubes[9] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeGreen} height={50} alt=""  /></Draggable>): ("")}
+                                    {this.state.colouredCubes[10] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeGreen} height={50} alt=""  /></Draggable>): ("")}
+                                    {this.state.colouredCubes[11] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeGreen} height={50} alt=""  /></Draggable>): ("")}
+
+                                    {this.state.colouredCubes[12] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeGrey} height={50} alt=""  /></Draggable>): ("")}
+                                    {this.state.colouredCubes[13] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeGrey} height={50} alt=""  /></Draggable>): ("")}
+                                    {this.state.colouredCubes[14] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeGrey} height={50} alt=""  /></Draggable>): ("")}
+
+                                    {this.state.colouredCubes[15] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeRed} height={50} alt=""  /></Draggable>): ("")}
+                                    {this.state.colouredCubes[16] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeRed} height={50} alt=""  /></Draggable>): ("")}
+                                    {this.state.colouredCubes[17] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeRed} height={50} alt=""  /></Draggable>): ("")}
+
+                                    {this.state.colouredCubes[18] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeWhite} height={50} alt=""  /></Draggable>): ("")}
+                                    {this.state.colouredCubes[19] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeWhite} height={50} alt=""  /></Draggable>): ("")}
+                                    {this.state.colouredCubes[20] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeWhite} height={50} alt=""  /></Draggable>): ("")}
+
+                                    {this.state.colouredCubes[21] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeYellow} height={50} alt=""  /></Draggable>): ("")}
+                                    {this.state.colouredCubes[22] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeYellow} height={50} alt=""  /></Draggable>): ("")}
+                                    {this.state.colouredCubes[23] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cubeYellow} height={50} alt=""  /></Draggable>): ("")}
+
+
+                                    {/*Blocks: ###################################################################################################################*/}
+                                    {this.state.blocks[0] ? (<Draggable bounds="parent" {...dragHandlers}><img src={arch} height={60} alt=""  /></Draggable>): ("")}
+                                    {this.state.blocks[1] ? (<Draggable bounds="parent" {...dragHandlers}><img src={archR1} height={100} alt=""  /></Draggable>): ("")}
+                                    {this.state.blocks[2] ? (<Draggable bounds="parent" {...dragHandlers}><img src={archR2} height={100} alt=""  /></Draggable>): ("")}
+
+                                    {this.state.blocks[3] ? (<Draggable bounds="parent" {...dragHandlers}><img src={circle} height={75} alt=""  /></Draggable>): ("")}
+                                    {this.state.blocks[4] ? (<Draggable bounds="parent" {...dragHandlers}><img src={square} height={75} alt=""  /></Draggable>): ("")}
+                                    {this.state.blocks[5] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cuboid1} height={150} alt=""  /></Draggable>): ("")}
+
+                                    {this.state.blocks[6] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cuboid2} height={150} alt=""  /></Draggable>): ("")}
+                                    {this.state.blocks[7] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cuboid1R} height={35} alt=""  /></Draggable>): ("")}
+                                    {this.state.blocks[8] ? (<Draggable bounds="parent" {...dragHandlers}><img src={cuboid2R} height={77} alt=""  /></Draggable>): ("")}
+
+                                    {this.state.blocks[9] ? (<Draggable bounds="parent" {...dragHandlers}><img src={triangle} height={70} alt=""  /></Draggable>): ("")}
+                                    {this.state.blocks[10] ? (<Draggable bounds="parent" {...dragHandlers}><img src={triangleR} height={70} alt=""  /></Draggable>): ("")}
+
+                                    {/*Cards: ###################################################################################################################*/}
+                                    {this.state.cards[0] ? (<Draggable bounds="parent" {...dragHandlers}><img src={ball} height={100} alt=""  /></Draggable>): ("")}
+                                    {this.state.cards[1] ? (<Draggable bounds="parent" {...dragHandlers}><img src={bird} height={100} alt=""  /></Draggable>): ("")}
+                                    {this.state.cards[2] ? (<Draggable bounds="parent" {...dragHandlers}><img src={bulb} height={100} alt=""  /></Draggable>): ("")}
+                                    {this.state.cards[3] ? (<Draggable bounds="parent" {...dragHandlers}><img src={car} height={100} alt=""  /></Draggable>): ("")}
+                                    {this.state.cards[4] ? (<Draggable bounds="parent" {...dragHandlers}><img src={clock} height={100} alt=""  /></Draggable>): ("")}
+
+                                    {this.state.cards[5] ? (<Draggable bounds="parent" {...dragHandlers}><img src={clover} height={100} alt=""  /></Draggable>): ("")}
+                                    {this.state.cards[6] ? (<Draggable bounds="parent" {...dragHandlers}><img src={face} height={100} alt=""  /></Draggable>): ("")}
+                                    {this.state.cards[7] ? (<Draggable bounds="parent" {...dragHandlers}><img src={fire} height={100} alt=""  /></Draggable>): ("")}
+                                    {this.state.cards[8] ? (<Draggable bounds="parent" {...dragHandlers}><img src={flash} height={100} alt=""  /></Draggable>): ("")}
+                                    {this.state.cards[9] ? (<Draggable bounds="parent" {...dragHandlers}><img src={flower} height={100} alt=""  /></Draggable>): ("")}
+
+                                    {this.state.cards[10] ? (<Draggable bounds="parent" {...dragHandlers}><img src={heart} height={100} alt=""  /></Draggable>): ("")}
+                                    {this.state.cards[11] ? (<Draggable bounds="parent" {...dragHandlers}><img src={house} height={100} alt=""  /></Draggable>): ("")}
+                                    {this.state.cards[12] ? (<Draggable bounds="parent" {...dragHandlers}><img src={poop} height={100} alt=""  /></Draggable>): ("")}
+                                    {this.state.cards[13] ? (<Draggable bounds="parent" {...dragHandlers}><img src={ring} height={100} alt=""  /></Draggable>): ("")}
+                                    {this.state.cards[14] ? (<Draggable bounds="parent" {...dragHandlers}><img src={shark} height={100} alt=""  /></Draggable>): ("")}
+
+                                    {this.state.cards[15] ? (<Draggable bounds="parent" {...dragHandlers}><img src={shirt} height={100} alt=""  /></Draggable>): ("")}
+                                    {this.state.cards[16] ? (<Draggable bounds="parent" {...dragHandlers}><img src={skull} height={100} alt=""  /></Draggable>): ("")}
+                                    {this.state.cards[17] ? (<Draggable bounds="parent" {...dragHandlers}><img src={snail} height={100} alt=""  /></Draggable>): ("")}
+                                    {this.state.cards[18] ? (<Draggable bounds="parent" {...dragHandlers}><img src={snow} height={100} alt=""  /></Draggable>): ("")}
+                                    {this.state.cards[19] ? (<Draggable bounds="parent" {...dragHandlers}><img src={sun} height={100} alt=""  /></Draggable>): ("")}
+
+                                    {/*Laces: ###################################################################################################################*/}
+                                    {this.state.laces[0] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l1} height={90} alt=""  /></Draggable>): ("")}
+                                    {this.state.laces[1] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l2} height={90} alt=""  /></Draggable>): ("")}
+                                    {this.state.laces[2] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l3} height={90} alt=""  /></Draggable>): ("")}
+                                    {this.state.laces[3] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l4} height={90} alt=""  /></Draggable>): ("")}
+
+                                    {this.state.laces[4] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l5} height={90} alt=""  /></Draggable>): ("")}
+                                    {this.state.laces[5] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l6} height={90} alt=""  /></Draggable>): ("")}
+                                    {this.state.laces[6] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l7} height={90} alt=""  /></Draggable>): ("")}
+                                    {this.state.laces[7] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l8} height={90} alt=""  /></Draggable>): ("")}
+
+                                    {this.state.laces[8] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l9} height={90} alt=""  /></Draggable>): ("")}
+                                    {this.state.laces[9] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l10} height={90} alt=""  /></Draggable>): ("")}
+                                    {this.state.laces[10] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l11} height={90} alt=""  /></Draggable>): ("")}
+                                    {this.state.laces[11] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l12} height={90} alt=""  /></Draggable>): ("")}
+
+                                    {this.state.laces[12] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l13} height={90} alt=""  /></Draggable>): ("")}
+                                    {this.state.laces[13] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l14} height={90} alt=""  /></Draggable>): ("")}
+                                    {this.state.laces[14] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l15} height={90} alt=""  /></Draggable>): ("")}
+                                    {this.state.laces[15] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l16} height={90} alt=""  /></Draggable>): ("")}
+
+                                    {this.state.laces[16] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l17} height={90} alt=""  /></Draggable>): ("")}
+                                    {this.state.laces[17] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l18} height={90} alt=""  /></Draggable>): ("")}
+                                    {this.state.laces[18] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l19} height={90} alt=""  /></Draggable>): ("")}
+                                    {this.state.laces[19] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l20} height={90} alt=""  /></Draggable>): ("")}
+                                </div>
+
+                            </Form>
+                            <ButtonContainer>
+                                <ButtonWhite
+                                    width="20%"
+                                    onClick={() => {
+                                        this.takeshot();
+                                    }}
+                                >
+                                    Submit
+                                </ButtonWhite>
+                            </ButtonContainer>
+                    </Container>
+
+                    <Container fluid style={{ width: '300px', background: "" }}>
                         <Label>SetNr</Label>
                         <EllipseH> {this.state.materialSet} </EllipseH>
+
                         <Form>
                             {/*{this.showMaterialset}, the correct material set should be displayed to the user*/}
                             {/*display the set of togglebuttons for the SticksnStones:*/}
                             {this.state.materialSet===1 ? (
-                                <Container fluid style={{ width: '300px' }}>
+                                <Container fluid style={{ width: '200px' }}>
                                     {/*https://www.npmjs.com/package/react-grid-system*/}
                                     {/*https://sealninja.github.io/react-grid-system/#col*/}
                                     <Row justify="around" style={{ height: '120px' }}>
@@ -720,164 +729,165 @@ class GameviewUser extends React.Component {
                             {/*display the set of togglebuttons for the ColouredCubes:*/}
                             {this.state.materialSet===2 ? (
                                 <Container fluid style={{ width: '200px' }}>
-                                    <Row justify="around" style={{ height: '60px' }}>
-                                        <img src={cubeBlack} height={50} alt="" onClick={() => {this.toggleColouredCubes(0)}} />
-                                        <img src={cubeBlack} height={50} alt="" onClick={() => {this.toggleColouredCubes(1)}}/>
-                                        <img src={cubeBlack} height={50} alt="" onClick={() => {this.toggleColouredCubes(2)}}/>
+                                    <Row justify="around" style={{ height: '45px' }}>
+                                        <img src={cubeBlack} height={40} alt="" onClick={() => {this.toggleColouredCubes(0)}} />
+                                        <img src={cubeBlack} height={40} alt="" onClick={() => {this.toggleColouredCubes(1)}}/>
+                                        <img src={cubeBlack} height={40} alt="" onClick={() => {this.toggleColouredCubes(2)}}/>
                                     </Row>
-                                    <Row justify="around" style={{ height: '60px' }}>
-                                        <img src={cubeBlue} height={50} alt="" onClick={() => {this.toggleColouredCubes(3)}} />
-                                        <img src={cubeBlue} height={50} alt="" onClick={() => {this.toggleColouredCubes(4)}}/>
-                                        <img src={cubeBlue} height={50} alt="" onClick={() => {this.toggleColouredCubes(5)}}/>
+                                    <Row justify="around" style={{ height: '45px' }}>
+                                        <img src={cubeBlue} height={40} alt="" onClick={() => {this.toggleColouredCubes(3)}} />
+                                        <img src={cubeBlue} height={40} alt="" onClick={() => {this.toggleColouredCubes(4)}}/>
+                                        <img src={cubeBlue} height={40} alt="" onClick={() => {this.toggleColouredCubes(5)}}/>
                                     </Row>
-                                    <Row justify="around" style={{ height: '60px' }}>
-                                        <img src={cubeBrown} height={50} alt="" onClick={() => {this.toggleColouredCubes(6)}} />
-                                        <img src={cubeBrown} height={50} alt="" onClick={() => {this.toggleColouredCubes(7)}}/>
-                                        <img src={cubeBrown} height={50} alt="" onClick={() => {this.toggleColouredCubes(8)}}/>
+                                    <Row justify="around" style={{ height: '45px' }}>
+                                        <img src={cubeBrown} height={40} alt="" onClick={() => {this.toggleColouredCubes(6)}} />
+                                        <img src={cubeBrown} height={40} alt="" onClick={() => {this.toggleColouredCubes(7)}}/>
+                                        <img src={cubeBrown} height={40} alt="" onClick={() => {this.toggleColouredCubes(8)}}/>
                                     </Row>
-                                    <Row justify="around" style={{ height: '60px' }}>
-                                        <img src={cubeGreen} height={50} alt="" onClick={() => {this.toggleColouredCubes(9)}} />
-                                        <img src={cubeGreen} height={50} alt="" onClick={() => {this.toggleColouredCubes(10)}}/>
-                                        <img src={cubeGreen} height={50} alt="" onClick={() => {this.toggleColouredCubes(11)}}/>
+                                    <Row justify="around" style={{ height: '45px' }}>
+                                        <img src={cubeGreen} height={40} alt="" onClick={() => {this.toggleColouredCubes(9)}} />
+                                        <img src={cubeGreen} height={40} alt="" onClick={() => {this.toggleColouredCubes(10)}}/>
+                                        <img src={cubeGreen} height={40} alt="" onClick={() => {this.toggleColouredCubes(11)}}/>
                                     </Row>
-                                    <Row justify="around" style={{ height: '60px' }}>
-                                        <img src={cubeGrey} height={50} alt="" onClick={() => {this.toggleColouredCubes(12)}} />
-                                        <img src={cubeGrey} height={50} alt="" onClick={() => {this.toggleColouredCubes(13)}}/>
-                                        <img src={cubeGrey} height={50} alt="" onClick={() => {this.toggleColouredCubes(14)}}/>
+                                    <Row justify="around" style={{ height: '45px' }}>
+                                        <img src={cubeGrey} height={40} alt="" onClick={() => {this.toggleColouredCubes(12)}} />
+                                        <img src={cubeGrey} height={40} alt="" onClick={() => {this.toggleColouredCubes(13)}}/>
+                                        <img src={cubeGrey} height={40} alt="" onClick={() => {this.toggleColouredCubes(14)}}/>
                                     </Row>
-                                    <Row justify="around" style={{ height: '60px' }}>
-                                        <img src={cubeRed} height={50} alt="" onClick={() => {this.toggleColouredCubes(15)}} />
-                                        <img src={cubeRed} height={50} alt="" onClick={() => {this.toggleColouredCubes(16)}}/>
-                                        <img src={cubeRed} height={50} alt="" onClick={() => {this.toggleColouredCubes(17)}}/>
+                                    <Row justify="around" style={{ height: '45px' }}>
+                                        <img src={cubeRed} height={40} alt="" onClick={() => {this.toggleColouredCubes(15)}} />
+                                        <img src={cubeRed} height={40} alt="" onClick={() => {this.toggleColouredCubes(16)}}/>
+                                        <img src={cubeRed} height={40} alt="" onClick={() => {this.toggleColouredCubes(17)}}/>
                                     </Row>
-                                    <Row justify="around" style={{ height: '60px' }}>
-                                        <img src={cubeWhite} height={50} alt="" onClick={() => {this.toggleColouredCubes(18)}} />
-                                        <img src={cubeWhite} height={50} alt="" onClick={() => {this.toggleColouredCubes(19)}}/>
-                                        <img src={cubeWhite} height={50} alt="" onClick={() => {this.toggleColouredCubes(20)}}/>
+                                    <Row justify="around" style={{ height: '45px' }}>
+                                        <img src={cubeWhite} height={40} alt="" onClick={() => {this.toggleColouredCubes(18)}} />
+                                        <img src={cubeWhite} height={40} alt="" onClick={() => {this.toggleColouredCubes(19)}}/>
+                                        <img src={cubeWhite} height={40} alt="" onClick={() => {this.toggleColouredCubes(20)}}/>
                                     </Row>
-                                    <Row justify="around" style={{ height: '60px' }}>
-                                        <img src={cubeYellow} height={50} alt="" onClick={() => {this.toggleColouredCubes(21)}} />
-                                        <img src={cubeYellow} height={50} alt="" onClick={() => {this.toggleColouredCubes(22)}}/>
-                                        <img src={cubeYellow} height={50} alt="" onClick={() => {this.toggleColouredCubes(23)}}/>
+                                    <Row justify="around" style={{ height: '45px' }}>
+                                        <img src={cubeYellow} height={40} alt="" onClick={() => {this.toggleColouredCubes(21)}} />
+                                        <img src={cubeYellow} height={40} alt="" onClick={() => {this.toggleColouredCubes(22)}}/>
+                                        <img src={cubeYellow} height={40} alt="" onClick={() => {this.toggleColouredCubes(23)}}/>
                                     </Row>
                                 </Container>
                             ): (<div></div>)}
 
                             {/*display the set of Blocks:*/}
                             {this.state.materialSet===3 ? (
-                                <Container fluid style={{ width: '300px' }}>
-                                    <Row justify="around" style={{ height: '110px' }}>
-                                        <img src={archR1} height={100} alt="" onClick={() => {this.toggleBlocks(1)}}/>
-                                        <img src={arch} height={60} alt="" onClick={() => {this.toggleBlocks(0)}} />
-                                        <img src={archR2} height={100} alt="" onClick={() => {this.toggleBlocks(2)}}/>
+                                <Container fluid style={{ width: '220px'}}>
+                                    <Row justify="around" style={{ height: '80px' }}>
+                                        <img src={archR1} height={75} alt="" onClick={() => {this.toggleBlocks(1)}}/>
+                                        <img src={arch} height={50} alt="" onClick={() => {this.toggleBlocks(0)}} />
+                                        <img src={archR2} height={75} alt="" onClick={() => {this.toggleBlocks(2)}}/>
+                                    </Row>
+                                    <Row justify="around" style={{ height: '50px' }}>
+                                        <img src={circle} height={45} alt="" onClick={() => {this.toggleBlocks(3)}} />
+                                        <img src={square} height={45} alt="" onClick={() => {this.toggleBlocks(4)}}/>
                                     </Row>
                                     <Row justify="around" style={{ height: '100px' }}>
-                                        <img src={circle} height={75} alt="" onClick={() => {this.toggleBlocks(3)}} />
-                                        <img src={square} height={75} alt="" onClick={() => {this.toggleBlocks(4)}}/>
+                                        <img src={cuboid1} height={75} alt="" onClick={() => {this.toggleBlocks(5)}} />
+                                        <img src={cuboid2} height={75} alt="" onClick={() => {this.toggleBlocks(6)}}/>
                                     </Row>
-                                    <Row justify="around" style={{ height: '200px' }}>
-                                        <img src={cuboid1} height={150} alt="" onClick={() => {this.toggleBlocks(5)}} />
-                                        <img src={cuboid2} height={150} alt="" onClick={() => {this.toggleBlocks(6)}}/>
+                                    <Row justify="around" style={{ height: '50px' }}>
+                                        <img src={cuboid1R} height={18} alt="" onClick={() => {this.toggleBlocks(7)}} />
                                     </Row>
-                                    <Row justify="around" style={{ height: '100px' }}>
-                                        <img src={cuboid1R} height={35} alt="" onClick={() => {this.toggleBlocks(7)}} />
+                                    <Row justify="around" style={{ height: '50px' }}>
+                                        <img src={cuboid2R} height={34} alt="" onClick={() => {this.toggleBlocks(8)}}/>
                                     </Row>
-                                    <Row justify="around" style={{ height: '100px' }}>
-                                        <img src={cuboid2R} height={77} alt="" onClick={() => {this.toggleBlocks(8)}}/>
-                                    </Row>
-                                    <Row justify="around" style={{ height: '100px' }}>
-                                        <img src={triangle} height={70} alt="" onClick={() => {this.toggleBlocks(9)}} />
-                                        <img src={triangleR} height={70} alt="" onClick={() => {this.toggleBlocks(10)}} />
+                                    <Row justify="around" style={{ height: '50px' }}>
+                                        <img src={triangle} height={35} alt="" onClick={() => {this.toggleBlocks(9)}} />
+                                        <img src={triangleR} height={35} alt="" onClick={() => {this.toggleBlocks(10)}} />
                                     </Row>
                                 </Container>
                             ): (<div></div>)}
 
                             {/*display the set of Cards:*/}
                             {this.state.materialSet===4 ? (
-                                <Container fluid style={{ width: '300px' }}>
-                                    <Row justify="around" style={{ height: '100px' }}>
-                                        <img src={ball} height={100} alt="" onClick={() => {this.toggleCards(0)}} />
-                                        <img src={bird} height={100} alt="" onClick={() => {this.toggleCards(1)}} />
-                                        <img src={bulb} height={100} alt="" onClick={() => {this.toggleCards(2)}} />
-                                        <img src={car} height={100} alt="" onClick={() => {this.toggleCards(3)}} />
+                                <Container fluid style={{ width: '200px' }}>
+                                    <Row justify="around" style={{ height: '60px' }}>
+                                        <img src={ball} height={60} alt="" onClick={() => {this.toggleCards(0)}} />
+                                        <img src={bird} height={60} alt="" onClick={() => {this.toggleCards(1)}} />
+                                        <img src={bulb} height={60} alt="" onClick={() => {this.toggleCards(2)}} />
+                                        <img src={car} height={60} alt="" onClick={() => {this.toggleCards(3)}} />
                                     </Row>
-                                    <Row justify="around" style={{ height: '100px' }}>
-                                        <img src={clock} height={100} alt="" onClick={() => {this.toggleCards(4)}} />
-                                        <img src={clover} height={100} alt="" onClick={() => {this.toggleCards(5)}} />
-                                        <img src={face} height={100} alt="" onClick={() => {this.toggleCards(6)}} />
-                                        <img src={fire} height={100} alt="" onClick={() => {this.toggleCards(7)}} />
+                                    <Row justify="around" style={{ height: '60px' }}>
+                                        <img src={clock} height={60} alt="" onClick={() => {this.toggleCards(4)}} />
+                                        <img src={clover} height={60} alt="" onClick={() => {this.toggleCards(5)}} />
+                                        <img src={face} height={60} alt="" onClick={() => {this.toggleCards(6)}} />
+                                        <img src={fire} height={60} alt="" onClick={() => {this.toggleCards(7)}} />
                                     </Row>
-                                    <Row justify="around" style={{ height: '100px' }}>
-                                        <img src={flash} height={100} alt="" onClick={() => {this.toggleCards(8)}} />
-                                        <img src={flower} height={100} alt="" onClick={() => {this.toggleCards(9)}} />
-                                        <img src={heart} height={100} alt="" onClick={() => {this.toggleCards(10)}} />
-                                        <img src={house} height={100} alt="" onClick={() => {this.toggleCards(11)}} />
+                                    <Row justify="around" style={{ height: '60px' }}>
+                                        <img src={flash} height={60} alt="" onClick={() => {this.toggleCards(8)}} />
+                                        <img src={flower} height={60} alt="" onClick={() => {this.toggleCards(9)}} />
+                                        <img src={heart} height={60} alt="" onClick={() => {this.toggleCards(10)}} />
+                                        <img src={house} height={60} alt="" onClick={() => {this.toggleCards(11)}} />
                                     </Row>
-                                    <Row justify="around" style={{ height: '100px' }}>
-                                        <img src={poop} height={100} alt="" onClick={() => {this.toggleCards(12)}} />
-                                        <img src={ring} height={100} alt="" onClick={() => {this.toggleCards(13)}} />
-                                        <img src={shark} height={100} alt="" onClick={() => {this.toggleCards(14)}} />
-                                        <img src={shirt} height={100} alt="" onClick={() => {this.toggleCards(15)}} />
+                                    <Row justify="around" style={{ height: '60px' }}>
+                                        <img src={poop} height={60} alt="" onClick={() => {this.toggleCards(12)}} />
+                                        <img src={ring} height={60} alt="" onClick={() => {this.toggleCards(13)}} />
+                                        <img src={shark} height={60} alt="" onClick={() => {this.toggleCards(14)}} />
+                                        <img src={shirt} height={60} alt="" onClick={() => {this.toggleCards(15)}} />
                                     </Row>
-                                    <Row justify="around" style={{ height: '100px' }}>
-                                        <img src={skull} height={100} alt="" onClick={() => {this.toggleCards(16)}} />
-                                        <img src={snail} height={100} alt="" onClick={() => {this.toggleCards(17)}} />
-                                        <img src={snow} height={100} alt="" onClick={() => {this.toggleCards(18)}} />
-                                        <img src={sun} height={100} alt="" onClick={() => {this.toggleCards(19)}} />
+                                    <Row justify="around" style={{ height: '60px' }}>
+                                        <img src={skull} height={60} alt="" onClick={() => {this.toggleCards(16)}} />
+                                        <img src={snail} height={60} alt="" onClick={() => {this.toggleCards(17)}} />
+                                        <img src={snow} height={60} alt="" onClick={() => {this.toggleCards(18)}} />
+                                        <img src={sun} height={60} alt="" onClick={() => {this.toggleCards(19)}} />
                                     </Row>
                                 </Container>
                             ): (<div></div>)}
 
                             {/*display the set of Laces:*/}
                             {this.state.materialSet===5 ? (
-                                <Container fluid style={{ width: '400px' }}>
-                                    <Row justify="around" style={{ height: '100px' }}>
-                                        <img src={l1} height={90} alt="" onClick={() => {this.toggleLaces(0)}} />
-                                        <img src={l2} height={90} alt="" onClick={() => {this.toggleLaces(1)}} />
-                                        <img src={l3} height={90} alt="" onClick={() => {this.toggleLaces(2)}} />
-                                        <img src={l4} height={90} alt="" onClick={() => {this.toggleLaces(3)}} />
+                                <Container fluid style={{ width: '200px' }}>
+                                    <Row justify="around" style={{ height: '50px' }}>
+                                        <img src={l1} height={50} alt="" onClick={() => {this.toggleLaces(0)}} />
+                                        <img src={l2} height={50} alt="" onClick={() => {this.toggleLaces(1)}} />
+                                        <img src={l3} height={50} alt="" onClick={() => {this.toggleLaces(2)}} />
+                                        <img src={l4} height={50} alt="" onClick={() => {this.toggleLaces(3)}} />
                                     </Row>
-                                    <Row justify="around" style={{ height: '100px' }}>
-                                        <img src={l5} height={90} alt="" onClick={() => {this.toggleLaces(4)}} />
-                                        <img src={l6} height={90} alt="" onClick={() => {this.toggleLaces(5)}} />
-                                        <img src={l7} height={90} alt="" onClick={() => {this.toggleLaces(6)}} />
-                                        <img src={l8} height={90} alt="" onClick={() => {this.toggleLaces(7)}} />
+                                    <Row justify="around" style={{ height: '50px' }}>
+                                        <img src={l5} height={50} alt="" onClick={() => {this.toggleLaces(4)}} />
+                                        <img src={l6} height={50} alt="" onClick={() => {this.toggleLaces(5)}} />
+                                        <img src={l7} height={50} alt="" onClick={() => {this.toggleLaces(6)}} />
+                                        <img src={l8} height={50} alt="" onClick={() => {this.toggleLaces(7)}} />
                                     </Row>
-                                    <Row justify="around" style={{ height: '100px' }}>
-                                        <img src={l9} height={90} alt="" onClick={() => {this.toggleLaces(8)}} />
-                                        <img src={l10} height={90} alt="" onClick={() => {this.toggleLaces(9)}} />
-                                        <img src={l11} height={90} alt="" onClick={() => {this.toggleLaces(10)}} />
-                                        <img src={l12} height={90} alt="" onClick={() => {this.toggleLaces(11)}} />
+                                    <Row justify="around" style={{ height: '50px' }}>
+                                        <img src={l9} height={50} alt="" onClick={() => {this.toggleLaces(8)}} />
+                                        <img src={l10} height={50} alt="" onClick={() => {this.toggleLaces(9)}} />
+                                        <img src={l11} height={50} alt="" onClick={() => {this.toggleLaces(10)}} />
+                                        <img src={l12} height={50} alt="" onClick={() => {this.toggleLaces(11)}} />
                                     </Row>
-                                    <Row justify="around" style={{ height: '100px' }}>
-                                        <img src={l13} height={90} alt="" onClick={() => {this.toggleLaces(12)}} />
-                                        <img src={l14} height={90} alt="" onClick={() => {this.toggleLaces(13)}} />
-                                        <img src={l15} height={90} alt="" onClick={() => {this.toggleLaces(14)}} />
-                                        <img src={l16} height={90} alt="" onClick={() => {this.toggleLaces(15)}} />
+                                    <Row justify="around" style={{ height: '50px' }}>
+                                        <img src={l13} height={50} alt="" onClick={() => {this.toggleLaces(12)}} />
+                                        <img src={l14} height={50} alt="" onClick={() => {this.toggleLaces(13)}} />
+                                        <img src={l15} height={50} alt="" onClick={() => {this.toggleLaces(14)}} />
+                                        <img src={l16} height={50} alt="" onClick={() => {this.toggleLaces(15)}} />
                                     </Row>
-                                    <Row justify="around" style={{ height: '100px' }}>
-                                        <img src={l17} height={90} alt="" onClick={() => {this.toggleLaces(16)}} />
-                                        <img src={l18} height={90} alt="" onClick={() => {this.toggleLaces(17)}} />
-                                        <img src={l19} height={90} alt="" onClick={() => {this.toggleLaces(18)}} />
-                                        <img src={l20} height={90} alt="" onClick={() => {this.toggleLaces(19)}} />
+                                    <Row justify="around" style={{ height: '50px' }}>
+                                        <img src={l17} height={50} alt="" onClick={() => {this.toggleLaces(16)}} />
+                                        <img src={l18} height={50} alt="" onClick={() => {this.toggleLaces(17)}} />
+                                        <img src={l19} height={50} alt="" onClick={() => {this.toggleLaces(18)}} />
+                                        <img src={l20} height={50} alt="" onClick={() => {this.toggleLaces(19)}} />
                                     </Row>
                                 </Container>
                             ): (<div></div>)}
 
                         </Form>
-                    <ButtonContainer>
-                        <ButtonWhite
-                            disabled={this.state.materialSet!== null}
-                            width="100%"
-                            onClick={() => {
-                                this.getMaterialSet();
-                            }}
-                        >
-                            Get Material Set
-                        </ButtonWhite>
-                    </ButtonContainer>
-                    </Container2>
-                </FormContainer>
+                        <ButtonContainer>
+                            <ButtonWhite
+                                disabled={this.state.materialSet!== null}
+                                width="100%"
+                                onClick={() => {
+                                    this.getMaterialSet();
+                                }}
+                            >
+                                Get Material Set
+                            </ButtonWhite>
+                        </ButtonContainer>
+                    </Container>
+                </Row>
+            </Container>
         );
     }
 }

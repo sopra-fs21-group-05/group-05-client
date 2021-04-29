@@ -24,7 +24,14 @@ const FormContainer = styled.div`
   justify-content: center;
   background: transparent;
 `;
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  background: rgba(255, 255, 255, 0.2);
 
+`;
 
 
 /**
@@ -156,7 +163,7 @@ class Game extends React.Component {
                 </FormContainer>
                 <ButtonContainer>
                     <ButtonWhite
-                        width="50%"
+                        width="80%"
                         onClick={() => {
                             this.playGame();
                         }}

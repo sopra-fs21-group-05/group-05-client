@@ -7,6 +7,8 @@ import {BaseContainer} from "../../helpers/layout";
 import logo from "../dashboard/logoSmall.png";
 import Users from "../../views/Users";
 import {Spinner} from "../../views/design/Spinner";
+import {Col, Container, Row, setConfiguration} from 'react-grid-system';
+
 
 
 const FormContainer = styled.div`
@@ -52,7 +54,8 @@ class StartGame extends React.Component {
         this.state = {
             id: null,
             roomname: null,
-            users: null
+            users: null,
+            startedGame: null
         };
     }
 
@@ -66,9 +69,16 @@ class StartGame extends React.Component {
         try {
             const pathname = this.props.location.pathname;
             const response = await api.get(pathname);
+            console.log(response.data);
             await new Promise(resolve => setTimeout(resolve, 1000));
-            this.setState({ id: response.data.id, roomname: response.data.roomname, users: response.data.users });
+            this.setState({ id: response.data.id, roomname: response.data.roomname, users: response.data.users, startedGame: response.data.startedGame});
+            console.log(this.state.startedGame)
             console.log("playerCount updated");
+
+            if(this.state.startedGame!==null){
+                console.log("detected gameId, starting")
+                this.startGameCall();
+            }
 
         }  catch (error) {
             alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);

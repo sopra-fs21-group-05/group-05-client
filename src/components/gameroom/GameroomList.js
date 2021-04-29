@@ -64,7 +64,6 @@ class GameroomList extends React.Component {
             <FormContainer>
                 <img src={logo} width={300} />
                 <h2>Gamerooms Overview </h2>
-                <p>Get all gamerooms from secure end point:</p>
                 {!this.state.gamerooms ? (
                     <Spinner />
                 ) : (

@@ -69,6 +69,7 @@ class StartGame extends React.Component {
             await new Promise(resolve => setTimeout(resolve, 1000));
             this.setState({ id: response.data.id, roomname: response.data.roomname, users: response.data.users });
             console.log("playerCount updated");
+
         }  catch (error) {
             alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
         }
@@ -92,7 +93,6 @@ class StartGame extends React.Component {
 
     async startGameCall() {
         try{
-            // /gamerooms/{roomId}
             const response = await api.put('/gamerooms/:roomId');
 
             console.log('request to:', response.request.responseURL);
@@ -100,8 +100,10 @@ class StartGame extends React.Component {
             console.log('status text:', response.statusText);
             console.log('requested data:', response.data);
 
+            localStorage.setItem('gameId', response.data);
+
             //now redirect to the game
-            // this.props.history.push(`/gamerooms/overview/${numb}`);
+            this.props.history.push(`/game`);
         }  catch (error) {
             alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
         }

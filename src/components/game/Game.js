@@ -161,16 +161,18 @@ class Game extends React.Component {
                         </Container>)
                     }
                 </FormContainer>
-                <ButtonContainer>
-                    <ButtonWhite
-                        width="80%"
-                        onClick={() => {
-                            this.playGame();
-                        }}
-                    >
-                        Play the game
-                    </ButtonWhite>
-                </ButtonContainer>
+                {!this.state.picture ? ("") : (
+                    <ButtonContainer>
+                        <ButtonWhite
+                            width="20%"
+                            onClick={() => {
+                                this.playGame();
+                            }}
+                        >
+                            Play the game
+                        </ButtonWhite>
+                    </ButtonContainer>)
+                }
             </BaseContainer>
         );
     }

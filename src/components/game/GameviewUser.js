@@ -205,23 +205,25 @@ class GameviewUser extends React.Component {
             let setNr = response_set.data
 
             this.setState({materialSet: setNr})
-
+            this.checkRestriction();
         } catch (error) {
             alert(`Something went wrong while getting the picture and material set: \n${handleError(error)}`);
         }
     }
 
-    //todo: check if this actually is the correct request, not in rest spec yet!!!
+    //todo: userId is somehow null, this needs fixing!!!
     async checkRestriction() {
         try {
-            const pathname = this.props.location.pathname;
-            const pathname_str = pathname + "/restricted";
+            let userId = localStorage.getItem('userId');
+            // console.log("User id "+userId);
+            userId = 4;
+            // const pathname = this.props.location.pathname;
+            // const pathname_str = pathname + "/restricted";
 
-            const response_set = await api.get(pathname_str);
+            const response_set = await api.get("/users/"+userId+"/restricted");
             let restriction = response_set.data
-
             this.setState({restricted: restriction})
-
+            // console.log(this.state.restricted);
         } catch (error) {
             alert(`Something went wrong while getting the restriction state for the current user: \n${handleError(error)}`);
         }
@@ -275,9 +277,7 @@ class GameviewUser extends React.Component {
         var list = this.state.colouredCubes;
         var cubeMax = 9;
 
-        //todo: restricted option: get request to see if actually restricted
-        var restricted = false;
-        if(restricted && ( (n>2 && n<6) || (n>8 && n<12) || (n>14 && n<18) || (n>20) )) {
+        if(this.state.restricted && ( (n>2 && n<6) || (n>8 && n<12) || (n>14 && n<18) || (n>20) )) {
             return;
         }
 
@@ -299,10 +299,7 @@ class GameviewUser extends React.Component {
         var b = this.state.blocks[n];
         var list = this.state.blocks;
 
-        //todo: get request for restricted set check
-        var restricted = false;
-
-        if(restricted && !(n===3 || n===4 || n===9 || n===10)  ){
+        if(this.state.restricted && !(n===3 || n===4 || n===9 || n===10)  ){
             return;
         }
 
@@ -363,12 +360,10 @@ class GameviewUser extends React.Component {
         var b = this.state.cards[n];
         var list = this.state.cards;
 
-        //todo: get request for restricted set check
-        var restricted = false;
         var cardCount =0;
         var cardMax = 5;
 
-        if(restricted){
+        if(this.state.restricted){
             cardMax = 2;
         }
 
@@ -390,12 +385,10 @@ class GameviewUser extends React.Component {
         var b = this.state.laces[n];
         var list = this.state.laces;
 
-        //todo: get request for restricted set check
-        var restricted = false;
         var laceCount =0;
         var laceMax = 5;
 
-        if(restricted){
+        if(this.state.restricted){
             laceMax = 2;
         }
 
@@ -485,6 +478,8 @@ class GameviewUser extends React.Component {
         this.onStop();
     };
 
+
+    //todo: userId needs fixing, is still null!!!
     async takeshot() {
         let div = document.getElementById('drawingArea');
         let postGameId = 5;

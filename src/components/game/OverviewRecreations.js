@@ -168,6 +168,8 @@ class GameviewUser extends React.Component {
                 myMap.set(this.state.recreations_keys[4], this.state.guess5);
             }
 
+            myMap.delete(userId);
+
             myMap.get(keyObj);
 
             for (var [key, value] of myMap) {

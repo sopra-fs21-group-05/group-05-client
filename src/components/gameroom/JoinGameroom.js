@@ -75,19 +75,24 @@ class JoinGameroom extends React.Component {
             let numb = pathname.match(/\d/g);
 
             let userId = localStorage.getItem("loginId");
+            console.log('roomId:', numb)
 
             const requestBody = JSON.stringify({
-                roomId: numb,
+                roomId: numb.toString(),
                 password: this.state.password,
                 userId: userId
             });
 
-            const response = await api.put('/gamerooms/list/:roomId', requestBody);
+            const endpoint = 'gamerooms/list/' + numb.toString();
+
+            const response = await api.put(endpoint, requestBody);
 
             console.log('request to:', response.request.responseURL);
             console.log('status code:', response.status);
             console.log('status text:', response.statusText);
             console.log('requested data:', response.data);
+
+            localStorage.setItem('roomId', numb.toString());
 
             this.props.history.push(`/gamerooms/overview/${numb}`);
 

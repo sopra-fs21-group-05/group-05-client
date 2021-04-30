@@ -79,9 +79,9 @@ class StartGame extends React.Component {
 
             if(this.state.startedGame!==null){
                 console.log("detected gameId, starting")
-                localStorage.setItem('gameId', response.data.id);
+                localStorage.setItem('gameId', response.data.startedGame);
 
-                console.log("set game id to "+response.data.id);
+                console.log("set game id to "+response.data.startedGame);
                 this.props.history.push(`/game`);
             }
 

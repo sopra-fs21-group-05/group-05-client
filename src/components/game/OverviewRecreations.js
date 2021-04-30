@@ -183,7 +183,7 @@ class GameviewUser extends React.Component {
             const guesses_obj = Object.fromEntries(myMap)
 
             const requestBody = JSON.stringify({
-                gameId: 5,
+                gameId: gameId,
                 guesses: guesses_obj
             });
 
@@ -191,7 +191,7 @@ class GameviewUser extends React.Component {
 
             const response = await api.post(endpoint, requestBody);
 
-            this.props.history.push(`/scoreboards/5`);
+            this.props.history.push(`/scoreboards/${gameId}`);
         } catch (error) {
             console.log("error while posting the guesses: " + error);
         }

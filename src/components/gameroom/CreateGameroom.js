@@ -80,6 +80,7 @@ class CreateGameroom extends React.Component {
 
             let roomId = response.data.match(/\d+(?!.*\d)/g)
             localStorage.setItem('roomId', roomId);
+            localStorage.setItem('creator', 'yes');
 
             this.props.history.push(`/gamerooms/overview/${roomId}`);
 

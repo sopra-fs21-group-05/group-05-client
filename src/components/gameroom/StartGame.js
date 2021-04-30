@@ -55,13 +55,17 @@ class StartGame extends React.Component {
             id: null,
             roomname: null,
             users: null,
-            startedGame: null
+            startedGame: null,
+            creator: null
         };
     }
 
     async componentDidMount() {
         console.log("starting ComponentDidMount");
         this.pingPlayerCount();
+
+        let creator = localStorage.getItem('creator')
+        this.setState({creator: creator})
 
     }
 
@@ -154,7 +158,7 @@ class StartGame extends React.Component {
                     <ButtonContainer>
                         <ButtonWhite
                             // we wait for a list of users that is not null and at least three players long
-                            disabled={!this.canStart() }
+                            disabled={!this.canStart() || this.state.creator == null}
                             width="100%"
                             onClick={() => {
                                 this.startGameCall();

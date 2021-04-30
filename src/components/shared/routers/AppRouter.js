@@ -14,6 +14,7 @@ import GameviewUser from "../../game/GameviewUser";
 import OverviewRecreations from "../../game/OverviewRecreations";
 import Scoreboard from "../../scoreboard/Scoreboard";
 import GameJoinedUser from "../../game/GameJoinedUser";
+import {GameGuard} from "../routeProtectors/GameGuard";
 
 /**
  * Main router of your application.
@@ -37,80 +38,106 @@ class AppRouter extends React.Component {
                             path="/login"
                             exact
                             render={() => (
+                                <LoginGuard>
                                 <Login />
+                                </LoginGuard>
                             )}
                         />
                         <Route
                             path="/users"
                             exact
                             render={() => (
+                                <LoginGuard>
                                 <Register />
+                                </LoginGuard>
                             )}
                         />
                         <Route
                             path="/gamerooms"
                             exact
                             render={() => (
+                                <GameGuard>
                                 <CreateGameroom />
+                                </GameGuard>
                             )}
                         />
                         <Route
                             path="/gamerooms/list"
                             exact
                             render={() => (
+                                <GameGuard>
                                 <GameroomList />
+                                </GameGuard>
                             )}
                         />
                         <Route
                             path="/gamerooms/list/:roomId"
                             exact
                             render={() => (
+                                <GameGuard>
                                 <JoinGameroom />
+                                </GameGuard>
                             )}
                         />
                         <Route
-                            exact
                             path={"/dashboard"}
-                            render={() => <Dashboard />}
+                            exact
+                            render={() =>
+                                <GameGuard>
+                                <Dashboard />
+                                </GameGuard>}
                         />
                         <Route
                             path="/gamerooms/overview/:roomId"
                             exact
                             render={() => (
+                                <GameGuard>
                                 <StartGame />
+                                </GameGuard>
                             )}
                         />
                         <Route
                             exact
                             path={"/game"}
-                            render={() => <Game />}
+                            render={() =>
+                                <GameGuard>
+                                <Game />
+                                </GameGuard>}
                         />
                         <Route
                             path="/game/:gameId/:userId"
                             exact
                             render={() => (
+                                <GameGuard>
                                 <GameviewUser />
+                                </GameGuard>
                             )}
                         />
                         <Route
                             path="/game/recreations/overview/:gameId"
                             exact
                             render={() => (
+                                <GameGuard>
                                 <OverviewRecreations />
+                                </GameGuard>
                             )}
                         />
                         <Route
                             path="/scoreboards/:gameId"
                             exact
                             render={() => (
+                                <GameGuard>
                                 <Scoreboard />
+                                </GameGuard>
                             )}
                         />
                         <Route
                             path="/game/view/grid/:gameId"
                             exact
                             render={() => (
+                                <GameGuard>
                                 <GameJoinedUser />
+                                </GameGuard>
                             )}
                         />
                         <Route path="/" exact render={() => <Redirect to={"/login"} />} />

@@ -58,7 +58,7 @@ class Scoreboard extends React.Component {
 
     async componentDidMount() {
         console.log("starting ComponentDidMount");
-        this.updateScoreboard();
+        this.displayScoreboard();
 
     }
 
@@ -121,12 +121,13 @@ class Scoreboard extends React.Component {
                 </Form>
                 <ButtonContainer>
                     <ButtonWhite
+                        disabled={this.state.userPoints != null}
                         width="100%"
                         onClick={() => {
-                            this.displayScoreboard();
+                            this.updateScoreboard();
                         }}
                     >
-                        Display Scoreboard
+                        Update Scoreboard
                     </ButtonWhite>
                 </ButtonContainer>
                 <ButtonContainer>

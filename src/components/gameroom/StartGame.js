@@ -74,10 +74,15 @@ class StartGame extends React.Component {
             this.setState({ id: response.data.id, roomname: response.data.roomname, users: response.data.users, startedGame: response.data.startedGame});
             console.log(this.state.startedGame)
             console.log("playerCount updated");
+            console.log("response data from get pathname call" +response.data);
+
 
             if(this.state.startedGame!==null){
                 console.log("detected gameId, starting")
-                this.startGameCall();
+                localStorage.setItem('gameId', response.data.id);
+
+                console.log("set game id to "+response.data.id);
+                this.props.history.push(`/game`);
             }
 
             console.log("user id "+localStorage.getItem("loginId"));

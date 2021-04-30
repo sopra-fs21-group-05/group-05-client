@@ -5,10 +5,14 @@ import { withRouter } from 'react-router-dom';
 import { ButtonWhite } from '../../views/design/ButtonWhite';
 import {EllipseH} from "../../views/design/EllipseH";
 import {BaseContainer} from "../../helpers/layout";
-import {Col, Row} from "react-grid-system";
+import {Col, Container, Row, setConfiguration} from 'react-grid-system';
 import {Spinner} from "../../views/design/Spinner";
 import {EllipseV} from "../../views/design/EllipseV";
 
+setConfiguration({
+    defaultScreenClass: 'sm',
+    containerWidths: [540, 740, 960, 1140, 1540]
+});
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -35,7 +39,7 @@ const InputField = styled.input`
   color: black;
 `;
 
-const Container = styled.div`
+const Container2 = styled.div`
   margin-top: 2em;
   display: flex;
   flex-direction: column;
@@ -268,7 +272,7 @@ class GameviewUser extends React.Component {
                         </Container>)
                     }
                 </FormContainer>
-                <Container>
+                <Container2>
                     <PictureContainer>
                         <Row align="center" style={{ }} >
                             <Col>
@@ -343,7 +347,7 @@ class GameviewUser extends React.Component {
                         Submit Guesses
                     </ButtonWhite>
                 </ButtonContainer>
-            </Container>
+            </Container2>
             </BaseContainer>
 
 

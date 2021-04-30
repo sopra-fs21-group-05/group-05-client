@@ -404,6 +404,12 @@ class GameviewUser extends React.Component {
         this.setState({reload: false});
     }
 
+    goToRecreations(){
+        console.log("gameId:" + localStorage.getItem("gameId"))
+        //todo: redirect to the recreation overview
+        this.props.history.push(`/game/`);
+    }
+
     componentDidMount() {}
 
     //ReactDraggable Stuff:
@@ -481,6 +487,7 @@ class GameviewUser extends React.Component {
         let div = document.getElementById('drawingArea');
         var postGameId =  localStorage.getItem("gameId");
         var postUserId = localStorage.getItem("loginId");
+        var history = this.props.history;
 
         async function submitImage(img) {
             console.log("submit method call: "+img);
@@ -494,11 +501,7 @@ class GameviewUser extends React.Component {
                 const response = await api.post("/game/"+postUserId, requestBody);
                 let answer = response.data;
                 console.log("answer from posting image "+answer);
-
-                //todo: redirect to the recreation overview
-                //now redirect to the game
-                let gameId = localStorage.getItem("gameId");
-                this.props.history.push(`/game/recreations/overview/`+gameId);
+                history.push(`/game/recreations/overview/`+postGameId);
 
             } catch (error) {
                 alert(`Something went wrong while posting the recreation: \n${handleError(error)}`);
@@ -525,7 +528,6 @@ class GameviewUser extends React.Component {
                         // document.getElementById('image').appendChild(image);
                         console.log("image data in takeshot: "+ image.src);
                         let img = image.src.split(",")[1];
-
                         submitImage(img);
                     }catch (error) {
                         console.log("error while setting the screenshot as an image" + error);

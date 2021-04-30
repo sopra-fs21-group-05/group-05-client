@@ -79,10 +79,11 @@ class StartGame extends React.Component {
 
             if(this.state.startedGame!==null){
                 console.log("detected gameId, starting")
-                localStorage.setItem('gameId', response.data.startedGame);
+                let gameId = response.data.startedGame
+                localStorage.setItem('gameId', gameId);
 
                 console.log("set game id to "+response.data.startedGame);
-                this.props.history.push(`/game`);
+                this.props.history.push(`/game/view/grid/${gameId}`);
             }
 
             console.log("user id "+localStorage.getItem("loginId"));

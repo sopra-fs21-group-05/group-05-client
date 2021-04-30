@@ -13,6 +13,7 @@ import Game from "../../game/Game";
 import GameviewUser from "../../game/GameviewUser";
 import OverviewRecreations from "../../game/OverviewRecreations";
 import Scoreboard from "../../scoreboard/Scoreboard";
+import GameJoinedUser from "../../game/GameJoinedUser";
 
 /**
  * Main router of your application.
@@ -103,6 +104,13 @@ class AppRouter extends React.Component {
                             exact
                             render={() => (
                                 <Scoreboard />
+                            )}
+                        />
+                        <Route
+                            path="/game/view/grid/:gameId"
+                            exact
+                            render={() => (
+                                <GameJoinedUser />
                             )}
                         />
                         <Route path="/" exact render={() => <Redirect to={"/login"} />} />

@@ -347,6 +347,16 @@ class GameviewUser extends React.Component {
                         Submit Guesses
                     </ButtonWhite>
                 </ButtonContainer>
+                    <ButtonContainer>
+                        <ButtonWhite
+                            width="100%"
+                            onClick={() => {
+                                this.getRecreations();
+                            }}
+                        >
+                            Load Recreations
+                        </ButtonWhite>
+                    </ButtonContainer>
             </Container2>
             </BaseContainer>
 

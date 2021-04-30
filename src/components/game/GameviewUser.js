@@ -494,6 +494,12 @@ class GameviewUser extends React.Component {
                 const response = await api.post("/game/"+postUserId, requestBody);
                 let answer = response.data;
                 console.log("answer from posting image "+answer);
+
+                //todo: redirect to the recreation overview
+                //now redirect to the game
+                let gameId = localStorage.getItem("gameId");
+                this.props.history.push(`/game/recreations/overview/`+gameId);
+
             } catch (error) {
                 alert(`Something went wrong while posting the recreation: \n${handleError(error)}`);
             }
@@ -516,7 +522,7 @@ class GameviewUser extends React.Component {
                         var data = canvas.toDataURL('image/png');
                         var image = new Image();
                         image.src = data;
-                        document.getElementById('image').appendChild(image);
+                        // document.getElementById('image').appendChild(image);
                         console.log("image data in takeshot: "+ image.src);
                         let img = image.src.split(",")[1];
 
@@ -561,9 +567,9 @@ class GameviewUser extends React.Component {
 
                     <Container fluid style={{ width: '300px', background: "" }}>
                             {/*to see the screenshot*/}
-                            <div id="image">
-                                <p>Screenshot:</p>
-                            </div>
+                            {/*<div id="image">*/}
+                            {/*    <p>Screenshot:</p>*/}
+                            {/*</div>*/}
                             <Label>Picture</Label>
                             <EllipseH> {this.state.coordinate} </EllipseH>
                             <PictureContainer>

@@ -52,28 +52,14 @@ class Scoreboard extends React.Component {
         super();
         this.state = {
             userPoints: {},
-            userPoints_keys: {}
+            userPoints_keys: {},
+            creator: null
         };
     }
 
     async componentDidMount() {
-        console.log("starting ComponentDidMount");
-        this.displayScoreboard();
-
-    }
-
-    async updateScoreboard(){
-        try {
-            const pathname = this.props.location.pathname;
-            const response = await api.post(pathname);
-
-            await new Promise(resolve => setTimeout(resolve, 1000));
-
-            this.setState({  });
-            console.log("Scoreboard updated");
-        }  catch (error) {
-            alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
-        }
+        let creator = localStorage.getItem('creator')
+        this.setState({creator: creator})
     }
 
     async displayScoreboard() {
@@ -95,13 +81,14 @@ class Scoreboard extends React.Component {
     async updateGame(){
         try {
             let gameId = localStorage.getItem("gameId");
-            const endpoint = 'game/' + 5;
+            const endpoint = 'game/' + gameId;
 
             const response = await api.put(endpoint);
 
             await new Promise(resolve => setTimeout(resolve, 1000));
 
             this.props.history.push(`/game`)
+
         }  catch (error) {
             alert(`Something went wrong while fetching the new game: \n${handleError(error)}`);
         }
@@ -113,18 +100,17 @@ class Scoreboard extends React.Component {
                 <img src={logo} width={700} />
                 <h1>Overview Points</h1>
                 <Form>
-                <Boxes> UserId {this.state.userPoints_keys[0]} : {this.state.userPoints[this.state.userPoints_keys[0]]} </Boxes>
-                <Boxes> UserId {this.state.userPoints_keys[1]} : {this.state.userPoints[this.state.userPoints_keys[1]]} </Boxes>
-                <Boxes> UserId {this.state.userPoints_keys[2]} : {this.state.userPoints[this.state.userPoints_keys[2]]} </Boxes>
-                <Boxes> UserId {this.state.userPoints_keys[3]} : {this.state.userPoints[this.state.userPoints_keys[3]]} </Boxes>
-                <Boxes> UserId {this.state.userPoints_keys[4]} : {this.state.userPoints[this.state.userPoints_keys[4]]} </Boxes>
+                <Boxes> UserId {this.state.userPoints_keys[0]} : {this.state.userPoints[this.state.userPoints_keys[0]]} Points </Boxes>
+                <Boxes> UserId {this.state.userPoints_keys[1]} : {this.state.userPoints[this.state.userPoints_keys[1]]} Points </Boxes>
+                <Boxes> UserId {this.state.userPoints_keys[2]} : {this.state.userPoints[this.state.userPoints_keys[2]]} Points </Boxes>
+                <Boxes> UserId {this.state.userPoints_keys[3]} : {this.state.userPoints[this.state.userPoints_keys[3]]} Points </Boxes>
+                <Boxes> UserId {this.state.userPoints_keys[4]} : {this.state.userPoints[this.state.userPoints_keys[4]]} Points </Boxes>
                 </Form>
                 <ButtonContainer>
                     <ButtonWhite
-                        disabled={this.state.userPoints != null}
                         width="100%"
                         onClick={() => {
-                            this.updateScoreboard();
+                            this.displayScoreboard();
                         }}
                     >
                         Update Scoreboard
@@ -132,6 +118,7 @@ class Scoreboard extends React.Component {
                 </ButtonContainer>
                 <ButtonContainer>
                     <ButtonWhite
+                        disabled={this.state.creator == null}
                         width="100%"
                         onClick={() => {
                             this.updateGame();

@@ -78,7 +78,7 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   background: rgba(255, 255, 255, 0.2);
 
 `;
@@ -134,7 +134,7 @@ class GameviewUser extends React.Component {
     async getImagesGrid(){
         try {
             let gameId = localStorage.getItem("gameId");
-            const endpoint = 'game/grid/' + 5;
+            const endpoint = 'game/grid/' + gameId;
 
             const response = await api.get(endpoint);
 
@@ -191,7 +191,11 @@ class GameviewUser extends React.Component {
 
             const response = await api.post(endpoint, requestBody);
 
-            this.props.history.push(`/scoreboards/${gameId}`);
+            const scoreboardEndpoint = '/scoreboards/' + gameId;
+            const responseScoreboard = await api.post(scoreboardEndpoint, requestBody);
+
+            this.props.history.push(scoreboardEndpoint);
+
         } catch (error) {
             console.log("error while posting the guesses: " + error);
         }
@@ -341,22 +345,22 @@ class GameviewUser extends React.Component {
                     <ButtonWhite
                         width="100%"
                         onClick={() => {
+                            this.getRecreations();
+                        }}
+                    >
+                        Load Recreations
+                    </ButtonWhite>
+                </ButtonContainer>
+                <ButtonContainer>
+                    <ButtonWhite
+                        width="100%"
+                        onClick={() => {
                             this.submit();
                         }}
                     >
                         Submit Guesses
                     </ButtonWhite>
                 </ButtonContainer>
-                    <ButtonContainer>
-                        <ButtonWhite
-                            width="100%"
-                            onClick={() => {
-                                this.getRecreations();
-                            }}
-                        >
-                            Load Recreations
-                        </ButtonWhite>
-                    </ButtonContainer>
             </Container2>
             </BaseContainer>
 

@@ -85,6 +85,7 @@ class StartGame extends React.Component {
                 console.log("detected gameId, starting")
                 let gameId = response.data.startedGame
                 sessionStorage.setItem('gameId', gameId);
+                sessionStorage.setItem('roundNr', '1');
 
                 console.log("set game id to "+response.data.startedGame);
                 this.props.history.push(`/game/view/grid/${gameId}`);
@@ -123,6 +124,7 @@ class StartGame extends React.Component {
             console.log('requested data:', response.data);
 
             sessionStorage.setItem('gameId', response.data);
+            sessionStorage.setItem('roundNr', '1')
 
             //now redirect to the game
             this.props.history.push(`/game`);

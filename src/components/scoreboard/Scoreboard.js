@@ -73,6 +73,8 @@ class Scoreboard extends React.Component {
 
             this.setState({userPoints_keys: keys})
 
+            this.pingNewRound();
+
         }  catch (error) {
             alert(`Something went wrong while fetching the scoreboard: \n${handleError(error)}`);
         }
@@ -84,13 +86,37 @@ class Scoreboard extends React.Component {
             const endpoint = 'game/' + gameId;
 
             const response = await api.put(endpoint);
-
             await new Promise(resolve => setTimeout(resolve, 1000));
 
-            this.props.history.push(`/game`)
+            let roundNr = response.data;
+            sessionStorage.setItem('roundNr', roundNr);
+
+            this.props.history.push(`/game/view/grid/${gameId}`);
 
         }  catch (error) {
             alert(`Something went wrong while fetching the new game: \n${handleError(error)}`);
+        }
+    }
+
+    async pingNewRound(){
+        try {
+            let gameId = sessionStorage.getItem('gameId');
+
+            const endpoint = 'game/round/' + gameId;
+            const response = await api.get(endpoint);
+
+            let actualRoundNr = sessionStorage.getItem('roundNr');
+            let updateRoundNr = response.data;
+
+            if(updateRoundNr.toString() !== actualRoundNr.toString()){
+                console.log("detected new roundNr, next round starting");
+                sessionStorage.setItem('roundNr', updateRoundNr);
+
+                this.props.history.push(`/game/view/grid/${gameId}`);
+            }
+
+        }  catch (error) {
+            alert(`Something went wrong while fetching the next round: \n${handleError(error)}`);
         }
     }
 

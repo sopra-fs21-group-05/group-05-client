@@ -133,7 +133,7 @@ class GameviewUser extends React.Component {
 
     async getImagesGrid(){
         try {
-            let gameId = localStorage.getItem("gameId");
+            let gameId = sessionStorage.getItem("gameId");
             const endpoint = 'game/grid/' + gameId;
 
             const response = await api.get(endpoint);
@@ -147,8 +147,8 @@ class GameviewUser extends React.Component {
 
     async submit(){
         try {
-            let userId = localStorage.getItem("loginId");
-            let gameId = localStorage.getItem("gameId");
+            let userId = sessionStorage.getItem("loginId");
+            let gameId = sessionStorage.getItem("gameId");
 
             const endpoint = 'game/round/' + userId;
 
@@ -206,7 +206,7 @@ class GameviewUser extends React.Component {
         this.getImagesGrid();
         this.getRecreations();
 
-        let userId = localStorage.getItem("loginId");
+        let userId = sessionStorage.getItem("loginId");
         this.setState({userId: userId})
     }
 

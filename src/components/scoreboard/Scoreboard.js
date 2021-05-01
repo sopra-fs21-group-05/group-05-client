@@ -58,7 +58,7 @@ class Scoreboard extends React.Component {
     }
 
     async componentDidMount() {
-        let creator = localStorage.getItem('creator')
+        let creator = sessionStorage.getItem('creator')
         this.setState({creator: creator})
     }
 
@@ -80,7 +80,7 @@ class Scoreboard extends React.Component {
 
     async updateGame(){
         try {
-            let gameId = localStorage.getItem("gameId");
+            let gameId = sessionStorage.getItem("gameId");
             const endpoint = 'game/' + gameId;
 
             const response = await api.put(endpoint);

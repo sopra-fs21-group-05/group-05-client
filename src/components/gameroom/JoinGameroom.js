@@ -74,7 +74,7 @@ class JoinGameroom extends React.Component {
             const pathname = this.props.location.pathname;
             let numb = pathname.match(/\d/g);
 
-            let userId = localStorage.getItem("loginId");
+            let userId = sessionStorage.getItem("loginId");
             console.log('roomId:', numb)
 
             const requestBody = JSON.stringify({
@@ -92,7 +92,7 @@ class JoinGameroom extends React.Component {
             console.log('status text:', response.statusText);
             console.log('requested data:', response.data);
 
-            localStorage.setItem('roomId', numb.toString());
+            sessionStorage.setItem('roomId', numb.toString());
 
             this.props.history.push(`/gamerooms/overview/${numb}`);
 

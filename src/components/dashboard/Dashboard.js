@@ -66,7 +66,7 @@ class Dashboard extends React.Component {
      */
     async logout() {
         try {
-            let id_local = localStorage.getItem("loginId")
+            let id_local = sessionStorage.getItem("loginId")
 
             const requestBody = JSON.stringify({
                 id: id_local
@@ -79,8 +79,8 @@ class Dashboard extends React.Component {
             console.log('status text:', response.statusText);
             console.log('requested data:', response.data);
 
-            localStorage.removeItem("token");
-            localStorage.removeItem('loginId');
+            sessionStorage.removeItem("token");
+            sessionStorage.removeItem('loginId');
 
             this.props.history.push(`/login`);
         } catch (error) {

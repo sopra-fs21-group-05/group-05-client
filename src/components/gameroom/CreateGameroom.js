@@ -68,7 +68,7 @@ class CreateGameroom extends React.Component {
 
     async createGameroom() {
         try {
-            let userId = localStorage.getItem("loginId");
+            let userId = sessionStorage.getItem("loginId");
 
             const requestBody = JSON.stringify({
                 roomname: this.state.roomname,
@@ -79,8 +79,8 @@ class CreateGameroom extends React.Component {
             const response = await api.post('/gamerooms', requestBody);
 
             let roomId = response.data.match(/\d+(?!.*\d)/g)
-            localStorage.setItem('roomId', roomId);
-            localStorage.setItem('creator', 'yes');
+            sessionStorage.setItem('roomId', roomId);
+            sessionStorage.setItem('creator', 'yes');
 
             this.props.history.push(`/gamerooms/overview/${roomId}`);
 

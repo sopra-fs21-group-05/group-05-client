@@ -64,7 +64,7 @@ class StartGame extends React.Component {
         console.log("starting ComponentDidMount");
         this.pingPlayerCount();
 
-        let creator = localStorage.getItem('creator')
+        let creator = sessionStorage.getItem('creator')
         this.setState({creator: creator})
 
     }
@@ -84,13 +84,13 @@ class StartGame extends React.Component {
             if(this.state.startedGame!==null){
                 console.log("detected gameId, starting")
                 let gameId = response.data.startedGame
-                localStorage.setItem('gameId', gameId);
+                sessionStorage.setItem('gameId', gameId);
 
                 console.log("set game id to "+response.data.startedGame);
                 this.props.history.push(`/game/view/grid/${gameId}`);
             }
 
-            console.log("user id "+localStorage.getItem("loginId"));
+            console.log("user id "+sessionStorage.getItem("loginId"));
 
         }  catch (error) {
             alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
@@ -122,7 +122,7 @@ class StartGame extends React.Component {
             console.log('status text:', response.statusText);
             console.log('requested data:', response.data);
 
-            localStorage.setItem('gameId', response.data);
+            sessionStorage.setItem('gameId', response.data);
 
             //now redirect to the game
             this.props.history.push(`/game`);

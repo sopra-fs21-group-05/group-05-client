@@ -107,7 +107,7 @@ class GameviewUser extends React.Component {
 
     async getImagesGrid() {
         try {
-            let gameId = localStorage.getItem('gameId');
+            let gameId = sessionStorage.getItem('gameId');
             const endpoint = '/game/grid/' + gameId ;
 
             const response = await api.get(endpoint);
@@ -120,8 +120,8 @@ class GameviewUser extends React.Component {
     }
 
     async playGame(){
-        let gameId = localStorage.getItem('gameId');
-        let userId = localStorage.getItem('loginId'); //login id here from the login to represent the userId
+        let gameId = sessionStorage.getItem('gameId');
+        let userId = sessionStorage.getItem('loginId'); //login id here from the login to represent the userId
         this.props.history.push(`/game/${gameId}/${userId}`)
     }
 

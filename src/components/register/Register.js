@@ -86,8 +86,8 @@ class Register extends React.Component {
             const user = new User(newResponse.data);
 
             // Store the token into the local storage.
-            localStorage.setItem('token', user.token);
-            localStorage.setItem('loginId', user.id)
+            sessionStorage.setItem('token', user.token);
+            sessionStorage.setItem('loginId', user.id)
 
             alert("You are registered now")
 

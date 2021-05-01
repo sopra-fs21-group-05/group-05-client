@@ -213,7 +213,7 @@ class GameviewUser extends React.Component {
 
     async checkRestriction() {
         try {
-            let userId = localStorage.getItem('loginId');
+            let userId = sessionStorage.getItem('loginId');
             // console.log("User id "+userId);
             // const pathname = this.props.location.pathname;
             // const pathname_str = pathname + "/restricted";
@@ -405,7 +405,7 @@ class GameviewUser extends React.Component {
     }
 
     goToRecreations(){
-        console.log("gameId:" + localStorage.getItem("gameId"))
+        console.log("gameId:" + sessionStorage.getItem("gameId"))
         //todo: redirect to the recreation overview
         this.props.history.push(`/game/`);
     }
@@ -485,8 +485,8 @@ class GameviewUser extends React.Component {
 
     async takeshot() {
         let div = document.getElementById('drawingArea');
-        var postGameId =  localStorage.getItem("gameId");
-        var postUserId = localStorage.getItem("loginId");
+        var postGameId =  sessionStorage.getItem("gameId");
+        var postUserId = sessionStorage.getItem("loginId");
         var history = this.props.history;
 
         async function submitImage(img) {

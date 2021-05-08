@@ -132,8 +132,19 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0);
 
+`;
+
+const Hintbox = styled.button`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  color: rgba(0, 0, 0, 1);
+    background: #FFFFFF;
+        border: 1px solid #000000;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 14px;
 `;
 
 const Label = styled.label`
@@ -178,6 +189,42 @@ class GameviewUser extends React.Component {
             debugImage: null,
         }
     };
+
+    getHintText(){
+        // console.log("getting hint text")
+        let hint = "Hint: You can now ";
+        if (this.state.materialSet===1){ //Sticks and stones
+            if (this.state.restricted){
+                return hint + " only choose up to four Sticks to recreate your Picture";
+            }
+            return hint + " choose up to four Sticks and four Stones to recreate your Picture";
+        }
+        else if (this.state.materialSet===2){ //Cubes
+            if (this.state.restricted){
+                return hint + " only choose 9 Cubes from the Brown, Grey, Black and White ones to recreate your Picture";
+            }
+            return hint + " choose up to 9 Cubes to recreate your Picture";
+        }
+        else if (this.state.materialSet===3){ //Blocks
+            if (this.state.restricted){
+                return hint + " only choose a Triangle, a Square, and a Circle to recreate your Picture";
+            }
+            return hint + " choose up to six different Building Blocks to recreate your Picture. Careful: Rotations count as the same Block!";
+        }
+        else if (this.state.materialSet===4){ //Cards
+            if (this.state.restricted){
+                return hint + " only choose two Cards to recreate your Picture";
+            }
+            return hint + " choose up to 5 Cards to recreate your Picture";
+        }
+        else if (this.state.materialSet===5){ //Laces
+            if (this.state.restricted){
+                return hint + " only choose up to two Laces to recreate your Picture";
+            }
+            return hint + " choose up to 5 Laces to recreate your Picture";
+        }
+        return ""
+    }
 
     async getPicture() {
         try {
@@ -537,27 +584,6 @@ class GameviewUser extends React.Component {
     }
 
 
-
-
-    // async submitImage() {
-    //     try {
-    //         console.log( "state image: "+this.state.debugImage);
-    //         let img = this.state.debugImage.split(",")[0];
-    //         console.log("image in submit call"+img);
-    //
-    //         const requestBody = JSON.stringify({
-    //             gameId: this.state.username,
-    //             submittedPicture: img,
-    //         });
-    //
-    //         const response = await api.post("/game/"+this.state.id, requestBody);
-    //         let answer = response.data;
-    //         console.log("answer from posting image "+answer);
-    //     } catch (error) {
-    //         alert(`Something went wrong while sending the recreation: \n${handleError(error)}`);
-    //     }
-    // }
-
 //########################################################################
 
     render() {
@@ -771,7 +797,7 @@ class GameviewUser extends React.Component {
                                         <img src={stone4} height={50} alt="" onClick={() => {this.toggleSticksAndStones(11)}}/>
                                     </Row>
                                 </Container>
-                            ): (<div></div>)}
+                            ): ("")}
 
                             {/*display the set of togglebuttons for the ColouredCubes:*/}
                             {this.state.materialSet===2 ? (
@@ -817,7 +843,7 @@ class GameviewUser extends React.Component {
                                         <img src={cubeYellow} height={40} alt="" onClick={() => {this.toggleColouredCubes(23)}}/>
                                     </Row>
                                 </Container>
-                            ): (<div></div>)}
+                            ): ("")}
 
                             {/*display the set of Blocks:*/}
                             {this.state.materialSet===3 ? (
@@ -846,7 +872,7 @@ class GameviewUser extends React.Component {
                                         <img src={triangleR} height={35} alt="" onClick={() => {this.toggleBlocks(10)}} />
                                     </Row>
                                 </Container>
-                            ): (<div></div>)}
+                            ): ("")}
 
                             {/*display the set of Cards:*/}
                             {this.state.materialSet===4 ? (
@@ -882,7 +908,7 @@ class GameviewUser extends React.Component {
                                         <img src={sun} height={60} alt="" onClick={() => {this.toggleCards(19)}} />
                                     </Row>
                                 </Container>
-                            ): (<div></div>)}
+                            ): ("")}
 
                             {/*display the set of Laces:*/}
                             {this.state.materialSet===5 ? (
@@ -918,7 +944,7 @@ class GameviewUser extends React.Component {
                                         <img src={l20} height={50} alt="" onClick={() => {this.toggleLaces(19)}} />
                                     </Row>
                                 </Container>
-                            ): (<div></div>)}
+                            ): ("")}
 
                         </Form>
                         <ButtonContainer>
@@ -932,6 +958,17 @@ class GameviewUser extends React.Component {
                                 Get Material Set
                             </ButtonWhite>
                         </ButtonContainer>
+
+
+                        {this.state.materialSet!==null ? (
+                            <Container fluid style={{ width: '200px' }}>
+                                <Hintbox >
+                                    {this.getHintText()}
+                                </Hintbox>
+                            </Container>
+                        ):("")}
+
+
                     </Container>
                 </Row>
             </Container>

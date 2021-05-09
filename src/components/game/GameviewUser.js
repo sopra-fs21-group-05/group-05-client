@@ -451,11 +451,11 @@ class GameviewUser extends React.Component {
         this.setState({reload: false});
     }
 
-    goToRecreations(){
-        console.log("gameId:" + sessionStorage.getItem("gameId"))
-        //todo: redirect to the recreation overview
-        this.props.history.push(`/game/`);
-    }
+    // goToRecreations(){
+    //     console.log("gameId:" + sessionStorage.getItem("gameId"))
+    //     //todo: redirect to the recreation overview
+    //     this.props.history.push(`/game/`);
+    // }
 
     componentDidMount() {}
 
@@ -531,10 +531,11 @@ class GameviewUser extends React.Component {
 
 
     async takeshot() {
+        //First we save a reference to the context, because the submitImage needs these and does not have access by itself
         let div = document.getElementById('drawingArea');
-        var postGameId =  sessionStorage.getItem("gameId");
-        var postUserId = sessionStorage.getItem("loginId");
-        var history = this.props.history;
+        let postGameId =  sessionStorage.getItem("gameId");
+        let postUserId = sessionStorage.getItem("loginId");
+        let history = this.props.history;
 
         async function submitImage(img) {
             console.log("submit method call: "+img);
@@ -557,8 +558,23 @@ class GameviewUser extends React.Component {
 
         if(div!= null){
             // div.parentNode.style.overflow = 'visible';
-            window.scrollTo(0, 0); // this will help to print if div hidden or on mobile screen
-            html2canvas(div, {                                  }
+            // window.scrollTo(0, 0); // this will help to print if div hidden or on mobile screen
+
+            //We store the default position of our Building Area, because we will need to move it to the top left corner for the capturing
+            let backupPos = div.style.position;
+            let backupLeft = div.style.left;
+            let backupTop = div.style.top;
+
+            //Now we can override the position of the Building Area, place it to the top left of the screen and capture the image
+            div.style.position = "fixed";
+            div.style.left = "0";
+            div.style.top = "0";
+
+            window.scroll(0,0);
+            html2canvas(div, {
+                    // scrollY: 0,
+                    // scrollX: 0,
+            }
             ).then(
                 function (canvas) {
                     try{
@@ -572,14 +588,26 @@ class GameviewUser extends React.Component {
                         var data = canvas.toDataURL('image/png');
                         var image = new Image();
                         image.src = data;
+
+                        //Here we can append the image, if we need to see the screenshot for debugging
                         // document.getElementById('image').appendChild(image);
+
                         console.log("image data in takeshot: "+ image.src);
                         let img = image.src.split(",")[1];
+
                         submitImage(img);
                     }catch (error) {
                         console.log("error while setting the screenshot as an image" + error);
                     }
-                })
+                }
+            )
+
+            //Restore the position the Building Area had before taking the Screenshot
+            //(should actually not be necessary, but if anything goes wrong, the user doesnt see the
+            //shifted around page parts
+            div.style.position = backupPos;
+            div.style.left = backupLeft;
+            div.style.top = backupTop;
         }
     }
 
@@ -615,15 +643,19 @@ class GameviewUser extends React.Component {
                                     Get Picture
                                 </ButtonWhite>
                             </ButtonContainer>
+                            {/*Here we can show the screenshot if we need it for debugging*/}
+                            {/*<div id="image">*/}
+                            {/*    <p>Screenshot:</p>*/}
+                            {/*</div>*/}
                     </Container>
 
                     <Container fluid style={{ width: '575px', background: "" }}>
                         {/*<Label>Recreate the Picture</Label>*/}
                         <h1>Recreate the Picture:</h1>
-                            <Form>
+
                                 {/*buildingArea should be placed here*/}
-                                <div id="drawingArea" className="box"
-                                     style={{height: '500px', width: '500px', position: 'relative',
+                                <div id="drawingArea" className="box"  style={{height: '500px', width: '500px',
+                                    position: 'relative',
                                          overflow: 'auto',
                                          // overflow: 'hidden', //auto, scroll, hidden, visible
                                          padding: '0', background: "white", borderColor: "black", borderRadius: "5px"}}>
@@ -751,7 +783,6 @@ class GameviewUser extends React.Component {
                                     {this.state.laces[19] ? (<Draggable bounds="parent" {...dragHandlers}><img src={l20} height={90} alt=""  /></Draggable>): ("")}
                                 </div>
 
-                            </Form>
                             <ButtonContainer>
                                 <ButtonWhite
                                     width="20%"

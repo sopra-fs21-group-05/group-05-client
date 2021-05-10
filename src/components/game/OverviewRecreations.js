@@ -113,6 +113,8 @@ class GameviewUser extends React.Component {
         }
     };
 
+
+
     async getRecreations() {
         try {
             const pathname = this.props.location.pathname;
@@ -124,6 +126,11 @@ class GameviewUser extends React.Component {
             var keys = Object.keys(this.state.recreations);
 
             this.setState({recreations_keys: keys})
+
+            //ping the recreations again every two seconds
+            setTimeout(() => {
+                this.getRecreations();
+            }, 2000);
 
         } catch (error) {
             alert(`Something went wrong while getting the recreations: \n${handleError(error)}`);
@@ -341,16 +348,16 @@ class GameviewUser extends React.Component {
                             </Col>
                         </Row>
                     </PictureContainer>
-                <ButtonContainer>
-                    <ButtonWhite
-                        width="100%"
-                        onClick={() => {
-                            this.getRecreations();
-                        }}
-                    >
-                        Load Recreations
-                    </ButtonWhite>
-                </ButtonContainer>
+                {/*<ButtonContainer>*/}
+                {/*    <ButtonWhite*/}
+                {/*        width="100%"*/}
+                {/*        onClick={() => {*/}
+                {/*            this.getRecreations();*/}
+                {/*        }}*/}
+                {/*    >*/}
+                {/*        Load Recreations*/}
+                {/*    </ButtonWhite>*/}
+                {/*</ButtonContainer>*/}
                 <ButtonContainer>
                     <ButtonWhite
                         width="100%"

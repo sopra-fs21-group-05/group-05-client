@@ -69,9 +69,8 @@ class StartGame extends React.Component {
 
     }
 
-    async pingPlayerCount(n){
+    async pingPlayerCount(){
         try {
-            console.log("pinging lobby, call "+n);
             const pathname = this.props.location.pathname;
             const response = await api.get(pathname);
             console.log(response.data);
@@ -93,8 +92,12 @@ class StartGame extends React.Component {
             }
 
             console.log("user id "+sessionStorage.getItem("loginId"));
-            console.log("ping over");
-            this.pingPlayerCount(n+1);
+
+            //ping the gameroom again every two seconds
+            setTimeout(() => {
+                this.pingPlayerCount();
+            }, 2000);
+
         }  catch (error) {
             alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
         }
@@ -172,17 +175,17 @@ class StartGame extends React.Component {
                         </ButtonWhite>
                     </ButtonContainer>
 
-                    <ButtonContainer>
-                        <ButtonWhite
-                            // manually ping the playercount as automatically pinging caused memory leaks in the infinite loop
-                            width="100%"
-                            onClick={() => {
-                                this.pingPlayerCount();
-                            }}
-                        >
-                           Update Players
-                        </ButtonWhite>
-                    </ButtonContainer>
+                    {/*<ButtonContainer>*/}
+                    {/*    <ButtonWhite*/}
+                    {/*        // manually ping the playercount as automatically pinging caused memory leaks in the infinite loop*/}
+                    {/*        width="100%"*/}
+                    {/*        onClick={() => {*/}
+                    {/*            this.pingPlayerCount();*/}
+                    {/*        }}*/}
+                    {/*    >*/}
+                    {/*       Update Players*/}
+                    {/*    </ButtonWhite>*/}
+                    {/*</ButtonContainer>*/}
 
                 </FormContainer>
         );

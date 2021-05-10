@@ -5,6 +5,7 @@ import { Spinner } from '../../views/design/Spinner';
 import { withRouter } from 'react-router-dom';
 import GameroomElement from "../../views/Player";
 import logo from "../dashboard/logoSmall.png";
+import {ButtonWhite} from "../../views/design/ButtonWhite";
 
 
 const FormContainer = styled.div`
@@ -26,6 +27,14 @@ const GameroomContainer = styled.li`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`;
+
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.2);
 `;
 
 class GameroomList extends React.Component {
@@ -62,7 +71,7 @@ class GameroomList extends React.Component {
     render() {
         return (
             <FormContainer>
-                <img src={logo} width={300} />
+                <img src={logo} width={500} />
                 <h2>Gamerooms Overview </h2>
                 {!this.state.gamerooms ? (
                     <Spinner />
@@ -77,6 +86,16 @@ class GameroomList extends React.Component {
                             })}
                         </Gamerooms>
                 )}
+                <ButtonContainer>
+                    <ButtonWhite
+                        width="100%"
+                        onClick={() => {
+                            this.props.history.push('/dashboard');
+                        }}
+                    >
+                        Back
+                    </ButtonWhite>
+                </ButtonContainer>
             </FormContainer>
         );
     }

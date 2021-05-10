@@ -110,6 +110,7 @@ class GameviewUser extends React.Component {
             guess3: null,
             guess4: null,
             guess5: null,
+            ping: true,
         }
     };
 
@@ -117,21 +118,19 @@ class GameviewUser extends React.Component {
 
     async getRecreations() {
         try {
-            const pathname = this.props.location.pathname;
+            if(this.state.ping){
+                const pathname = this.props.location.pathname;
+                const response = await api.get(pathname);
 
-            const response = await api.get(pathname);
+                this.setState({recreations: response.data});
+                var keys = Object.keys(this.state.recreations);
+                this.setState({recreations_keys: keys})
 
-            this.setState({recreations: response.data});
-
-            var keys = Object.keys(this.state.recreations);
-
-            this.setState({recreations_keys: keys})
-
-            //ping the recreations again every two seconds
-            setTimeout(() => {
-                this.getRecreations();
-            }, 2000);
-
+                //ping the recreations again every two seconds
+                setTimeout(() => {
+                    this.getRecreations();
+                }, 1000);
+            }
         } catch (error) {
             alert(`Something went wrong while getting the recreations: \n${handleError(error)}`);
         }
@@ -201,6 +200,7 @@ class GameviewUser extends React.Component {
             const scoreboardEndpoint = '/scoreboards/' + gameId;
             const responseScoreboard = await api.post(scoreboardEndpoint, requestBody);
 
+            this.setState({ping: false});
             this.props.history.push(scoreboardEndpoint);
 
         } catch (error) {

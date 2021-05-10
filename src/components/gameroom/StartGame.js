@@ -56,7 +56,8 @@ class StartGame extends React.Component {
             roomname: null,
             users: null,
             startedGame: null,
-            creator: null
+            creator: null,
+            ping: true,
         };
     }
 
@@ -71,32 +72,35 @@ class StartGame extends React.Component {
 
     async pingPlayerCount(){
         try {
-            const pathname = this.props.location.pathname;
-            const response = await api.get(pathname);
-            console.log(response.data);
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            this.setState({ id: response.data.id, roomname: response.data.roomname, users: response.data.users, startedGame: response.data.startedGame});
-            console.log(this.state.startedGame)
-            console.log("playerCount updated");
-            console.log("response data from get pathname call" +response.data);
+            if(this.state.ping){
+                const pathname = this.props.location.pathname;
+                const response = await api.get(pathname);
+                console.log(response.data);
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                this.setState({ id: response.data.id, roomname: response.data.roomname, users: response.data.users, startedGame: response.data.startedGame});
+                console.log(this.state.startedGame)
+                console.log("playerCount updated");
+                console.log("response data from get pathname call" +response.data);
 
 
-            if(this.state.startedGame!==null){
-                console.log("detected gameId, starting")
-                let gameId = response.data.startedGame
-                sessionStorage.setItem('gameId', gameId);
-                sessionStorage.setItem('roundNr', '1');
+                if(this.state.startedGame!==null){
+                    console.log("detected gameId, starting")
+                    let gameId = response.data.startedGame
+                    sessionStorage.setItem('gameId', gameId);
+                    sessionStorage.setItem('roundNr', '1');
 
-                console.log("set game id to "+response.data.startedGame);
-                this.props.history.push(`/game/view/grid/${gameId}`);
+                    console.log("set game id to "+response.data.startedGame);
+                    this.setState({ping: false});
+                    this.props.history.push(`/game/view/grid/${gameId}`);
+                }
+
+                console.log("user id "+sessionStorage.getItem("loginId"));
+
+                //ping the gameroom again every two seconds
+                setTimeout(() => {
+                    this.pingPlayerCount();
+                }, 1000);
             }
-
-            console.log("user id "+sessionStorage.getItem("loginId"));
-
-            //ping the gameroom again every two seconds
-            setTimeout(() => {
-                this.pingPlayerCount();
-            }, 2000);
 
         }  catch (error) {
             alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
@@ -131,6 +135,7 @@ class StartGame extends React.Component {
             sessionStorage.setItem('gameId', response.data);
             sessionStorage.setItem('roundNr', '1')
 
+            this.setState({ping: false});
             //now redirect to the game
             this.props.history.push(`/game`);
         }  catch (error) {

@@ -62,15 +62,16 @@ class StartGame extends React.Component {
 
     async componentDidMount() {
         console.log("starting ComponentDidMount");
-        this.pingPlayerCount();
+        this.pingPlayerCount(0);
 
         let creator = sessionStorage.getItem('creator')
         this.setState({creator: creator})
 
     }
 
-    async pingPlayerCount(){
+    async pingPlayerCount(n){
         try {
+            console.log("pinging lobby, call "+n);
             const pathname = this.props.location.pathname;
             const response = await api.get(pathname);
             console.log(response.data);
@@ -92,7 +93,8 @@ class StartGame extends React.Component {
             }
 
             console.log("user id "+sessionStorage.getItem("loginId"));
-
+            console.log("ping over");
+            this.pingPlayerCount(n+1);
         }  catch (error) {
             alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
         }

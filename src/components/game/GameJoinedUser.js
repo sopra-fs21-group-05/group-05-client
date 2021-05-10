@@ -101,28 +101,38 @@ class GameviewUser extends React.Component {
     constructor() {
         super();
         this.state = {
-            picturesGrid: null
+            picturesGrid: null,
+            ping: true,
         }
     };
 
     async getImagesGrid() {
-        try {
-            let gameId = sessionStorage.getItem('gameId');
-            const endpoint = '/game/grid/' + gameId ;
+        if (this.state.picturesGrid === null) {
+            try {
 
-            const response = await api.get(endpoint);
+                let gameId = sessionStorage.getItem('gameId');
+                const endpoint = '/game/grid/' + gameId;
+                const response = await api.get(endpoint);
 
-            this.setState({picturesGrid: response.data});
+                this.setState({picturesGrid: response.data});
+            } catch (error) {
+                console.log("error while getting image: " + error);
+            }
 
-        } catch (error) {
-            console.log("error while getting image: " + error);
+            //ping the recreations again every two seconds
+            setTimeout(() => {
+                console.log("calling getImages")
+                this.getImagesGrid();
+            }, 500);
         }
     }
 
     async playGame(){
         let gameId = sessionStorage.getItem('gameId');
         let userId = sessionStorage.getItem('loginId'); //login id here from the login to represent the userId
-        this.props.history.push(`/game/${gameId}/${userId}`)
+
+        this.setState({ping: false});
+        this.props.history.push(`/game/${gameId}/${userId}`);
     }
 
     componentDidMount() {

@@ -53,7 +53,8 @@ class Scoreboard extends React.Component {
         this.state = {
             userPoints: {},
             userPoints_keys: {},
-            creator: null
+            creator: null,
+            ping: true,
         };
     }
 
@@ -68,12 +69,15 @@ class Scoreboard extends React.Component {
             const response = await api.get(pathname);
 
             this.setState({userPoints: response.data.userPoints})
-
             var keys = Object.keys(this.state.userPoints);
-
             this.setState({userPoints_keys: keys})
-
             this.pingNewRound();
+
+            // if(this.state.ping){
+            //     setTimeout(() => {
+            //         this.displayScoreboard();
+            //     }, 1000);
+            // }
 
         }  catch (error) {
             alert(`Something went wrong while fetching the scoreboard: \n${handleError(error)}`);
@@ -91,6 +95,7 @@ class Scoreboard extends React.Component {
             let roundNr = response.data;
             sessionStorage.setItem('roundNr', roundNr);
 
+            this.setState({ping: false});
             this.props.history.push(`/game/view/grid/${gameId}`);
 
         }  catch (error) {
@@ -112,6 +117,7 @@ class Scoreboard extends React.Component {
                 console.log("detected new roundNr, next round starting");
                 sessionStorage.setItem('roundNr', updateRoundNr);
 
+                this.setState({ping: false});
                 this.props.history.push(`/game/view/grid/${gameId}`);
             }
 

@@ -113,6 +113,7 @@ class JoinGameroom extends React.Component {
                     <Form>
                         <Label>Password</Label>
                         <InputField
+                            type="password"
                             placeholder={this.state.password}
                             onChange={e => {
                                 this.handleInputChange("password", e.target.value);

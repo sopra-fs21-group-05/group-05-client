@@ -114,6 +114,7 @@ class CreateGameroom extends React.Component {
                         />
                         <Label>Password</Label>
                         <InputField
+                            type="password"
                             placeholder={this.state.password}
                             onChange={e => {
                                 this.handleInputChange("password", e.target.value);

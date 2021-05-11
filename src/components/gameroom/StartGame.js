@@ -143,6 +143,21 @@ class StartGame extends React.Component {
         }
     }
 
+    async leaveRoom() {
+        try{
+            let userId = sessionStorage.getItem('loginId');
+            const endpoint = '/gamerooms/list/' + this.state.id + '/'+ userId;
+            const response = await api.put(endpoint);
+
+            sessionStorage.removeItem('roomId');
+            sessionStorage.removeItem('creator');
+
+            this.props.history.push(`/dashboard`);
+        }  catch (error) {
+            alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
+        }
+    }
+
     render() {
         return (
                 <FormContainer>
@@ -177,6 +192,16 @@ class StartGame extends React.Component {
                             }}
                         >
                             Start Game
+                        </ButtonWhite>
+                    </ButtonContainer>
+                    <ButtonContainer>
+                        <ButtonWhite
+                            width="100%"
+                            onClick={() => {
+                                this.leaveRoom();
+                            }}
+                        >
+                            Leave Gameroom
                         </ButtonWhite>
                     </ButtonContainer>
 

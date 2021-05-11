@@ -786,6 +786,7 @@ class GameviewUser extends React.Component {
                             <ButtonContainer>
                                 <ButtonWhite
                                     width="20%"
+                                    disabled={this.state.materialSet===null || this.state.picture===null}
                                     onClick={() => {
                                         this.takeshot();
                                         // this.submitImage();

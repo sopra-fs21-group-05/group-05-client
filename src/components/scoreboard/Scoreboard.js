@@ -56,17 +56,20 @@ class Scoreboard extends React.Component {
             userPoints_keys: {},
             creator: null,
             ping: true,
+            winners: null,
         };
     }
 
     async componentDidMount() {
         let creator = sessionStorage.getItem('creator')
         this.setState({creator: creator})
+
         this.displayScoreboard();
     }
 
     async displayScoreboard() {
         try {
+            this.getWinners();
             const pathname = this.props.location.pathname;
             const response = await api.get(pathname);
 
@@ -78,6 +81,7 @@ class Scoreboard extends React.Component {
             if(this.state.ping){
                 setTimeout(() => {
                     console.log("pinging scoreboard")
+                    console.log("roundnumber: "+sessionStorage.getItem("roundNr"));
                     this.displayScoreboard();
                 }, 1000);
             }
@@ -98,6 +102,7 @@ class Scoreboard extends React.Component {
 
             let roundNr = response.data;
             sessionStorage.setItem('roundNr', roundNr);
+            console.log("roundnumber: "+roundNr);
 
             this.setState({ping: false});
             this.props.history.push(`/game/view/grid/${gameId}`);
@@ -105,6 +110,23 @@ class Scoreboard extends React.Component {
         }  catch (error) {
             alert(`Something went wrong while fetching the new game: \n${handleError(error)}`);
         }
+    }
+
+    async getWinners(){
+        //todo: make this call in round 5 only, this is for debugging now
+        if(sessionStorage.getItem("roundNr") <=5 ){
+            try {
+                let gameId = sessionStorage.getItem("gameId");
+                let response = await api.get(gameId+"/winner");
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                //seems to return all users for now, will be adapted later
+                console.log("winners: "+ response.data)
+            }  catch (error) {
+                alert(`Something went wrong while getting the winners: \n${handleError(error)}`);
+            }
+        }
+
     }
 
     async pingNewRound(){
@@ -134,7 +156,7 @@ class Scoreboard extends React.Component {
         return (
             <FormContainer>
                 <img src={logo} width={700} />
-                <h1>Overview Points</h1>
+                <h1>Overview of Round {sessionStorage.getItem("roundNr")}</h1>
                 <Form>
                 <Boxes> UserId {this.state.userPoints_keys[0]} : {this.state.userPoints[this.state.userPoints_keys[0]]} Points </Boxes>
                 <Boxes> UserId {this.state.userPoints_keys[1]} : {this.state.userPoints[this.state.userPoints_keys[1]]} Points </Boxes>

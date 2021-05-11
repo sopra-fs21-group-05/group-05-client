@@ -72,18 +72,18 @@ class JoinGameroom extends React.Component {
     async joinGameroom() {
         try {
             const pathname = this.props.location.pathname;
-            let numb = pathname.match(/\d/g);
+            let roomId = pathname.match(/\d+(?!.*\d)/g)
 
             let userId = sessionStorage.getItem("loginId");
-            console.log('roomId:', numb)
+            console.log('roomId:', roomId)
 
             const requestBody = JSON.stringify({
-                roomId: numb.toString(),
+                roomId: roomId.toString(),
                 password: this.state.password,
                 userId: userId
             });
 
-            const endpoint = 'gamerooms/list/' + numb.toString();
+            const endpoint = 'gamerooms/list/' + roomId;
 
             const response = await api.put(endpoint, requestBody);
 
@@ -92,9 +92,9 @@ class JoinGameroom extends React.Component {
             console.log('status text:', response.statusText);
             console.log('requested data:', response.data);
 
-            sessionStorage.setItem('roomId', numb.toString());
+            sessionStorage.setItem('roomId', roomId.toString());
 
-            this.props.history.push(`/gamerooms/overview/${numb}`);
+            this.props.history.push(`/gamerooms/overview/${roomId}`);
 
         } catch (error) {
             alert(`Something went wrong while joining the gameroom: \n${handleError(error)}`);

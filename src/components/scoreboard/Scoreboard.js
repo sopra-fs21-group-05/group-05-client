@@ -33,7 +33,7 @@ const ButtonContainer = styled.div`
   justify-content: center;
   margin-top: 20px;
   margin-bottom: 20px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.0);
 `;
 
 const Boxes = styled.li`
@@ -43,7 +43,8 @@ const Boxes = styled.li`
   justify-content: center;
   border: 3px solid #ffffff30;
   margin-top: 20px;
-  border-radius: 15px; 
+  border-radius: 0px; 
+  background: rgba(255, 255, 255, 0.0);
 `;
 
 
@@ -61,6 +62,7 @@ class Scoreboard extends React.Component {
     async componentDidMount() {
         let creator = sessionStorage.getItem('creator')
         this.setState({creator: creator})
+        this.displayScoreboard();
     }
 
     async displayScoreboard() {
@@ -73,15 +75,17 @@ class Scoreboard extends React.Component {
             this.setState({userPoints_keys: keys})
             this.pingNewRound();
 
-            // if(this.state.ping){
-            //     setTimeout(() => {
-            //         this.displayScoreboard();
-            //     }, 1000);
-            // }
+            if(this.state.ping){
+                setTimeout(() => {
+                    console.log("pinging scoreboard")
+                    this.displayScoreboard();
+                }, 1000);
+            }
 
         }  catch (error) {
             alert(`Something went wrong while fetching the scoreboard: \n${handleError(error)}`);
         }
+
     }
 
     async updateGame(){
@@ -138,16 +142,16 @@ class Scoreboard extends React.Component {
                 <Boxes> UserId {this.state.userPoints_keys[3]} : {this.state.userPoints[this.state.userPoints_keys[3]]} Points </Boxes>
                 <Boxes> UserId {this.state.userPoints_keys[4]} : {this.state.userPoints[this.state.userPoints_keys[4]]} Points </Boxes>
                 </Form>
-                <ButtonContainer>
-                    <ButtonWhite
-                        width="100%"
-                        onClick={() => {
-                            this.displayScoreboard();
-                        }}
-                    >
-                        Update Scoreboard
-                    </ButtonWhite>
-                </ButtonContainer>
+                {/*<ButtonContainer>*/}
+                {/*    <ButtonWhite*/}
+                {/*        width="100%"*/}
+                {/*        onClick={() => {*/}
+                {/*            this.displayScoreboard();*/}
+                {/*        }}*/}
+                {/*    >*/}
+                {/*        Update Scoreboard*/}
+                {/*    </ButtonWhite>*/}
+                {/*</ButtonContainer>*/}
                 <ButtonContainer>
                     <ButtonWhite
                         disabled={this.state.creator == null}

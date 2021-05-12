@@ -5,6 +5,8 @@ import withRouter from "react-router-dom/es/withRouter";
 import {api, handleError} from "../../helpers/api";
 import logo from "../dashboard/logoSmall.png";
 import PlayerElement from "./PlayerElement";
+import Draggable from "react-draggable";
+import stick1r from "../game/assets/BuildingMaterials/SticksStones/stick1r.png";
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -70,6 +72,7 @@ class Scoreboard extends React.Component {
             creator: null,
             ping: true,
             winners: null,
+            winnerString: null,
         };
     }
 
@@ -94,8 +97,8 @@ class Scoreboard extends React.Component {
 
             if(this.state.ping){
                 setTimeout(() => {
-                    console.log("pinging scoreboard")
-                    console.log("roundnumber: "+sessionStorage.getItem("roundNr"));
+                    // console.log("pinging scoreboard")
+                    // console.log("roundnumber: "+sessionStorage.getItem("roundNr"));
                     this.displayScoreboard();
                 }, 1000);
             }
@@ -116,7 +119,7 @@ class Scoreboard extends React.Component {
 
             let roundNr = response.data;
             sessionStorage.setItem('roundNr', roundNr);
-            console.log("roundnumber: "+roundNr);
+            // console.log("roundnumber: "+roundNr);
 
             this.setState({ping: false});
             this.props.history.push(`/game/view/grid/${gameId}`);
@@ -127,17 +130,38 @@ class Scoreboard extends React.Component {
     }
 
     async getWinners(){
-        //todo: make this call in round 5 only, this is for debugging now
-        if(sessionStorage.getItem("roundNr") <=5 ){
+        if(sessionStorage.getItem("roundNr") === 5 ){
             try {
                 let gameId = sessionStorage.getItem("gameId");
                 let response = await api.get(gameId+"/winner");
                 await new Promise(resolve => setTimeout(resolve, 1000));
 
-                //seems to return all users for now, will be adapted later
-                console.log("winners: "+ response.data)
+                this.setState({ winners: response.data});
+
+                let winnerNames = []
+                if(this.state.winners!==null){
+                    for(let i = 0; i < this.state.winners.length; i++) {
+                        winnerNames.push(this.state.winners[i].username);
+                    }
+                }
+
+                //if there is only one winner, we display this user, else we create a string with the whole list
+                if(winnerNames.length===1){
+                   let string = winnerNames[0]+" has won the game, congratulations!";
+                   this.setState({ winnerString: string});
+                }else{
+                    let string = "Users "+winnerNames[0];
+                    for(let i = 1; i < winnerNames.length; i++) {
+                        string = string + ", "+ winnerNames[i];
+                    }
+                    string = string + " have won the game, congratulations!";
+                    this.setState({ winnerString: string});
+                }
+
             }  catch (error) {
-                alert(`Something went wrong while getting the winners: \n${handleError(error)}`);
+                //todo: sometimes this gives an error, not sure if we should react to it or just ignore it, as this is only displayed at the end
+
+                // alert(`Something went wrong while getting the winners: \n${handleError(error)}`);
             }
         }
 
@@ -171,6 +195,8 @@ class Scoreboard extends React.Component {
             <FormContainer>
                 <img src={logo} width={700} />
                 <h1>Overview after Round {sessionStorage.getItem("roundNr")}</h1>
+                {this.state.winnerString ? (<h1>{this.state.winnerString}</h1>): ("")}
+
                 <Form>
                     <Players>
                         {Object.entries(this.state.userPoints).sort(([,a],[,b]) => b-a).map(user => {

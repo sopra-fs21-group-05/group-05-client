@@ -654,11 +654,14 @@ class GameviewUser extends React.Component {
                         <h1>Recreate the Picture:</h1>
 
                                 {/*buildingArea should be placed here*/}
-                                <div id="drawingArea" className="box"  style={{height: '500px', width: '500px',
+                                <div id="drawingArea" className="box"  style={{
+                                    height: '500px', width: '500px',
                                     position: 'relative',
-                                         overflow: 'auto',
+                                    overflow: 'auto',
                                          // overflow: 'hidden', //auto, scroll, hidden, visible
-                                         padding: '0', background: "white", borderColor: "black", borderRadius: "5px"}}>
+                                    padding: '0', background: "white",
+                                    borderRadius: "5px",
+                                    border: '2px solid black'}}>
 
                                     {/*<Draggable bounds="parent" {...dragHandlers}>*/}
                                     {/*    <img src={stick1} height={100} />*/}

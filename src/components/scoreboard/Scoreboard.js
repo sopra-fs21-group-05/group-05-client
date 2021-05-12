@@ -4,6 +4,7 @@ import {ButtonWhite} from "../../views/design/ButtonWhite";
 import withRouter from "react-router-dom/es/withRouter";
 import {api, handleError} from "../../helpers/api";
 import logo from "../dashboard/logoSmall.png";
+import PlayerElement from "./PlayerElement";
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -47,13 +48,25 @@ const Boxes = styled.li`
   background: rgba(255, 255, 255, 0.0);
 `;
 
+const Players = styled.ul`
+  list-style: none;
+  padding-left: 0;
+`;
+
+const PlayerContainer = styled.li`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 
 class Scoreboard extends React.Component {
     constructor() {
         super();
         this.state = {
             userPoints: {},
-            userPoints_keys: {},
+            //userPoints_keys: {},
             creator: null,
             ping: true,
             winners: null,
@@ -69,13 +82,14 @@ class Scoreboard extends React.Component {
 
     async displayScoreboard() {
         try {
-            this.getWinners();
+            //this.getWinners();
             const pathname = this.props.location.pathname;
             const response = await api.get(pathname);
 
-            this.setState({userPoints: response.data.userPoints})
-            var keys = Object.keys(this.state.userPoints);
-            this.setState({userPoints_keys: keys})
+            this.setState({userPoints: response.data.userPoints});
+            // var keys = Object.keys(this.state.userPoints);
+            // this.setState({userPoints_keys: keys});
+
             this.pingNewRound();
 
             if(this.state.ping){
@@ -156,13 +170,17 @@ class Scoreboard extends React.Component {
         return (
             <FormContainer>
                 <img src={logo} width={700} />
-                <h1>Overview of Round {sessionStorage.getItem("roundNr")}</h1>
+                <h1>Overview after Round {sessionStorage.getItem("roundNr")}</h1>
                 <Form>
-                <Boxes> UserId {this.state.userPoints_keys[0]} : {this.state.userPoints[this.state.userPoints_keys[0]]} Points </Boxes>
-                <Boxes> UserId {this.state.userPoints_keys[1]} : {this.state.userPoints[this.state.userPoints_keys[1]]} Points </Boxes>
-                <Boxes> UserId {this.state.userPoints_keys[2]} : {this.state.userPoints[this.state.userPoints_keys[2]]} Points </Boxes>
-                <Boxes> UserId {this.state.userPoints_keys[3]} : {this.state.userPoints[this.state.userPoints_keys[3]]} Points </Boxes>
-                <Boxes> UserId {this.state.userPoints_keys[4]} : {this.state.userPoints[this.state.userPoints_keys[4]]} Points </Boxes>
+                    <Players>
+                        {Object.entries(this.state.userPoints).sort(([,a],[,b]) => b-a).map(user => {
+                            return (
+                                <PlayerContainer>
+                                    <PlayerElement user={user}/>
+                                </PlayerContainer>
+                            );
+                        })}
+                    </Players>
                 </Form>
                 {/*<ButtonContainer>*/}
                 {/*    <ButtonWhite*/}

@@ -79,7 +79,6 @@ class Scoreboard extends React.Component {
     async componentDidMount() {
         let creator = sessionStorage.getItem('creator')
         this.setState({creator: creator})
-
         this.displayScoreboard();
     }
 
@@ -100,6 +99,8 @@ class Scoreboard extends React.Component {
                     // console.log("pinging scoreboard")
                     // console.log("roundnumber: "+sessionStorage.getItem("roundNr"));
                     this.displayScoreboard();
+                    this.getWinners();
+
                 }, 1000);
             }
 
@@ -130,7 +131,7 @@ class Scoreboard extends React.Component {
     }
 
     async getWinners(){
-        if(sessionStorage.getItem("roundNr") === 5 ){
+        if(sessionStorage.getItem("roundNr") == 5 ){
             try {
                 let gameId = sessionStorage.getItem("gameId");
                 let response = await api.get(gameId+"/winner");

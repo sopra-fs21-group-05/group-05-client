@@ -8,6 +8,8 @@ const Container = styled.div`
   border-radius: 6px;
   display: flex;
   align-items: center;
+  
+  cursor: pointer; 
   border: 1px solid #ffffff26;
 `;
 

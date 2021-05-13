@@ -4,7 +4,7 @@ import {ButtonWhite} from "../../views/design/ButtonWhite";
 import withRouter from "react-router-dom/es/withRouter";
 import {api, handleError} from "../../helpers/api";
 import logo from "../dashboard/logoSmall.png";
-import PlayerElement from "./PlayerElement";
+import PlayerElementWinner from "./PlayerElementWinner";
 import Draggable from "react-draggable";
 import stick1r from "../game/assets/BuildingMaterials/SticksStones/stick1r.png";
 
@@ -63,12 +63,11 @@ const PlayerContainer = styled.li`
 `;
 
 
-class Scoreboard extends React.Component {
+class Winner extends React.Component {
     constructor() {
         super();
         this.state = {
             userPoints: {},
-            //userPoints_keys: {},
             creator: null,
             ping: true,
             winners: null,
@@ -84,7 +83,6 @@ class Scoreboard extends React.Component {
 
     async displayScoreboard() {
         try {
-            //this.getWinners();
             const pathname = this.props.location.pathname;
             const response = await api.get(pathname);
 
@@ -99,7 +97,7 @@ class Scoreboard extends React.Component {
                     // console.log("pinging scoreboard")
                     // console.log("roundnumber: "+sessionStorage.getItem("roundNr"));
                     this.displayScoreboard();
-                    // this.getWinners();
+                    this.getWinners();
 
                 }, 1000);
             }
@@ -123,17 +121,47 @@ class Scoreboard extends React.Component {
             // console.log("roundnumber: "+roundNr);
 
             this.setState({ping: false});
-
-            //if we are in the final round, redirect to the winner screen instead of the next round
-            if(roundNr<=5){
-                this.props.history.push(`/game/${gameId}/winners`);
-            }else{
-                this.props.history.push(`/game/view/grid/${gameId}`);
-            }
+            this.props.history.push(`/game/view/grid/${gameId}`);
 
         }  catch (error) {
             alert(`Something went wrong while fetching the new game: \n${handleError(error)}`);
         }
+    }
+
+    async getWinners(){
+            try {
+                let gameId = sessionStorage.getItem("gameId");
+                let response = await api.get(gameId+"/winner");
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                this.setState({ winners: response.data});
+
+                let winnerNames = []
+                if(this.state.winners!==null){
+                    for(let i = 0; i < this.state.winners.length; i++) {
+                        winnerNames.push(this.state.winners[i].username);
+                    }
+                }
+
+                //if there is only one winner, we display this user, else we create a string with the whole list
+                //Formatting should be correct.
+                if(winnerNames.length===1){
+                   let string = winnerNames[0]+" has won the game, congratulations!";
+                   this.setState({ winnerString: string});
+                }else{
+                    let string = "Users "+winnerNames[0];
+                    for(let i = 1; i < winnerNames.length-1; i++) {
+                        string = string + ", "+ winnerNames[i];
+                    }
+                    string = string + " and " + winnerNames[winnerNames.length-1] +" have won the game, congratulations!";
+                    this.setState({ winnerString: string});
+                }
+
+            }  catch (error) {
+                //todo: sometimes this gives an error, not sure if we should react to it or just ignore it, as this is only displayed at the end
+
+                // alert(`Something went wrong while getting the winners: \n${handleError(error)}`);
+            }
     }
 
     async pingNewRound(){
@@ -151,12 +179,7 @@ class Scoreboard extends React.Component {
                 sessionStorage.setItem('roundNr', updateRoundNr);
 
                 this.setState({ping: false});
-
-                if(updateRoundNr<=5){
-                    this.props.history.push(`/game/${gameId}/winners`);
-                }else{
-                    this.props.history.push(`/game/view/grid/${gameId}`);
-                }
+                this.props.history.push(`/game/view/grid/${gameId}`);
             }
 
         }  catch (error) {
@@ -176,22 +199,12 @@ class Scoreboard extends React.Component {
                         {Object.entries(this.state.userPoints).sort(([,a],[,b]) => b-a).map(user => {
                             return (
                                 <PlayerContainer>
-                                    <PlayerElement user={user}/>
+                                    <PlayerElementWinner user={user}/>
                                 </PlayerContainer>
                             );
                         })}
                     </Players>
                 </Form>
-                {/*<ButtonContainer>*/}
-                {/*    <ButtonWhite*/}
-                {/*        width="100%"*/}
-                {/*        onClick={() => {*/}
-                {/*            this.displayScoreboard();*/}
-                {/*        }}*/}
-                {/*    >*/}
-                {/*        Update Scoreboard*/}
-                {/*    </ButtonWhite>*/}
-                {/*</ButtonContainer>*/}
                 <ButtonContainer>
                     <ButtonWhite
                         disabled={this.state.creator == null}
@@ -209,5 +222,5 @@ class Scoreboard extends React.Component {
     }
 }
 
-export default withRouter(Scoreboard)
+export default withRouter(Winner)
 

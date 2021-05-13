@@ -15,6 +15,8 @@ import OverviewRecreations from "../../game/OverviewRecreations";
 import Scoreboard from "../../scoreboard/Scoreboard";
 import GameJoinedUser from "../../game/GameJoinedUser";
 import {GameGuard} from "../routeProtectors/GameGuard";
+// import  Winner from "src/components/winner/Winner";
+import Winner from "../../winner/Winner";
 
 /**
  * Main router of your application.
@@ -137,6 +139,15 @@ class AppRouter extends React.Component {
                             render={() => (
                                 <GameGuard>
                                 <GameJoinedUser />
+                                </GameGuard>
+                            )}
+                        />
+                        <Route
+                            path="/game/:gameId/winners"
+                            exact
+                            render={() => (
+                                <GameGuard>
+                                    <Winner />
                                 </GameGuard>
                             )}
                         />

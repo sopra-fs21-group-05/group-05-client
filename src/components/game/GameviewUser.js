@@ -658,7 +658,7 @@ class GameviewUser extends React.Component {
                                     height: '500px', width: '500px',
                                     position: 'relative',
                                     overflow: 'auto',
-                                         // overflow: 'hidden', //auto, scroll, hidden, visible
+                                         // overflow: hidden, auto, scroll, hidden, visible
                                     padding: '0', background: "white",
                                     borderRadius: "5px",
                                     border: '2px solid black'}}>

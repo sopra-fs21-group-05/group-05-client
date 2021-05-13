@@ -5,8 +5,7 @@ import withRouter from "react-router-dom/es/withRouter";
 import {api, handleError} from "../../helpers/api";
 import logo from "../dashboard/logoSmall.png";
 import PlayerElementWinner from "./PlayerElementWinner";
-import Draggable from "react-draggable";
-import stick1r from "../game/assets/BuildingMaterials/SticksStones/stick1r.png";
+
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -36,17 +35,6 @@ const ButtonContainer = styled.div`
   justify-content: center;
   margin-top: 20px;
   margin-bottom: 20px;
-  background: rgba(255, 255, 255, 0.0);
-`;
-
-const Boxes = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 3px solid #ffffff30;
-  margin-top: 20px;
-  border-radius: 0px; 
   background: rgba(255, 255, 255, 0.0);
 `;
 
@@ -83,14 +71,13 @@ class Winner extends React.Component {
 
     async displayScoreboard() {
         try {
-            const pathname = this.props.location.pathname;
-            const response = await api.get(pathname);
+            let gameId = sessionStorage.getItem("gameId");
+            const endpoint = 'scoreboards/' + gameId;
+            const response = await api.get(endpoint);
 
             this.setState({userPoints: response.data.userPoints});
             // var keys = Object.keys(this.state.userPoints);
             // this.setState({userPoints_keys: keys});
-
-            this.pingNewRound();
 
             if(this.state.ping){
                 setTimeout(() => {
@@ -106,26 +93,6 @@ class Winner extends React.Component {
             alert(`Something went wrong while fetching the scoreboard: \n${handleError(error)}`);
         }
 
-    }
-
-    async updateGame(){
-        try {
-            let gameId = sessionStorage.getItem("gameId");
-            const endpoint = 'game/' + gameId;
-
-            const response = await api.put(endpoint);
-            await new Promise(resolve => setTimeout(resolve, 1000));
-
-            let roundNr = response.data;
-            sessionStorage.setItem('roundNr', roundNr);
-            // console.log("roundnumber: "+roundNr);
-
-            this.setState({ping: false});
-            this.props.history.push(`/game/view/grid/${gameId}`);
-
-        }  catch (error) {
-            alert(`Something went wrong while fetching the new game: \n${handleError(error)}`);
-        }
     }
 
     async getWinners(){
@@ -164,26 +131,35 @@ class Winner extends React.Component {
             }
     }
 
-    async pingNewRound(){
-        try {
-            let gameId = sessionStorage.getItem('gameId');
+    async leaveGame() {
+        try{
+            let userId = sessionStorage.getItem('loginId');
+            let roomId = sessionStorage.getItem('roomId');
 
-            const endpoint = 'game/round/' + gameId;
-            const response = await api.get(endpoint);
+            const endpoint = '/gamerooms/list/' + roomId + '/'+ userId;
+            const response = await api.put(endpoint);
 
-            let actualRoundNr = sessionStorage.getItem('roundNr');
-            let updateRoundNr = response.data;
+            sessionStorage.removeItem('roomId');
+            sessionStorage.removeItem('creator');
+            sessionStorage.removeItem('gameId');
+            sessionStorage.removeItem('roundNr');
 
-            if(updateRoundNr.toString() !== actualRoundNr.toString()){
-                console.log("detected new roundNr, next round starting");
-                sessionStorage.setItem('roundNr', updateRoundNr);
-
-                this.setState({ping: false});
-                this.props.history.push(`/game/view/grid/${gameId}`);
-            }
-
+            this.props.history.push(`/dashboard`);
         }  catch (error) {
-            alert(`Something went wrong while fetching the next round: \n${handleError(error)}`);
+            alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
+        }
+    }
+
+    async continue() {
+        try{
+            let roomId = sessionStorage.getItem('roomId');
+
+            sessionStorage.removeItem('gameId');
+            sessionStorage.removeItem('roundNr');
+
+            this.props.history.push(`/gamerooms/overview/${roomId}`);
+        }  catch (error) {
+            alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
         }
     }
 
@@ -191,9 +167,8 @@ class Winner extends React.Component {
         return (
             <FormContainer>
                 <img src={logo} width={700} />
-                <h1>Overview after Round {sessionStorage.getItem("roundNr")}</h1>
+                <h1>Final Ranking</h1>
                 {this.state.winnerString ? (<h1>{this.state.winnerString}</h1>): ("")}
-
                 <Form>
                     <Players>
                         {Object.entries(this.state.userPoints).sort(([,a],[,b]) => b-a).map(user => {
@@ -207,16 +182,24 @@ class Winner extends React.Component {
                 </Form>
                 <ButtonContainer>
                     <ButtonWhite
-                        disabled={this.state.creator == null}
                         width="100%"
                         onClick={() => {
-                            this.updateGame();
+                            this.continue()
                         }}
                     >
-                        Play next round
+                        Rematch with Restrictions for the Winner
                     </ButtonWhite>
                 </ButtonContainer>
-
+                <ButtonContainer>
+                    <ButtonWhite
+                        width="100%"
+                        onClick={() => {
+                            this.leaveGame()
+                        }}
+                    >
+                       Exit
+                    </ButtonWhite>
+                </ButtonContainer>
             </FormContainer>
         );
     }

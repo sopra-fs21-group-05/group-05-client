@@ -5,8 +5,7 @@ import withRouter from "react-router-dom/es/withRouter";
 import {api, handleError} from "../../helpers/api";
 import logo from "../dashboard/logoSmall.png";
 import PlayerElement from "./PlayerElement";
-import Draggable from "react-draggable";
-import stick1r from "../game/assets/BuildingMaterials/SticksStones/stick1r.png";
+
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -36,17 +35,6 @@ const ButtonContainer = styled.div`
   justify-content: center;
   margin-top: 20px;
   margin-bottom: 20px;
-  background: rgba(255, 255, 255, 0.0);
-`;
-
-const Boxes = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 3px solid #ffffff30;
-  margin-top: 20px;
-  border-radius: 0px; 
   background: rgba(255, 255, 255, 0.0);
 `;
 
@@ -128,8 +116,8 @@ class Scoreboard extends React.Component {
             this.setState({ping: false});
 
             //if we are in the final round, redirect to the winner screen instead of the next round
-            if(roundNr<=5){
-                this.props.history.push(`/game/${gameId}/winners`);
+            if(roundNr === 5){
+                this.props.history.push(`/game/ranking/winners/${gameId}`);
             }else{
                 this.props.history.push(`/game/view/grid/${gameId}`);
             }
@@ -175,8 +163,8 @@ class Scoreboard extends React.Component {
 
                 this.setState({ping: false});
 
-                if(updateRoundNr<=5){
-                    this.props.history.push(`/game/${gameId}/winners`);
+                if(updateRoundNr === 5){
+                    this.props.history.push(`/game/ranking/winners/${gameId}`);
                 }else{
                     this.props.history.push(`/game/view/grid/${gameId}`);
                 }

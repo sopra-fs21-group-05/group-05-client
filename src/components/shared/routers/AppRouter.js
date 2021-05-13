@@ -143,7 +143,7 @@ class AppRouter extends React.Component {
                             )}
                         />
                         <Route
-                            path="/game/:gameId/winners"
+                            path="/game/ranking/winners/:gameId"
                             exact
                             render={() => (
                                 <GameGuard>

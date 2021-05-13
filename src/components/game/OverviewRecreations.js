@@ -8,6 +8,7 @@ import {BaseContainer} from "../../helpers/layout";
 import {Col, Container, Row, setConfiguration} from 'react-grid-system';
 import {Spinner} from "../../views/design/Spinner";
 import {EllipseV} from "../../views/design/EllipseV";
+import RecreationElement from "./RecreationElement"
 
 setConfiguration({
     defaultScreenClass: 'sm',
@@ -88,6 +89,7 @@ const Label = styled.label`
   margin-bottom: 10px;
 `;
 
+
 /**
  * Classes in React allow you to have an internal state within the class and to have the React life-cycle for your component.
  * You should have a class (instead of a functional component) when:
@@ -104,13 +106,14 @@ class GameviewUser extends React.Component {
             userId: null,
             picturesGrid: null,
             recreations: {},
-            recreations_keys: {},
-            guess1: null,
-            guess2: null,
-            guess3: null,
-            guess4: null,
-            guess5: null,
+            //recreations_keys: {},
+            //guess1: null,
+            //guess2: null,
+            //guess3: null,
+            //guess4: null,
+            //guess5: null,
             ping: true,
+            guesses: {}
         }
     };
 
@@ -123,8 +126,8 @@ class GameviewUser extends React.Component {
                 const response = await api.get(pathname);
 
                 this.setState({recreations: response.data});
-                var keys = Object.keys(this.state.recreations);
-                this.setState({recreations_keys: keys})
+                //var keys = Object.keys(this.state.recreations);
+                //this.setState({recreations_keys: keys})
 
                 //ping the recreations again every two seconds
                 setTimeout(() => {
@@ -153,12 +156,14 @@ class GameviewUser extends React.Component {
 
     async submit(){
         try {
+            console.log(this.state.guesses)
+
             let userId = sessionStorage.getItem("loginId");
             let gameId = sessionStorage.getItem("gameId");
 
             const endpoint = 'game/round/' + userId;
 
-            var myMap = new Map();
+           /* var myMap = new Map();
             var keyObj = {};
 
             if (this.state.recreations_keys.length === 3){
@@ -186,11 +191,11 @@ class GameviewUser extends React.Component {
                 console.log(key + " = " + value);
             }
 
-            const guesses_obj = Object.fromEntries(myMap)
+            const guesses_obj = Object.fromEntries(myMap)*/
 
             const requestBody = JSON.stringify({
                 gameId: gameId,
-                guesses: guesses_obj
+                guesses: this.state.guesses
             });
 
             console.log(requestBody);
@@ -286,7 +291,23 @@ class GameviewUser extends React.Component {
                 <Container2>
                     <PictureContainer>
                         <Row align="center" style={{ }} >
-                            <Col>
+                            {Object.entries(this.state.recreations).map(recreation => {
+                                return (
+                                    <Col>
+                                        <RecreationElement recreation={recreation}/>
+                                        <br />
+                                        <Row>
+                                            <InputField
+                                            disabled={recreation[0] === this.state.userId}
+                                            placeholder={recreation[0] === this.state.userId ? 'Your recreation' : 'Enter guess..'}
+                                            onChange={e => {
+                                                this.state.guesses[recreation[0]] = e.target.value;
+                                            }}
+                                        /></Row>
+                                    </Col>
+                                );
+                            })}
+                            {/*<Col>
                                 <Row><Label> UserId {this.state.recreations_keys[0]}</Label></Row>
                                 <Row> <img src={"data:image/jpg;base64," + this.state.recreations[this.state.recreations_keys[0]]} alt={"pic"} width="180" /> </Row>
                                 <br />
@@ -345,7 +366,7 @@ class GameviewUser extends React.Component {
                                         this.handleInputChange('guess5', e.target.value);
                                     }}
                                 /></Row>
-                            </Col>
+                            </Col>*/}
                         </Row>
                     </PictureContainer>
                 {/*<ButtonContainer>*/}

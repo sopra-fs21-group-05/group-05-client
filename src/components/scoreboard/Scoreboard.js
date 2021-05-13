@@ -73,6 +73,8 @@ class Scoreboard extends React.Component {
             ping: true,
             winners: null,
             winnerString: null,
+            pingAllGuessed: true,
+            allGuessed: false
         };
     }
 
@@ -80,6 +82,7 @@ class Scoreboard extends React.Component {
         let creator = sessionStorage.getItem('creator')
         this.setState({creator: creator})
         this.displayScoreboard();
+        this.allGuessed();
     }
 
     async displayScoreboard() {
@@ -133,6 +136,26 @@ class Scoreboard extends React.Component {
 
         }  catch (error) {
             alert(`Something went wrong while fetching the new game: \n${handleError(error)}`);
+        }
+    }
+
+    async allGuessed(){
+        let gameId = sessionStorage.getItem("gameId");
+        const endpoint = 'game/guesses/' + gameId;
+
+        const response = await api.get(endpoint);
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        this.setState({allGuessed: response.data})
+
+        if(this.state.pingAllGuessed){
+            setTimeout(() => {
+                this.allGuessed();
+            }, 1000);
+        }
+
+        if(this.state.allGuessed === true){
+            this.setState({pingAllGuessed: false})
         }
     }
 
@@ -194,7 +217,7 @@ class Scoreboard extends React.Component {
                 {/*</ButtonContainer>*/}
                 <ButtonContainer>
                     <ButtonWhite
-                        disabled={this.state.creator == null}
+                        disabled={this.state.creator == null || this.state.allGuessed === false}
                         width="100%"
                         onClick={() => {
                             this.updateGame();

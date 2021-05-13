@@ -121,6 +121,7 @@ class JoinGameroom extends React.Component {
                         />
                         <ButtonContainer>
                             <ButtonWhite
+                                disabled={!this.state.password}
                                 width="50%"
                                 onClick={() => {
                                     this.joinGameroom();

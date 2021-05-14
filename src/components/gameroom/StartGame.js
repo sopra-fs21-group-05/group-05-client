@@ -71,6 +71,7 @@ class StartGame extends React.Component {
     }
 
     async pingPlayerCount(){
+        console.log("creator: " +this.state.creator);
         try {
             if(this.state.ping){
                 const pathname = this.props.location.pathname;
@@ -94,12 +95,16 @@ class StartGame extends React.Component {
                     this.props.history.push(`/game/view/grid/${gameId}`);
                 }
 
+                if( this.state.users.length == 5 && this.state.creator !== null){
+                    this.startGameCall();
+                }
+
                 console.log("user id "+sessionStorage.getItem("loginId"));
 
-                //ping the gameroom again every two seconds
+                //ping the gameroom over and over again
                 setTimeout(() => {
                     this.pingPlayerCount();
-                }, 1000);
+                }, 750);
             }
 
         }  catch (error) {
@@ -116,30 +121,33 @@ class StartGame extends React.Component {
         if( this.state.users.length<3){
             return false;
         }
-        if(this.state.users.length >= 5){ //should never be more than 5 but whatever
-            this.startGameCall();
+        if(this.state.users.length <= 5){ //should never be more than 5 but whatever
+            return true;
+        }else{
+            return false; //more than 5 players
         }
         return true;
-
     }
 
     async startGameCall() {
-        try{
-            const response = await api.put('/gamerooms/overview/'+this.state.id);
+        if(this.state.creator !== null){
+            try{
+                const response = await api.put('/gamerooms/overview/'+this.state.id);
 
-            console.log('request to:', response.request.responseURL);
-            console.log('status code:', response.status);
-            console.log('status text:', response.statusText);
-            console.log('requested data:', response.data);
+                console.log('request to:', response.request.responseURL);
+                console.log('status code:', response.status);
+                console.log('status text:', response.statusText);
+                console.log('requested data:', response.data);
 
-            sessionStorage.setItem('gameId', response.data);
-            sessionStorage.setItem('roundNr', '1')
+                sessionStorage.setItem('gameId', response.data);
+                sessionStorage.setItem('roundNr', '1')
 
-            this.setState({ping: false});
-            //now redirect to the game
-            this.props.history.push(`/game`);
-        }  catch (error) {
-            alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
+                this.setState({ping: false});
+                //now redirect to the game
+                this.props.history.push(`/game`);
+            }  catch (error) {
+                alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
+            }
         }
     }
 

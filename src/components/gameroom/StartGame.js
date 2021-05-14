@@ -160,6 +160,7 @@ class StartGame extends React.Component {
             sessionStorage.removeItem('roomId');
             sessionStorage.removeItem('creator');
 
+            this.setState({ping: false});
             this.props.history.push(`/dashboard`);
         }  catch (error) {
             alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);

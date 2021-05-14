@@ -23,55 +23,60 @@ const FormContainer = styled.div`
   justify-content: center;
 `;
 
-const InputField = styled.input`
-  &::placeholder {
-    color: rgba(0, 0, 0, 1.0);
-  }
-  text-transform: uppercase;
-  height: 35px;
-  padding-left: 5px;
-  margin-left: 0px;
-  margin-right: 5px;
-  border: none;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  background: rgba(153, 153, 153, 0.2);
-  color: black;
-`;
+// const InputField = styled.input`
+//   &::placeholder {
+//     color: rgba(0, 0, 0, 1.0);
+//   }
+//   text-transform: uppercase;
+//   height: 35px;
+//   padding-left: 5px;
+//   margin-left: 0px;
+//   margin-right: 5px;
+//   border: none;
+//   border-radius: 10px;
+//   margin-bottom: 10px;
+//   background: rgba(153, 153, 153, 0.2);
+//   color: black;
+// `;
+//
+// const Container2 = styled.div`
+//   margin-top: 2em;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   min-height: 300px;
+//   min-width: 300px;
+//   justify-content: center;
+// `;
+//
+// const PictureContainer = styled.div`
+//   margin-top: 2em;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   min-height: 300px;
+//   min-width: 300px;
+//   justify-content: center;
+// `;
+//
+// const Form = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   width: 60%;
+//   height: 375px;
+//   font-size: 30px;
+//   font-weight: 300;
+//   padding-left: 37px;
+//   padding-right: 37px;
+//   border-radius: 5px;
+//   transition: opacity 0.5s ease, transform 0.5s ease;
+// `;
+// const Label = styled.label`
+//   color: black;
+//   margin-bottom: 10px;
+// `;
 
-const Container2 = styled.div`
-  margin-top: 2em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 300px;
-  min-width: 300px;
-  justify-content: center;
-`;
-
-const PictureContainer = styled.div`
-  margin-top: 2em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 300px;
-  min-width: 300px;
-  justify-content: center;
-`;
-
-const Form = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 60%;
-  height: 375px;
-  font-size: 30px;
-  font-weight: 300;
-  padding-left: 37px;
-  padding-right: 37px;
-  border-radius: 5px;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-`;
 
 
 const ButtonContainer = styled.div`
@@ -83,10 +88,6 @@ const ButtonContainer = styled.div`
 
 `;
 
-const Label = styled.label`
-  color: black;
-  margin-bottom: 10px;
-`;
 
 /**
  * Classes in React allow you to have an internal state within the class and to have the React life-cycle for your component.

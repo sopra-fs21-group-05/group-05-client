@@ -5,7 +5,6 @@ import styled from "styled-components";
 import {BaseContainer} from "../../helpers/layout";
 import logo from "../dashboard/logoSmall.png";
 import {ButtonWhite} from "../../views/design/ButtonWhite";
-import Gameroom from "../shared/models/Gameroom";
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -109,7 +108,7 @@ class JoinGameroom extends React.Component {
         return (
             <BaseContainer>
                 <FormContainer>
-                    <img src={logo} width={700} />
+                    <img src={logo} width={700} alt={""} />
                     <Form>
                         <Label>Password</Label>
                         <InputField

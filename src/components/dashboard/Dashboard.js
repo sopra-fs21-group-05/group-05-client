@@ -2,9 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
-import User from '../shared/models/User';
 import { withRouter } from 'react-router-dom';
-import { Button } from '../../views/design/Button';
 import { ButtonWhite } from '../../views/design/ButtonWhite';
 import logo from "./logoSmall.png"
 
@@ -112,7 +110,7 @@ class Dashboard extends React.Component {
         return (
             <BaseContainer>
                 <FormContainer>
-                    <img src={logo} width={700} />
+                    <img src={logo} width={700} alt={""}/>
                     <Form>
                         <ButtonContainer>
                             <ButtonWhite

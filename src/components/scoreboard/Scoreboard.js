@@ -178,7 +178,7 @@ class Scoreboard extends React.Component {
     render() {
         return (
             <FormContainer>
-                <img src={logo} width={700} />
+                <img src={logo} width={700} alt={""}/>
                 <h1>Overview after Round {sessionStorage.getItem("roundNr")}</h1>
                 {this.state.winnerString ? (<h1>{this.state.winnerString}</h1>): ("")}
 

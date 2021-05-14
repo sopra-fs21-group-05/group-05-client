@@ -90,7 +90,7 @@ const Header = props => {
                             {' '}
                             {/*Rules taken from: https://boardgamegeek.com/boardgame/284108/pictures*/}
                             {/*Pictures*/}
-                            <img src={logo} width={65} />
+                            <img src={logo} width={65} alt={""}/>
                             is a quick-playing family game with very simple rules. <br />
                             Form the image on your secret picture card with one set of components,
                             either shoelaces, color cubes, icon cards, sticks and stones or building blocks

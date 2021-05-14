@@ -60,19 +60,19 @@ const PictureContainer = styled.div`
   justify-content: center;
 `;
 
-const Form = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 60%;
-  height: 375px;
-  font-size: 30px;
-  font-weight: 300;
-  padding-left: 37px;
-  padding-right: 37px;
-  border-radius: 5px;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-`;
+// const Form = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   width: 60%;
+//   height: 375px;
+//   font-size: 30px;
+//   font-weight: 300;
+//   padding-left: 37px;
+//   padding-right: 37px;
+//   border-radius: 5px;
+//   transition: opacity 0.5s ease, transform 0.5s ease;
+// `;
 
 
 const ButtonContainer = styled.div`
@@ -84,10 +84,10 @@ const ButtonContainer = styled.div`
 
 `;
 
-const Label = styled.label`
-  color: black;
-  margin-bottom: 10px;
-`;
+// const Label = styled.label`
+//   color: black;
+//   margin-bottom: 10px;
+// `;
 
 
 /**

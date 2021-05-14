@@ -4,8 +4,7 @@ import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
 import { ButtonWhite } from '../../views/design/ButtonWhite';
 import {EllipseH} from "../../views/design/EllipseH";
-import {Col, Container, Row, setConfiguration} from 'react-grid-system';
-import {Spinner} from "../../views/design/Spinner";
+import {Container, Row, setConfiguration} from 'react-grid-system';
 import Draggable from 'react-draggable'; // Both at the same time
 
 import html2canvas from "html2canvas";
@@ -85,33 +84,33 @@ import l17 from './assets/BuildingMaterials/Laces/s11.png'
 import l18 from './assets/BuildingMaterials/Laces/s12.png'
 import l19 from './assets/BuildingMaterials/Laces/s13.png'
 import l20 from './assets/BuildingMaterials/Laces/s14.png'
-import async from "async";
+
 
 setConfiguration({
     defaultScreenClass: 'sm',
     containerWidths: [540, 740, 960, 1140, 1540]
 });
 
-const FormContainer = styled.div`
-  margin-top: 2em;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  min-height: 700px;
-  justify-content: center;
-`;
-
-
-const Container2 = styled.div`
-  margin-top: 2em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 300px;
-  min-width: 300px;
-  justify-content: center;
-  background: black;
-`;
+// const FormContainer = styled.div`
+//   margin-top: 2em;
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+//   min-height: 700px;
+//   justify-content: center;
+// `;
+//
+//
+// const Container2 = styled.div`
+//   margin-top: 2em;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   min-height: 300px;
+//   min-width: 300px;
+//   justify-content: center;
+//   background: black;
+// `;
 
 const Form = styled.div`
   display: flex;
@@ -281,13 +280,14 @@ class GameviewUser extends React.Component {
     }
 
     toggleSticksAndStones(n){
+        let i;
         var stoneMax = 4;
         if( this.state.restricted){
             stoneMax=0;
         }
 
         var stickCount =0;
-        for (var i = 0; i < 8; i++) {
+        for (i = 0; i < 8; i++) {
             if(this.state.sticksAndStones[i]){
                 stickCount++;
             }
@@ -295,7 +295,7 @@ class GameviewUser extends React.Component {
         console.log("sticks: "+stickCount);
 
         var stoneCount =0;
-        for (var i = 8; i < 12; i++) {
+        for (i = 8; i < 12; i++) {
             if(this.state.sticksAndStones[i]){
                 stoneCount++;
             }
@@ -487,13 +487,13 @@ class GameviewUser extends React.Component {
     onStop = () => {
         this.setState({activeDrags: --this.state.activeDrags});
     };
-    onDrop = (e) => {
-        this.setState({activeDrags: --this.state.activeDrags});
-        if (e.target.classList.contains("drop-target")) {
-            alert("Dropped!");
-            e.target.classList.remove('hovered');
-        }
-    };
+    // onDrop = (e) => {
+    //     this.setState({activeDrags: --this.state.activeDrags});
+    //     if (e.target.classList.contains("drop-target")) {
+    //         alert("Dropped!");
+    //         e.target.classList.remove('hovered');
+    //     }
+    // };
     onDropAreaMouseEnter = (e) => {
         if (this.state.activeDrags) {
             e.target.classList.add('hovered');
@@ -503,21 +503,21 @@ class GameviewUser extends React.Component {
         e.target.classList.remove('hovered');
     }
 
-    // For controlled component
-    adjustXPos = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const {x, y} = this.state.controlledPosition;
-        this.setState({controlledPosition: {x: x - 10, y}});
-    };
-
-    adjustYPos = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const {controlledPosition} = this.state;
-        const {x, y} = controlledPosition;
-        this.setState({controlledPosition: {x, y: y - 10}});
-    };
+    // // For controlled component
+    // adjustXPos = (e) => {
+    //     e.preventDefault();
+    //     e.stopPropagation();
+    //     const {x, y} = this.state.controlledPosition;
+    //     this.setState({controlledPosition: {x: x - 10, y}});
+    // };
+    //
+    // adjustYPos = (e) => {
+    //     e.preventDefault();
+    //     e.stopPropagation();
+    //     const {controlledPosition} = this.state;
+    //     const {x, y} = controlledPosition;
+    //     this.setState({controlledPosition: {x, y: y - 10}});
+    // };
 
     onControlledDrag = (e, position) => {
         const {x, y} = position;
@@ -616,7 +616,7 @@ class GameviewUser extends React.Component {
 
     render() {
         const dragHandlers = {onStart: this.onStart, onStop: this.onStop};
-        const {deltaPosition, controlledPosition} = this.state;
+        // const {deltaPosition, controlledPosition} = this.state;
         return (
             <Container fluid style={{ width: '1300px', background: ""}}>
                 <Row justify="around" style={{ height: '700px' }}>

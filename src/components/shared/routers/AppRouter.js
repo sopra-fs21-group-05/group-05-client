@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { LoginGuard } from "../routeProtectors/LoginGuard";
 import Login from "../../login/Login";
-import {RegisterGuard} from "../routeProtectors/RegisterGuard";
 import Register from "../../register/Register";
 import Dashboard from "../../dashboard/Dashboard";
 import StartGame from "../../gameroom/StartGame";
@@ -15,7 +14,6 @@ import OverviewRecreations from "../../game/OverviewRecreations";
 import Scoreboard from "../../scoreboard/Scoreboard";
 import GameJoinedUser from "../../game/GameJoinedUser";
 import {GameGuard} from "../routeProtectors/GameGuard";
-// import  Winner from "src/components/winner/Winner";
 import Winner from "../../winner/Winner";
 
 /**

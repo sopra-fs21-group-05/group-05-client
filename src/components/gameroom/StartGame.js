@@ -3,11 +3,9 @@ import styled from "styled-components";
 import {ButtonWhite} from "../../views/design/ButtonWhite";
 import withRouter from "react-router-dom/es/withRouter";
 import {api, handleError} from "../../helpers/api";
-import {BaseContainer} from "../../helpers/layout";
 import logo from "../dashboard/logoSmall.png";
 import Users from "../../views/Users";
 import {Spinner} from "../../views/design/Spinner";
-import {Col, Container, Row, setConfiguration} from 'react-grid-system';
 
 
 
@@ -95,7 +93,7 @@ class StartGame extends React.Component {
                     this.props.history.push(`/game/view/grid/${gameId}`);
                 }
 
-                if( this.state.users.length == 5 && this.state.creator !== null){
+                if( this.state.users.length === 5 && this.state.creator !== null){
                     this.startGameCall();
                 }
 
@@ -121,12 +119,7 @@ class StartGame extends React.Component {
         if( this.state.users.length<3){
             return false;
         }
-        if(this.state.users.length <= 5){ //should never be more than 5 but whatever
-            return true;
-        }else{
-            return false; //more than 5 players
-        }
-        return true;
+        return this.state.users.length <= 5;
     }
 
     async startGameCall() {
@@ -170,7 +163,7 @@ class StartGame extends React.Component {
     render() {
         return (
                 <FormContainer>
-                <img src={logo} width={700} />
+                <img src={logo} width={700} alt={""} />
                 <h1>Gameroom Overview</h1>
                         <Boxes>
                             {"Id:"}   {this.state.id}

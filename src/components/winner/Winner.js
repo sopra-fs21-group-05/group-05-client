@@ -166,7 +166,7 @@ class Winner extends React.Component {
     render() {
         return (
             <FormContainer>
-                <img src={logo} width={700} />
+                <img src={logo} width={700} alt={""}/>
                 <h1>Final Ranking</h1>
                 {this.state.winnerString ? (<h1>{this.state.winnerString}</h1>): ("")}
                 <Form>

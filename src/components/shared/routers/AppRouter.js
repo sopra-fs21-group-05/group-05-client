@@ -26,8 +26,7 @@ import Winner from "../../winner/Winner";
  * Documentation about routing in React: https://reacttraining.com/react-router/web/guides/quick-start
  */
 
-/*Dashboard will need to be behind a guard later on!
-*/
+
 class AppRouter extends React.Component {
     render() {
         return (

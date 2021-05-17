@@ -3,6 +3,9 @@ import styled from "styled-components";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import logo from "./assets/logoSmallSpaced.png";
+import {withRouter } from 'react-router-dom'
+
+
 
 
 /**
@@ -125,16 +128,27 @@ const Header = props => {
 
                         </div>
                         <div className="actions">
-                            <ButtonWhite
+                            {/*<ButtonWhite*/}
+                            {/*    // className="button"*/}
+                            {/*    onClick={() => {*/}
+                            {/*        close();*/}
+                            {/*    }}*/}
+                            {/*>*/}
+                            {/*    Back to the Dashboard*/}
+                            {/*</ButtonWhite>*/}
 
-                                className="button"
+
+                            <ButtonWhite
+                                // className="button"
                                 onClick={() => {
-                                    console.log('modal closed ');
+                                    // const history = useHistory();
+                                    // console.log('modal closed ');
                                     close();
                                 }}
                             >
                                 Close Help Menu
                             </ButtonWhite>
+
                         </div>
                     </div>
                 )}

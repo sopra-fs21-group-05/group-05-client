@@ -237,7 +237,8 @@ class GameviewUser extends React.Component {
             this.setState({picture: picture, coordinate: coordinate})
 
         } catch (error) {
-            alert(`Something went wrong while getting the picture and material set: \n${handleError(error)}`);
+            alert(`Something went wrong while getting the picture and material set, we will redirect you back to the Dashboard:: \n${handleError(error)}`);
+            this.props.history.push(`/dashboard`);
         }
     }
 
@@ -253,7 +254,8 @@ class GameviewUser extends React.Component {
             this.setState({materialSet: setNr})
             this.checkRestriction();
         } catch (error) {
-            alert(`Something went wrong while getting the picture and material set: \n${handleError(error)}`);
+            alert(`Something went wrong while getting the picture and material set, we will redirect you back to the Dashboard: \n${handleError(error)}`);
+            this.props.history.push(`/dashboard`);
         }
     }
 

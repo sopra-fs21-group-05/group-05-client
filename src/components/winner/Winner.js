@@ -144,6 +144,7 @@ class Winner extends React.Component {
             sessionStorage.removeItem('gameId');
             sessionStorage.removeItem('roundNr');
 
+            this.setState({ping: false});
             this.props.history.push(`/dashboard`);
         }  catch (error) {
             alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
@@ -157,6 +158,7 @@ class Winner extends React.Component {
             sessionStorage.removeItem('gameId');
             sessionStorage.removeItem('roundNr');
 
+            this.setState({ping: false});
             this.props.history.push(`/gamerooms/overview/${roomId}`);
         }  catch (error) {
             alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);

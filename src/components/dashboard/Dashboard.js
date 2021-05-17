@@ -104,7 +104,28 @@ class Dashboard extends React.Component {
      * You may call setState() immediately in componentDidMount().
      * It will trigger an extra rendering, but it will happen before the browser updates the screen.
      */
-    componentDidMount() {}
+    componentDidMount() {
+        this.leaveRoom()
+        sessionStorage.removeItem('roomId');
+        sessionStorage.removeItem('creator');
+        sessionStorage.removeItem('gameId');
+        sessionStorage.removeItem('roundNr');
+    }
+
+    async leaveRoom() {
+        try{
+            let userId = sessionStorage.getItem('loginId');
+            let roomId = sessionStorage.getItem('roomId');
+
+            if(roomId !== null){
+                const endpoint = '/gamerooms/list/' + roomId + '/'+ userId;
+                const response = await api.put(endpoint);
+            }
+
+        }  catch (error) {
+            alert(`Something went wrong while removing the user from the last gameroom: \n${handleError(error)}`);
+        }
+    }
 
     render() {
         return (

@@ -6,7 +6,7 @@ class Gameroom {
         this.roomId = null;
         this.roomname = null;
         this.password = null;
-        this.userList = null;
+        // this.userList = null;
         Object.assign(this, data);
     }
 }

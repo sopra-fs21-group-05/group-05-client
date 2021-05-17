@@ -13,8 +13,9 @@ import GameviewUser from "../../game/GameviewUser";
 import OverviewRecreations from "../../game/OverviewRecreations";
 import Scoreboard from "../../scoreboard/Scoreboard";
 import GameJoinedUser from "../../game/GameJoinedUser";
-import {GameGuard} from "../routeProtectors/GameGuard";
+import {DashboardGuard} from "../routeProtectors/DashboardGuard";
 import Winner from "../../winner/Winner";
+import {GameGuard} from "../routeProtectors/GameGuard";
 
 /**
  * Main router of your application.
@@ -51,50 +52,54 @@ class AppRouter extends React.Component {
                                 </LoginGuard>
                             )}
                         />
+                        {/*######################################*/}
+                        {/*DashboardGuards:*/}
                         <Route
                             path="/gamerooms"
                             exact
                             render={() => (
-                                <GameGuard>
+                                <DashboardGuard>
                                 <CreateGameroom />
-                                </GameGuard>
+                                </DashboardGuard>
                             )}
                         />
                         <Route
                             path="/gamerooms/list"
                             exact
                             render={() => (
-                                <GameGuard>
+                                <DashboardGuard>
                                 <GameroomList />
-                                </GameGuard>
+                                </DashboardGuard>
                             )}
                         />
                         <Route
                             path="/gamerooms/list/:roomId"
                             exact
                             render={() => (
-                                <GameGuard>
+                                <DashboardGuard>
                                 <JoinGameroom />
-                                </GameGuard>
+                                </DashboardGuard>
                             )}
                         />
                         <Route
                             path={"/dashboard"}
                             exact
                             render={() =>
-                                <GameGuard>
+                                <DashboardGuard>
                                 <Dashboard />
-                                </GameGuard>}
+                                </DashboardGuard>}
                         />
                         <Route
                             path="/gamerooms/overview/:roomId"
                             exact
                             render={() => (
-                                <GameGuard>
+                                <DashboardGuard>
                                 <StartGame />
-                                </GameGuard>
+                                </DashboardGuard>
                             )}
                         />
+                        {/*######################################*/}
+                        {/*GameGuards:*/}
                         <Route
                             exact
                             path={"/game"}

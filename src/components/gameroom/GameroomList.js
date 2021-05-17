@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import GameroomElement from "../../views/Player";
 import logo from "../dashboard/logoSmall.png";
 import {ButtonWhite} from "../../views/design/ButtonWhite";
-
+import {Col, Row} from "react-grid-system";
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -56,6 +56,16 @@ class GameroomList extends React.Component {
         this._isMounted = false;
     }
 
+    checkRooms(){
+        if(this.state.gamerooms==null){
+            return false;
+        }
+        if(this.state.gamerooms.length<1){
+            return false;
+        }
+        return true;
+    }
+
     async pingGamerooms(){
         if(this._isMounted){
             try {
@@ -82,8 +92,10 @@ class GameroomList extends React.Component {
             <FormContainer>
                 <img src={logo} width={500} alt={""} />
                 <h2>Gamerooms Overview </h2>
-                {!this.state.gamerooms ? (
-                    <Spinner />
+                {!this.checkRooms() ? (
+                    <Row  justify="around">
+                        <Col>  <Spinner />  </Col>
+                    </Row>
                 ) : (
                         <Gamerooms>
                             {this.state.gamerooms.map(gameroom => {

@@ -10,9 +10,9 @@ import { Redirect } from "react-router-dom";
  * @Guard
  * @param props
  */
-export const GameGuard = props => {
-  if (sessionStorage.getItem("token") && sessionStorage.getItem("roomId")) {
+export const DashboardGuard = props => {
+  if (sessionStorage.getItem("token")) {
     return props.children;
   }
-  return <Redirect to={"/dashboard"} />;
+  return <Redirect to={"/login"} />;
 };

@@ -225,6 +225,12 @@ class GameviewUser extends React.Component {
         return ""
     }
 
+    handleError(error){
+        if (window.confirm("Something went wrong while getting the picture and material set: \n"+handleError(error)+"\n\nDo you want to go back to the Dashboard?")) {
+            this.props.history.push(`/dashboard`);
+        } else {}
+    }
+
     async getPicture() {
         try {
             const pathname = this.props.location.pathname;
@@ -237,8 +243,7 @@ class GameviewUser extends React.Component {
             this.setState({picture: picture, coordinate: coordinate})
 
         } catch (error) {
-            alert(`Something went wrong while getting the picture and material set, we will redirect you back to the Dashboard:: \n${handleError(error)}`);
-            this.props.history.push(`/dashboard`);
+            this.handleError(error);
         }
     }
 
@@ -254,8 +259,7 @@ class GameviewUser extends React.Component {
             this.setState({materialSet: setNr})
             this.checkRestriction();
         } catch (error) {
-            alert(`Something went wrong while getting the picture and material set, we will redirect you back to the Dashboard: \n${handleError(error)}`);
-            this.props.history.push(`/dashboard`);
+            this.handleError(error);
         }
     }
 

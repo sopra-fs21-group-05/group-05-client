@@ -63,6 +63,13 @@ class Winner extends React.Component {
         };
     }
 
+    handleError(message, error){
+        if (window.confirm(message+" \n"+handleError(error)+"\n\nDo you want to go back to the Dashboard?")) {
+            this.setState({ping: false});
+            this.props.history.push(`/dashboard`);
+        } else {}
+    }
+
     async componentDidMount() {
         let creator = sessionStorage.getItem('creator')
         this.setState({creator: creator})
@@ -90,7 +97,9 @@ class Winner extends React.Component {
             }
 
         }  catch (error) {
-            alert(`Something went wrong while fetching the scoreboard: \n${handleError(error)}`);
+            // alert(`Something went wrong while fetching the scoreboard: \n${handleError(error)}`);
+            this.handleError("Something went wrong while fetching the scoreboard: ", error);
+
         }
 
     }
@@ -128,6 +137,7 @@ class Winner extends React.Component {
                 //todo: sometimes this gives an error, not sure if we should react to it or just ignore it, as this is only displayed at the end
 
                 // alert(`Something went wrong while getting the winners: \n${handleError(error)}`);
+                // this.handleError("Something went wrong while fetching the scoreboard: ", error);
             }
     }
 
@@ -147,7 +157,8 @@ class Winner extends React.Component {
             this.setState({ping: false});
             this.props.history.push(`/dashboard`);
         }  catch (error) {
-            alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
+            // alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
+            this.handleError("Something went wrong while fetching the gameroom: ", error);
         }
     }
 
@@ -162,10 +173,10 @@ class Winner extends React.Component {
             sessionStorage.removeItem('roundNr');
 
             this.setState({ping: false});
-
             this.props.history.push(`/gamerooms/overview/${roomId}`);
         }  catch (error) {
-            alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
+            // alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
+            this.handleError("Something went wrong while fetching the gameroom: ", error);
         }
     }
 

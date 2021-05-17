@@ -66,6 +66,12 @@ class Scoreboard extends React.Component {
         };
     }
 
+    handleError(message, error){
+        if (window.confirm(message+" \n"+handleError(error)+"\n\nDo you want to go back to the Dashboard?")) {
+            this.props.history.push(`/dashboard`);
+        } else {}
+    }
+
     async componentDidMount() {
         let creator = sessionStorage.getItem('creator')
         this.setState({creator: creator})
@@ -96,7 +102,8 @@ class Scoreboard extends React.Component {
             }
 
         }  catch (error) {
-            alert(`Something went wrong while fetching the scoreboard: \n${handleError(error)}`);
+            // alert(`Something went wrong while fetching the scoreboard: \n${handleError(error)}`);
+            this.handleError("Something went wrong while fetching the scoreboard: ", error);
         }
 
     }
@@ -123,7 +130,8 @@ class Scoreboard extends React.Component {
             }
 
         }  catch (error) {
-            alert(`Something went wrong while fetching the new game: \n${handleError(error)}`);
+            // alert(`Something went wrong while fetching the new game: \n${handleError(error)}`);
+            this.handleError("Something went wrong while fetching the new game: ", error);
         }
     }
 
@@ -172,6 +180,7 @@ class Scoreboard extends React.Component {
 
         }  catch (error) {
             alert(`Something went wrong while fetching the next round: \n${handleError(error)}`);
+            this.askUserForRedirect();
         }
     }
 

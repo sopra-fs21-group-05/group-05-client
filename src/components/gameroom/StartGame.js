@@ -106,7 +106,8 @@ class StartGame extends React.Component {
             }
 
         }  catch (error) {
-            alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
+            // alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
+            this.handleError(error);
         }
     }
 
@@ -120,6 +121,12 @@ class StartGame extends React.Component {
             return false;
         }
         return this.state.users.length <= 5;
+    }
+
+    handleError(error){
+        if (window.confirm("Something went wrong while fetching the gameroom: \n"+handleError(error)+"\n\nDo you want to go back to the Dashboard?")) {
+            this.props.history.push(`/dashboard`);
+        } else {}
     }
 
     async startGameCall() {
@@ -139,7 +146,8 @@ class StartGame extends React.Component {
                 //now redirect to the game
                 this.props.history.push(`/game`);
             }  catch (error) {
-                alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
+                this.handleError(error);
+                // alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
             }
         }
     }
@@ -156,7 +164,8 @@ class StartGame extends React.Component {
             this.setState({ping: false});
             this.props.history.push(`/dashboard`);
         }  catch (error) {
-            alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
+            // alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
+            this.handleError(error);
         }
     }
 

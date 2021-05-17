@@ -116,7 +116,7 @@ class Scoreboard extends React.Component {
             this.setState({ping: false});
 
             //if we are in the final round, redirect to the winner screen instead of the next round
-            if(roundNr === 5){
+            if(roundNr === 6){
                 this.props.history.push(`/game/ranking/winners/${gameId}`);
             }else{
                 this.props.history.push(`/game/view/grid/${gameId}`);
@@ -163,7 +163,7 @@ class Scoreboard extends React.Component {
 
                 this.setState({ping: false});
 
-                if(updateRoundNr === 5){
+                if(updateRoundNr === 6){
                     this.props.history.push(`/game/ranking/winners/${gameId}`);
                 }else{
                     this.props.history.push(`/game/view/grid/${gameId}`);

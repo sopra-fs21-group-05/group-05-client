@@ -155,10 +155,14 @@ class Winner extends React.Component {
         try{
             let roomId = sessionStorage.getItem('roomId');
 
+            const endpoint = '/gamerooms/' + roomId;
+            const response = await api.put(endpoint);
+
             sessionStorage.removeItem('gameId');
             sessionStorage.removeItem('roundNr');
 
             this.setState({ping: false});
+
             this.props.history.push(`/gamerooms/overview/${roomId}`);
         }  catch (error) {
             alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);

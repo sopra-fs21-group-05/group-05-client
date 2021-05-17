@@ -90,6 +90,7 @@ const Header = props => {
                             {' '}
                             {/*Rules taken from: https://boardgamegeek.com/boardgame/284108/pictures*/}
                             {/*Pictures*/}
+                            <b>Introduction</b> <br />
                             <img src={logo} width={65} alt={""}/>
                             is a quick-playing family game with very simple rules. <br />
                             Form the image on your secret picture card with one set of components,
@@ -98,29 +99,30 @@ const Header = props => {
 
                             1: You receive a secret picture card selected from 16 randomly selected picture cards, visible in a 4x4 grid.<br />
                             2: Then form that image with your building materials in such a way that it is recognizable.<br />
-                            3: And finally guess what image each other player has pictured.<br /><br />
-
+                            3: And finally guess what image each other player has pictured.<br />
                             The players get points for correctly guessing other players images and
                             for other players guessing their image. The most points after 5 Rounds wins!
+                            <br />
+                            <br />
+                            <b>Gameflow</b> <br />
+                            After registering you can either create or join a Gameroom, whose creator can then start a game with 3-5 people.<br />
+                            A round starts by presenting you a 4x4 Grid of Pictures, one of which will then randomly be assigned to each player, but beware, two players
+                            could potentially receive the same Picture! You can then recreate your secret picture using one of these 5 Material Sets, and afterwards it is your turn to guess which image the other players
+                            recreated. You will then see the scores for the round, and the next round starts. After 5 rounds, you will proceed to the Winners Scoreboard, where you can
+                            either choose to leave the game, or you can choose to rematch with the same players, which means that the current winners will only receive a restricted
+                            version of Building Materials for the next 5 rounds.
+                            <br />
+                            <br />
+                            <b>Gameplay</b> <br />
+                            When interacting with your Building Material Set, you will receive a list of available pieces on the right of your Building Area. You can then
+                            click on a piece once to toggle it, and therefore make it available in the Building Area, and a second click will remove it again.
+                            Depending on the Material Set, you will see a hint at the bottom, which tells you exactly what pieces you may use.
+                            Once you have a piece in your Building Area, you can use your preferred input method, either Touch or a Cursor, to drag them around freely.
+                            The Building Area will handle any overflow that might occur, but make sure your final recreation is completely visible, as only a square image will be submitted
+                            for you.
+                            When it is your turn to submit your guesses, make sure to enter them in the format "A1", otherwise you will not receive points for them.
 
-                            <br /><br />
-                            is a quick-playing family game with very simple rules. <br />
-                            Form the image on your secret picture card with one set of components,
-                            either shoelaces, color cubes, icon cards, sticks and stones or building blocks
-                            in such a way that the other players guess what image you have pictured:<br />
 
-                            1: You receive a secret picture card selected from 16 randomly selected picture cards, visible in a 4x4 grid.<br />
-                            2: Then form that image with your building materials in such a way that it is recognizable.<br />
-                            3: And finally guess what image each other player has pictured.<br /><br />
-
-
-                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-
-                            Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-
-                            Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
-
-                            Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer
                         </div>
                         <div className="actions">
                             <ButtonWhite

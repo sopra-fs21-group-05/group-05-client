@@ -1,5 +1,6 @@
 import {Col, Row} from "react-grid-system";
 import styled from "styled-components";
+import {Spinner} from "../../views/design/Spinner";
 
 // const Container = styled.div`
 //   margin: 6px 0;
@@ -33,10 +34,19 @@ const Label = styled.label`
 // `;
 
 const RecreationElement = ({ recreation }) => {
+    console.log("recreation image: "+recreation[1]);
     return (
         <Col>
             <Row><Label> UserId {recreation[0]}</Label></Row>
-            <Row> <img src={"data:image/jpg;base64," + recreation[1]} alt={"pic"} width="180" /> </Row>
+            {recreation[1].length <1 ? (
+                //another column to offset the spinner, as it is not usually centered nicely
+                <Row  justify="around">
+                    <Col   xs={7} >  <Spinner />  </Col>
+                </Row>
+                // <Row  justify="around"  > Waiting for {User} to submit </Row>
+            ): (
+                <Row> <img src={"data:image/jpg;base64," + recreation[1]} alt={""} width="180" /> </Row>
+            )}
         </Col>
     );
 };

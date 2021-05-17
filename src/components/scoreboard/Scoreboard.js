@@ -20,7 +20,7 @@ const Form = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 60%;
+  width: 100%;
   height: 375px;
   font-size: 30px;
   font-weight: 300;
@@ -41,6 +41,7 @@ const ButtonContainer = styled.div`
 const Players = styled.ul`
   list-style: none;
   padding-left: 0;
+  text-align: center;
 `;
 
 const PlayerContainer = styled.li`
@@ -191,7 +192,7 @@ class Scoreboard extends React.Component {
                 <h1>Overview after Round {sessionStorage.getItem("roundNr")}</h1>
                 {this.state.winnerString ? (<h1>{this.state.winnerString}</h1>): ("")}
 
-                <Form>
+                <div>
                     <Players>
                         {Object.entries(this.state.userPoints).sort(([,a],[,b]) => b-a).map(user => {
                             return (
@@ -201,7 +202,7 @@ class Scoreboard extends React.Component {
                             );
                         })}
                     </Players>
-                </Form>
+                </div>
                 {/*<ButtonContainer>*/}
                 {/*    <ButtonWhite*/}
                 {/*        width="100%"*/}

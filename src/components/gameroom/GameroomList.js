@@ -41,26 +41,35 @@ class GameroomList extends React.Component {
     constructor() {
         super();
         this.state = {
-            gamerooms: null
+            gamerooms: null,
         };
+        this._isMounted = false;
+
     }
 
     async componentDidMount() {
-        try {
-            const response = await api.get('/gamerooms/list');
+        this._isMounted = true;
+        this.pingGamerooms();
+    }
 
-            await new Promise(resolve => setTimeout(resolve, 1000));
+    async componentWillUnmount(){
+        this._isMounted = false;
+    }
 
-            this.setState({ gamerooms: response.data });
+    async pingGamerooms(){
+        if(this._isMounted){
+            try {
+                const response = await api.get('/gamerooms/list');
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                this.setState({gamerooms: response.data});
 
-            console.log('request to:', response.request.responseURL);
-            console.log('status code:', response.status);
-            console.log('status text:', response.statusText);
-            console.log('requested data:', response.data);
+                setTimeout(() => {
+                    this.pingGamerooms();
+                }, 750);
 
-            console.log(response);
-        } catch (error) {
-            alert(`Something went wrong while fetching the gamerooms: \n${handleError(error)}`);
+            } catch (error) {
+                alert(`Something went wrong while fetching the gamerooms: \n${handleError(error)}`);
+            }
         }
     }
 
@@ -79,7 +88,11 @@ class GameroomList extends React.Component {
                         <Gamerooms>
                             {this.state.gamerooms.map(gameroom => {
                                 return (
-                                    <GameroomContainer onClick={() => this.joinGameroom(gameroom.id)}>
+                                    <GameroomContainer
+                                        onClick={() => {
+                                            this.joinGameroom(gameroom.id);
+                                        }}
+                                    >
                                         <GameroomElement gameroom={gameroom}/>
                                     </GameroomContainer>
                                 );

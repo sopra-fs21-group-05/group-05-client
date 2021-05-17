@@ -3,10 +3,6 @@ import styled from "styled-components";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import logo from "./assets/logoSmallSpaced.png";
-import {withRouter } from 'react-router-dom'
-
-
-
 
 /**
  * Using styled-components you can visual HTML primitives and use props with it!

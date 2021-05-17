@@ -153,8 +153,7 @@ class AppRouter extends React.Component {
                                 </GameGuard>
                             )}
                         />
-                        {/*<Route path="/" exact render={() => <Redirect to={"/dashboard"} />} />*/}
-                        <Redirect exact from="/" to="dashboard" />
+                        <Route path="/" exact render={() => <Redirect to={"/login"} />} />
                     </div>
                 </Switch>
             </BrowserRouter>

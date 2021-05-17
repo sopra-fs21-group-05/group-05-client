@@ -66,10 +66,8 @@ class GameroomList extends React.Component {
         if(this.state.gamerooms==null){
             return false;
         }
-        if(this.state.gamerooms.length<1){
-            return false;
-        }
-        return true;
+        return this.state.gamerooms.length >= 1;
+
     }
 
     async pingGamerooms(){

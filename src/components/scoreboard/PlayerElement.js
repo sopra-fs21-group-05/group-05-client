@@ -25,10 +25,10 @@ const Id = styled.div`
   text-align: center;
 `;
 
-const PlayerElement = ({ user }) => {
+const PlayerElement = ({ user, userName }) => {
     return (
         <Container>
-            <Id>UserId {user[0]}:</Id>
+            <Id>{userName}:</Id>
             <Score>{user[1]}  Points </Score>
         </Container>
     );

@@ -57,7 +57,7 @@ class Scoreboard extends React.Component {
         super();
         this.state = {
             userPoints: {},
-            //userPoints_keys: {},
+            userNames: {},
             creator: null,
             ping: true,
             winners: null,
@@ -87,8 +87,7 @@ class Scoreboard extends React.Component {
             const response = await api.get(pathname);
 
             this.setState({userPoints: response.data.userPoints});
-            // var keys = Object.keys(this.state.userPoints);
-            // this.setState({userPoints_keys: keys});
+            this.setState({userNames: response.data.userNames});
 
             this.pingNewRound();
 
@@ -197,7 +196,7 @@ class Scoreboard extends React.Component {
                         {Object.entries(this.state.userPoints).sort(([,a],[,b]) => b-a).map(user => {
                             return (
                                 <PlayerContainer>
-                                    <PlayerElement user={user}/>
+                                    <PlayerElement user={user} userName={this.state.userNames[user[0]]}/>
                                 </PlayerContainer>
                             );
                         })}

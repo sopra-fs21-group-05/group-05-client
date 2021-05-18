@@ -23,61 +23,6 @@ const FormContainer = styled.div`
   justify-content: center;
 `;
 
-// const InputField = styled.input`
-//   &::placeholder {
-//     color: rgba(0, 0, 0, 1.0);
-//   }
-//   text-transform: uppercase;
-//   height: 35px;
-//   padding-left: 5px;
-//   margin-left: 0px;
-//   margin-right: 5px;
-//   border: none;
-//   border-radius: 10px;
-//   margin-bottom: 10px;
-//   background: rgba(153, 153, 153, 0.2);
-//   color: black;
-// `;
-//
-// const Container2 = styled.div`
-//   margin-top: 2em;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   min-height: 300px;
-//   min-width: 300px;
-//   justify-content: center;
-// `;
-//
-// const PictureContainer = styled.div`
-//   margin-top: 2em;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   min-height: 300px;
-//   min-width: 300px;
-//   justify-content: center;
-// `;
-//
-// const Form = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   width: 60%;
-//   height: 375px;
-//   font-size: 30px;
-//   font-weight: 300;
-//   padding-left: 37px;
-//   padding-right: 37px;
-//   border-radius: 5px;
-//   transition: opacity 0.5s ease, transform 0.5s ease;
-// `;
-// const Label = styled.label`
-//   color: black;
-//   margin-bottom: 10px;
-// `;
-
-
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -104,8 +49,8 @@ class GameviewUser extends React.Component {
         this.state = {
             picturesGrid: null,
             ping: true,
-        }
-    };
+        };
+    }
 
     async getImagesGrid() {
         if (this.state.picturesGrid === null) {
@@ -141,8 +86,6 @@ class GameviewUser extends React.Component {
     }
 
     handleInputChange(key, value) {
-        // Example: if the key is username, this statement is the equivalent to the following one:
-        // this.setState({'username': value});
         this.setState({ [key]: value });
     }
 

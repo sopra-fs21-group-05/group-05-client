@@ -67,7 +67,7 @@ class Winner extends React.Component {
         if (window.confirm(message+" \n"+handleError(error)+"\n\nDo you want to go back to the Dashboard?")) {
             this.setState({ping: false});
             this.props.history.push(`/dashboard`);
-        } else {}
+        }
     }
 
     async componentDidMount() {
@@ -83,13 +83,9 @@ class Winner extends React.Component {
             const response = await api.get(endpoint);
 
             this.setState({userPoints: response.data.userPoints});
-            // var keys = Object.keys(this.state.userPoints);
-            // this.setState({userPoints_keys: keys});
 
             if(this.state.ping){
                 setTimeout(() => {
-                    // console.log("pinging scoreboard")
-                    // console.log("roundnumber: "+sessionStorage.getItem("roundNr"));
                     this.displayScoreboard();
                     this.getWinners();
 
@@ -97,9 +93,7 @@ class Winner extends React.Component {
             }
 
         }  catch (error) {
-            // alert(`Something went wrong while fetching the scoreboard: \n${handleError(error)}`);
             this.handleError("Something went wrong while fetching the scoreboard: ", error);
-
         }
 
     }
@@ -134,9 +128,7 @@ class Winner extends React.Component {
                 }
 
             }  catch (error) {
-                //todo: sometimes this gives an error, not sure if we should react to it or just ignore it, as this is only displayed at the end
-
-                // alert(`Something went wrong while getting the winners: \n${handleError(error)}`);
+                console.log("error while fetching winners: "+handleError(error));
                 // this.handleError("Something went wrong while fetching the scoreboard: ", error);
             }
     }

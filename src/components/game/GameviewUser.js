@@ -91,27 +91,6 @@ setConfiguration({
     containerWidths: [540, 740, 960, 1140, 1540]
 });
 
-// const FormContainer = styled.div`
-//   margin-top: 2em;
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center;
-//   min-height: 700px;
-//   justify-content: center;
-// `;
-//
-//
-// const Container2 = styled.div`
-//   margin-top: 2em;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   min-height: 300px;
-//   min-width: 300px;
-//   justify-content: center;
-//   background: black;
-// `;
-
 const Form = styled.div`
   display: flex;
   flex-direction: column;
@@ -187,7 +166,7 @@ class GameviewUser extends React.Component {
             laces: [false, false, false, false, false,false, false, false, false, false,false, false, false, false, false,false, false, false, false, false,],
             debugImage: null,
         }
-    };
+    }
 
     getHintText(){
         // console.log("getting hint text")
@@ -228,7 +207,7 @@ class GameviewUser extends React.Component {
     handleError(error){
         if (window.confirm("Something went wrong while getting the picture and material set: \n"+handleError(error)+"\n\nDo you want to go back to the Dashboard?")) {
             this.props.history.push(`/dashboard`);
-        } else {}
+        }
     }
 
     async getPicture() {
@@ -266,10 +245,6 @@ class GameviewUser extends React.Component {
     async checkRestriction() {
         try {
             let userId = sessionStorage.getItem('loginId');
-            // console.log("User id "+userId);
-            // const pathname = this.props.location.pathname;
-            // const pathname_str = pathname + "/restricted";
-
             const response_set = await api.get("/users/"+userId+"/restricted");
             let restriction = response_set.data
             this.setState({restricted: restriction})
@@ -280,8 +255,6 @@ class GameviewUser extends React.Component {
     }
 
     handleInputChange(key, value) {
-        // Example: if the key is username, this statement is the equivalent to the following one:
-        // this.setState({'username': value});
         this.setState({ [key]: value });
     }
 
@@ -311,7 +284,7 @@ class GameviewUser extends React.Component {
         var b = this.state.sticksAndStones[n];
         var list = this.state.sticksAndStones;
 
-        if( n<8 && !this.state.sticksAndStones[n] && stickCount<4){ //if we are in the stick region, want to place one, and have less than four placed
+        if( n<8 && !this.state.sticksAndStones[n] && stickCount<4){
             list[n] = !b
         } else if (n>=8 && !this.state.sticksAndStones[n] && stoneCount<stoneMax){ //if we are in the stone region, want to place one, and have less than four placed
             list[n] = !b
@@ -354,51 +327,51 @@ class GameviewUser extends React.Component {
             return;
         }
 
-        let arch = (this.state.blocks[0] + this.state.blocks[1] + this.state.blocks[2]);
-        let circle = 0+this.state.blocks[3];
-        let square = 0+this.state.blocks[4];
-        let cuboid1 = (this.state.blocks[5] + this.state.blocks[7]);
-        let cuboid2 = (this.state.blocks[6] + this.state.blocks[8]);
-        let triangle = (this.state.blocks[9] + this.state.blocks[10]);
+        let archCount = (this.state.blocks[0] + this.state.blocks[1] + this.state.blocks[2]);
+        let circleCount = 0+this.state.blocks[3];
+        let squareCount = 0+this.state.blocks[4];
+        let cuboid1Count = (this.state.blocks[5] + this.state.blocks[7]);
+        let cuboid2Count = (this.state.blocks[6] + this.state.blocks[8]);
+        let triangleCount = (this.state.blocks[9] + this.state.blocks[10]);
 
         var blockCount = 0;
-        for (var i = 0; i < this.state.blocks.length; i++) {
+        for (let i = 0; i < this.state.blocks.length; i++) {
             if(this.state.blocks[i]){
                 blockCount++;
             }
         }
 
-        if( n<3 && arch<1 && !this.state.blocks[n]){ //check if we want to place or take away an arch
+        if( n<3 && archCount<1 && !this.state.blocks[n]){ //check if we want to place or take away an arch
             list[n] = !b;
         }else if(n<3 && this.state.blocks[n]){
             list[n] = !b;
         }
 
-        if( n==3 && circle<1 && !this.state.blocks[n]){ //check if we want to place or take away a circle
+        if( n==3 && circleCount<1 && !this.state.blocks[n]){ //check if we want to place or take away a circle
             list[n] = !b;
         }else if(n==3&& this.state.blocks[n]){
             list[n] = !b;
         }
 
-        if( n==4 && square<1 && !this.state.blocks[n]){ //check if we want to place or take away a square
+        if( n==4 && squareCount<1 && !this.state.blocks[n]){ //check if we want to place or take away a square
             list[n] = !b;
         }else if(n==4&& this.state.blocks[n]){
             list[n] = !b;
         }
 
-        if( (n==5|| n==7) && cuboid1<1 && !this.state.blocks[n]){ //check if we want to place or take away a cuboid1
+        if( (n==5|| n==7) && cuboid1Count<1 && !this.state.blocks[n]){ //check if we want to place or take away a cuboid1
             list[n] = !b;
         }else if((n==5|| n==7)&& this.state.blocks[n]){
             list[n] = !b;
         }
 
-        if( (n==6|| n==8) && cuboid2<1 && !this.state.blocks[n]){ //check if we want to place or take away a cuboid2
+        if( (n==6|| n==8) && cuboid2Count<1 && !this.state.blocks[n]){ //check if we want to place or take away a cuboid2
             list[n] = !b;
         }else if( (n==6|| n==8)&& this.state.blocks[n]){
             list[n] = !b;
         }
 
-        if( n>8 && triangle<1 && !this.state.blocks[n]){ //check if we want to place or take away a triangle
+        if( n>8 && triangleCount<1 && !this.state.blocks[n]){ //check if we want to place or take away a triangle
             list[n] = !b;
         }else if( n>8  && this.state.blocks[n]){
             list[n] = !b;
@@ -457,12 +430,6 @@ class GameviewUser extends React.Component {
         this.setState({reload: false});
     }
 
-    // goToRecreations(){
-    //     console.log("gameId:" + sessionStorage.getItem("gameId"))
-    //     //todo: redirect to the recreation overview
-    //     this.props.history.push(`/game/`);
-    // }
-
     componentDidMount() {}
 
     //ReactDraggable Stuff:
@@ -493,13 +460,7 @@ class GameviewUser extends React.Component {
     onStop = () => {
         this.setState({activeDrags: --this.state.activeDrags});
     };
-    // onDrop = (e) => {
-    //     this.setState({activeDrags: --this.state.activeDrags});
-    //     if (e.target.classList.contains("drop-target")) {
-    //         alert("Dropped!");
-    //         e.target.classList.remove('hovered');
-    //     }
-    // };
+
     onDropAreaMouseEnter = (e) => {
         if (this.state.activeDrags) {
             e.target.classList.add('hovered');
@@ -508,22 +469,6 @@ class GameviewUser extends React.Component {
     onDropAreaMouseLeave = (e) => {
         e.target.classList.remove('hovered');
     }
-
-    // // For controlled component
-    // adjustXPos = (e) => {
-    //     e.preventDefault();
-    //     e.stopPropagation();
-    //     const {x, y} = this.state.controlledPosition;
-    //     this.setState({controlledPosition: {x: x - 10, y}});
-    // };
-    //
-    // adjustYPos = (e) => {
-    //     e.preventDefault();
-    //     e.stopPropagation();
-    //     const {controlledPosition} = this.state;
-    //     const {x, y} = controlledPosition;
-    //     this.setState({controlledPosition: {x, y: y - 10}});
-    // };
 
     onControlledDrag = (e, position) => {
         const {x, y} = position;
@@ -563,8 +508,6 @@ class GameviewUser extends React.Component {
         }
 
         if(div!= null){
-            // div.parentNode.style.overflow = 'visible';
-            // window.scrollTo(0, 0); // this will help to print if div hidden or on mobile screen
 
             //We store the default position of our Building Area, because we will need to move it to the top left corner for the capturing
             let backupPos = div.style.position;
@@ -584,19 +527,11 @@ class GameviewUser extends React.Component {
             ).then(
                 function (canvas) {
                     try{
-                        //this part will append a "canvas" object to the document
-                        // document
-                        //     .getElementById('output')
-                        //     .appendChild(canvas);
-
                         //this will append other screenshots too, but this should not matter as we only take one and then
                         // immediately redirect the user
                         var data = canvas.toDataURL('image/png');
                         var image = new Image();
                         image.src = data;
-
-                        //Here we can append the image, if we need to see the screenshot for debugging
-                        // document.getElementById('image').appendChild(image);
 
                         console.log("image data in takeshot: "+ image.src);
                         let img = image.src.split(",")[1];
@@ -628,15 +563,10 @@ class GameviewUser extends React.Component {
                 <Row justify="around" style={{ height: '700px' }}>
 
                     <Container fluid style={{ width: '300px', background: "" }}>
-                            {/*to see the screenshot*/}
-                            {/*<div id="image">*/}
-                            {/*    <p>Screenshot:</p>*/}
-                            {/*</div>*/}
                             <Label>Picture</Label>
                             <EllipseH> {this.state.coordinate} </EllipseH>
                             <PictureContainer>
                                 <img src={"data:image/jpg;base64," + this.state.picture} width={290} alt={""} />
-                                {/*<img src={ball} height={200} alt="" />*/}
                             </PictureContainer>
                             <ButtonContainer>
                                 <ButtonWhite
@@ -649,17 +579,10 @@ class GameviewUser extends React.Component {
                                     Get Picture
                                 </ButtonWhite>
                             </ButtonContainer>
-                            {/*Here we can show the screenshot if we need it for debugging*/}
-                            {/*<div id="image">*/}
-                            {/*    <p>Screenshot:</p>*/}
-                            {/*</div>*/}
                     </Container>
 
                     <Container fluid style={{ width: '575px', background: "" }}>
-                        {/*<Label>Recreate the Picture</Label>*/}
                         <h1>Recreate the Picture:</h1>
-
-                                {/*buildingArea should be placed here*/}
                                 <div id="drawingArea" className="box"  style={{
                                     height: '500px', width: '500px',
                                     position: 'relative',
@@ -668,10 +591,6 @@ class GameviewUser extends React.Component {
                                     padding: '0', background: "white",
                                     borderRadius: "5px",
                                     border: '2px solid black'}}>
-
-                                    {/*<Draggable bounds="parent" {...dragHandlers}>*/}
-                                    {/*    <img src={stick1} height={100} />*/}
-                                    {/*</Draggable>*/}
 
                                     {/*Sticks and Stones: ###################################################################################################################*/}
                                     {this.state.sticksAndStones[0] ? (<Draggable bounds="parent" {...dragHandlers}><img src={stick1} height={100} alt=""  /></Draggable>): ("")}
@@ -811,8 +730,6 @@ class GameviewUser extends React.Component {
                         <EllipseH> {this.state.materialSet} </EllipseH>
 
                         <Form>
-                            {/*{this.showMaterialset}, the correct material set should be displayed to the user*/}
-                            {/*display the set of togglebuttons for the SticksnStones:*/}
                             {this.state.materialSet===1 ? (
                                 <Container fluid style={{ width: '200px' }}>
                                     {/*https://www.npmjs.com/package/react-grid-system*/}
@@ -1008,8 +925,6 @@ class GameviewUser extends React.Component {
                                 </Hintbox>
                             </Container>
                         ):("")}
-
-
                     </Container>
                 </Row>
             </Container>

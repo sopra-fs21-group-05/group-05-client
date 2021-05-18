@@ -41,16 +41,6 @@ const ButtonWhite = styled.button`
     border-radius: 14px;
 `;
 
-// const Modal = () => (
-//     <Popup trigger={<button className="button"> Open Modal </button>} modal>
-//         <span> Modal content </span>
-//     </Popup>
-// );
-//
-// const contentStyle = { background: '#000' };
-// const overlayStyle = { background: 'rgba(0,0,0,0.5)' };
-// const arrowStyle = { color: '#000' }; // style for an svg element
-
 /**
  * This is an example of a Functional and stateless component (View) in React. Functional components are not classes and thus don't handle internal state changes.
  * Conceptually, components are like JavaScript functions. They accept arbitrary inputs (called “props”) and return React elements describing what should appear on the screen.
@@ -124,21 +114,8 @@ const Header = props => {
 
                         </div>
                         <div className="actions">
-                            {/*<ButtonWhite*/}
-                            {/*    // className="button"*/}
-                            {/*    onClick={() => {*/}
-                            {/*        close();*/}
-                            {/*    }}*/}
-                            {/*>*/}
-                            {/*    Back to the Dashboard*/}
-                            {/*</ButtonWhite>*/}
-
-
                             <ButtonWhite
-                                // className="button"
                                 onClick={() => {
-                                    // const history = useHistory();
-                                    // console.log('modal closed ');
                                     close();
                                 }}
                             >
@@ -149,12 +126,6 @@ const Header = props => {
                     </div>
                 )}
             </Popup>
-
-
-            {/*  <Title>Pictures!</Title>*/}
-            {/*<ReactLogo width={60} height={60} />*/}
-            {/*<div style={{float: 'right'}}>*/}
-            {/*</div>*/}
         </Container>
     );
 };

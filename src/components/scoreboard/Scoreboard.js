@@ -70,7 +70,7 @@ class Scoreboard extends React.Component {
     handleError(message, error){
         if (window.confirm(message+" \n"+handleError(error)+"\n\nDo you want to go back to the Dashboard?")) {
             this.props.history.push(`/dashboard`);
-        } else {}
+        }
     }
 
     async componentDidMount() {
@@ -82,7 +82,6 @@ class Scoreboard extends React.Component {
 
     async displayScoreboard() {
         try {
-            //this.getWinners();
             const pathname = this.props.location.pathname;
             const response = await api.get(pathname);
 
@@ -93,16 +92,11 @@ class Scoreboard extends React.Component {
 
             if(this.state.ping){
                 setTimeout(() => {
-                    // console.log("pinging scoreboard")
-                    // console.log("roundnumber: "+sessionStorage.getItem("roundNr"));
                     this.displayScoreboard();
-                    // this.getWinners();
-
                 }, 1000);
             }
 
         }  catch (error) {
-            // alert(`Something went wrong while fetching the scoreboard: \n${handleError(error)}`);
             this.handleError("Something went wrong while fetching the scoreboard: ", error);
         }
 
@@ -118,8 +112,6 @@ class Scoreboard extends React.Component {
 
             let roundNr = response.data;
             sessionStorage.setItem('roundNr', roundNr);
-            // console.log("roundnumber: "+roundNr);
-
             this.setState({ping: false});
 
             //if we are in the final round, redirect to the winner screen instead of the next round
@@ -130,8 +122,7 @@ class Scoreboard extends React.Component {
             }
 
         }  catch (error) {
-            // alert(`Something went wrong while fetching the new game: \n${handleError(error)}`);
-            this.handleError("Something went wrong while fetching the new game: ", error);
+            this.handleError("Something went wrong while fetching the new game: "+ handleError(error));
         }
     }
 
@@ -179,8 +170,7 @@ class Scoreboard extends React.Component {
             }
 
         }  catch (error) {
-            alert(`Something went wrong while fetching the next round: \n${handleError(error)}`);
-            this.askUserForRedirect();
+            this.handleError("Something went wrong while fetching the next round:", error);
         }
     }
 
@@ -202,16 +192,6 @@ class Scoreboard extends React.Component {
                         })}
                     </Players>
                 </div>
-                {/*<ButtonContainer>*/}
-                {/*    <ButtonWhite*/}
-                {/*        width="100%"*/}
-                {/*        onClick={() => {*/}
-                {/*            this.displayScoreboard();*/}
-                {/*        }}*/}
-                {/*    >*/}
-                {/*        Update Scoreboard*/}
-                {/*    </ButtonWhite>*/}
-                {/*</ButtonContainer>*/}
                 <ButtonContainer>
                     <ButtonWhite
                         disabled={this.state.creator == null || this.state.allGuessed === false}

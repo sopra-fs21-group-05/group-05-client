@@ -33,11 +33,11 @@ const Label = styled.label`
 //   color: black;
 // `;
 
-const RecreationElement = ({ recreation }) => {
-    console.log("recreation image: "+recreation[1]);
+const RecreationElement = ({ recreation, userName }) => {
+    //console.log("recreation image: "+recreation[1]);
     return (
         <Col>
-            <Row><Label> UserId {recreation[0]}</Label></Row>
+            <Row><Label> {userName}</Label></Row>
             {recreation[1].length <1 ? (
                 //another column to offset the spinner, as it is not usually centered nicely
                 <Row  justify="around">

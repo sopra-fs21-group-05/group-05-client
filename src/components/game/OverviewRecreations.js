@@ -84,10 +84,10 @@ const ButtonContainer = styled.div`
 
 `;
 
-// const Label = styled.label`
-//   color: black;
-//   margin-bottom: 10px;
-// `;
+const Label = styled.label`
+   color: black;
+   margin-bottom: 10px;
+ `;
 
 
 /**
@@ -106,6 +106,7 @@ class GameviewUser extends React.Component {
             userId: null,
             picturesGrid: null,
             recreations: {},
+            userNames: {},
             //recreations_keys: {},
             //guess1: null,
             //guess2: null,
@@ -125,7 +126,9 @@ class GameviewUser extends React.Component {
                 const pathname = this.props.location.pathname;
                 const response = await api.get(pathname);
 
-                this.setState({recreations: response.data});
+                this.setState({recreations: response.data.recreations});
+                this.setState({userNames: response.data.userNames});
+
                 //var keys = Object.keys(this.state.recreations);
                 //this.setState({recreations_keys: keys})
 
@@ -294,7 +297,7 @@ class GameviewUser extends React.Component {
                             {Object.entries(this.state.recreations).map(recreation => {
                                 return (
                                     <Col>
-                                        <RecreationElement recreation={recreation}/>
+                                        <RecreationElement recreation={recreation} userName={this.state.userNames[recreation[0]]}/>
                                         <br />
                                         <Row>
                                             <InputField

@@ -124,12 +124,12 @@ figure:nth-child(2) {
 }
 
 
-/*body {*/
-/*  display: grid;*/
-/*  margin: 0;*/
-/*  place-items: center;*/
-/*  height: 100vh;*/
-/*}*/
+body {
+  display: grid;
+  margin: 0;
+  place-items: center;
+  height: 100vh;
+}
 
 figure {
   margin: 10px;

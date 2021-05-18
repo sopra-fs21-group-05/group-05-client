@@ -84,6 +84,7 @@ import l17 from './assets/BuildingMaterials/Laces/s11.png'
 import l18 from './assets/BuildingMaterials/Laces/s12.png'
 import l19 from './assets/BuildingMaterials/Laces/s13.png'
 import l20 from './assets/BuildingMaterials/Laces/s14.png'
+import {Spinner} from "../../views/design/Spinner";
 
 
 setConfiguration({
@@ -557,14 +558,22 @@ class GameviewUser extends React.Component {
 
     render() {
         const dragHandlers = {onStart: this.onStart, onStop: this.onStop};
-        // const {deltaPosition, controlledPosition} = this.state;
         return (
             <Container fluid style={{ width: '1300px', background: ""}}>
                 <Row justify="around" style={{ height: '700px' }}>
 
                     <Container fluid style={{ width: '300px', background: "" }}>
-                            <Label>Picture</Label>
-                            <EllipseH> {this.state.coordinate} </EllipseH>
+                        <Container fluid style={{ width: '200px', background: ""  }}>
+                            <Row justify="around"  >
+                                <Label>Picture</Label>
+                            </Row>
+                            <Row justify="around"   >
+                                {this.state.coordinate!==null ? (
+                                    <EllipseH> {this.state.coordinate} </EllipseH>
+                                ):("")}
+                            </Row>
+                        </Container>
+
                             <PictureContainer>
                                 <img src={"data:image/jpg;base64," + this.state.picture} width={290} alt={""} />
                             </PictureContainer>
@@ -717,7 +726,6 @@ class GameviewUser extends React.Component {
                                     disabled={this.state.materialSet===null || this.state.picture===null}
                                     onClick={() => {
                                         this.takeshot();
-                                        // this.submitImage();
                                     }}
                                 >
                                     Submit
@@ -726,9 +734,16 @@ class GameviewUser extends React.Component {
                     </Container>
 
                     <Container fluid style={{ width: '300px', background: "" }}>
-                        <Label>SetNr</Label>
-                        <EllipseH> {this.state.materialSet} </EllipseH>
-
+                        <Container fluid style={{ width: '200px', height: "60px", background: ""  }}>
+                            <Row justify="around"  >
+                                <Label>SetNr</Label>
+                            </Row>
+                            <Row justify="around"   >
+                                {this.state.materialSet!==null ? (
+                                    <EllipseH> {this.state.materialSet} </EllipseH>
+                                ):("")}
+                            </Row>
+                        </Container>
                         <Form>
                             {this.state.materialSet===1 ? (
                                 <Container fluid style={{ width: '200px' }}>

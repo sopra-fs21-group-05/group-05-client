@@ -74,7 +74,6 @@ class JoinGameroom extends React.Component {
             let roomId = pathname.match(/\d+(?!.*\d)/g)
 
             let userId = sessionStorage.getItem("loginId");
-            console.log('roomId:', roomId)
 
             const requestBody = JSON.stringify({
                 roomId: roomId.toString(),

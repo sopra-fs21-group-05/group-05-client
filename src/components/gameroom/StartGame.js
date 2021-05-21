@@ -106,7 +106,6 @@ class StartGame extends React.Component {
             }
 
         }  catch (error) {
-            // alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
             this.handleError(error);
         }
     }
@@ -147,7 +146,6 @@ class StartGame extends React.Component {
                 this.props.history.push(`/game`);
             }  catch (error) {
                 this.handleError(error);
-                // alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
             }
         }
     }
@@ -164,7 +162,6 @@ class StartGame extends React.Component {
             this.setState({ping: false});
             this.props.history.push(`/dashboard`);
         }  catch (error) {
-            // alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
             this.handleError(error);
         }
     }
@@ -215,19 +212,6 @@ class StartGame extends React.Component {
                             Leave Gameroom
                         </ButtonWhite>
                     </ButtonContainer>
-
-                    {/*<ButtonContainer>*/}
-                    {/*    <ButtonWhite*/}
-                    {/*        // manually ping the playercount as automatically pinging caused memory leaks in the infinite loop*/}
-                    {/*        width="100%"*/}
-                    {/*        onClick={() => {*/}
-                    {/*            this.pingPlayerCount();*/}
-                    {/*        }}*/}
-                    {/*    >*/}
-                    {/*       Update Players*/}
-                    {/*    </ButtonWhite>*/}
-                    {/*</ButtonContainer>*/}
-
                 </FormContainer>
         );
     }

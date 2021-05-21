@@ -122,7 +122,6 @@ class GameviewUser extends React.Component {
                                 <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['A3']} alt={"pic"} width="150" />  </Col>
                                 <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['A4']} alt={"pic"} width="150" />  </Col>
                             </Row>
-                            {/*<br />*/}
                             <Row align="center" style={{ }} >
                                 <EllipseV> b </EllipseV>
                                 <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['B1']} alt={"pic"} width="150" />  </Col>
@@ -130,7 +129,6 @@ class GameviewUser extends React.Component {
                                 <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['B3']} alt={"pic"} width="150" />  </Col>
                                 <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['B4']} alt={"pic"} width="150" />  </Col>
                             </Row>
-                            {/*<br />*/}
                             <Row align="center" style={{ }} >
                                 <EllipseV> c </EllipseV>
                                 <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['C1']} alt={"pic"} width="150" />  </Col>
@@ -138,7 +136,6 @@ class GameviewUser extends React.Component {
                                 <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['C3']} alt={"pic"} width="150" />  </Col>
                                 <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['C4']} alt={"pic"} width="150" />  </Col>
                             </Row>
-                            {/*<br />*/}
                             <Row align="center" style={{ }} >
                                 <EllipseV> d </EllipseV>
                                 <Col >  <img src={"data:image/jpg;base64," + this.state.picturesGrid['D1']} alt={"pic"} width="150" />  </Col>

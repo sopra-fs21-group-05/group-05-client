@@ -66,8 +66,6 @@ class Game extends React.Component {
      * @param value (the value that gets assigned to the identified state key)
      */
     handleInputChange(key, value) {
-        // Example: if the key is username, this statement is the equivalent to the following one:
-        // this.setState({'username': value});
         this.setState({ [key]: value });
     }
 
@@ -105,8 +103,6 @@ class Game extends React.Component {
         return (
             <BaseContainer>
                 <FormContainer>
-                    {/*<Ellipse>e1 </Ellipse>*/}
-
                     {!this.state.picture ? (
                         <Container fluid style={{ height: '400px' }}>
                             <Row justify="around"  >
@@ -134,7 +130,6 @@ class Game extends React.Component {
                             <Col >  <img src={"data:image/jpg;base64," + this.state.picture[2]} alt={"pic"} width="150" />  </Col>
                             <Col >  <img src={"data:image/jpg;base64," + this.state.picture[3]} alt={"pic"} width="150" />  </Col>
                         </Row>
-                        {/*<br />*/}
                         <Row align="center" style={{ }} >
                         <EllipseV> b </EllipseV>
                             <Col >  <img src={"data:image/jpg;base64," + this.state.picture[4]} alt={"pic"} width="150" />  </Col>
@@ -142,7 +137,6 @@ class Game extends React.Component {
                             <Col >  <img src={"data:image/jpg;base64," + this.state.picture[6]} alt={"pic"} width="150" />  </Col>
                             <Col >  <img src={"data:image/jpg;base64," + this.state.picture[7]} alt={"pic"} width="150" />  </Col>
                         </Row>
-                        {/*<br />*/}
                         <Row align="center" style={{ }} >
                         <EllipseV> c </EllipseV>
                             <Col >  <img src={"data:image/jpg;base64," + this.state.picture[8]} alt={"pic"} width="150" />  </Col>
@@ -150,7 +144,6 @@ class Game extends React.Component {
                             <Col >  <img src={"data:image/jpg;base64," + this.state.picture[10]} alt={"pic"} width="150" />  </Col>
                             <Col >  <img src={"data:image/jpg;base64," + this.state.picture[11]} alt={"pic"} width="150" />  </Col>
                         </Row>
-                        {/*<br />*/}
                         <Row align="center" style={{ }} >
                         <EllipseV> d </EllipseV>
                             <Col >  <img src={"data:image/jpg;base64," + this.state.picture[12]} alt={"pic"} width="150" />  </Col>

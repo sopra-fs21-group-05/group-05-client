@@ -50,7 +50,7 @@ class GameroomList extends React.Component {
     handleError(error){
         if (window.confirm("Something went wrong while getting the picture and material set: \n"+handleError(error)+"\n\nDo you want to go back to the Dashboard?")) {
             this.props.history.push(`/dashboard`);
-        } else {}
+        }
     }
 
     async componentDidMount() {
@@ -82,7 +82,6 @@ class GameroomList extends React.Component {
                 }, 750);
 
             } catch (error) {
-                // alert(`Something went wrong while fetching the gamerooms: \n${handleError(error)}`);
                 this.handleError(error);
             }
         }

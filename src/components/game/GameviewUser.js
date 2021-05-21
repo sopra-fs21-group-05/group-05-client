@@ -84,8 +84,6 @@ import l17 from './assets/BuildingMaterials/Laces/s11.png'
 import l18 from './assets/BuildingMaterials/Laces/s12.png'
 import l19 from './assets/BuildingMaterials/Laces/s13.png'
 import l20 from './assets/BuildingMaterials/Laces/s14.png'
-import {Spinner} from "../../views/design/Spinner";
-
 
 setConfiguration({
     defaultScreenClass: 'sm',
@@ -170,7 +168,6 @@ class GameviewUser extends React.Component {
     }
 
     getHintText(){
-        // console.log("getting hint text")
         let hint = "Hint: You can now ";
         if (this.state.materialSet===1){ //Sticks and stones
             if (this.state.restricted){
@@ -249,7 +246,6 @@ class GameviewUser extends React.Component {
             const response_set = await api.get("/users/"+userId+"/restricted");
             let restriction = response_set.data
             this.setState({restricted: restriction})
-            // console.log(this.state.restricted);
         } catch (error) {
             alert(`Something went wrong while getting the restriction state for the current user: \n${handleError(error)}`);
         }
@@ -272,7 +268,6 @@ class GameviewUser extends React.Component {
                 stickCount++;
             }
         }
-        console.log("sticks: "+stickCount);
 
         var stoneCount =0;
         for (i = 8; i < 12; i++) {
@@ -280,7 +275,6 @@ class GameviewUser extends React.Component {
                 stoneCount++;
             }
         }
-        console.log("stones: "+stoneCount);
 
         var b = this.state.sticksAndStones[n];
         var list = this.state.sticksAndStones;
@@ -406,7 +400,6 @@ class GameviewUser extends React.Component {
     }
 
     toggleLaces(n){
-        console.log("entered lace toggle " +n);
         var b = this.state.laces[n];
         var list = this.state.laces;
 
@@ -427,7 +420,6 @@ class GameviewUser extends React.Component {
         }else if (n<this.state.laces.length && this.state.laces[n]){ //if we want to take one away
             list[n] = !b
         }
-        console.log(laceCount);
         this.setState({reload: false});
     }
 
@@ -490,7 +482,6 @@ class GameviewUser extends React.Component {
         let history = this.props.history;
 
         async function submitImage(img) {
-            console.log("submit method call: "+img);
             try {
                 const requestBody = JSON.stringify({
                     gameId: postGameId,
@@ -500,7 +491,6 @@ class GameviewUser extends React.Component {
 
                 const response = await api.post("/game/"+postUserId, requestBody);
                 let answer = response.data;
-                console.log("answer from posting image "+answer);
                 history.push(`/game/recreations/overview/`+postGameId);
 
             } catch (error) {
@@ -521,10 +511,7 @@ class GameviewUser extends React.Component {
             div.style.top = "0";
 
             window.scroll(0,0);
-            html2canvas(div, {
-                    // scrollY: 0,
-                    // scrollX: 0,
-            }
+            html2canvas(div, {}
             ).then(
                 function (canvas) {
                     try{
@@ -533,8 +520,6 @@ class GameviewUser extends React.Component {
                         var data = canvas.toDataURL('image/png');
                         var image = new Image();
                         image.src = data;
-
-                        console.log("image data in takeshot: "+ image.src);
                         let img = image.src.split(",")[1];
 
                         submitImage(img);

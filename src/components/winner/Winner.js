@@ -129,7 +129,6 @@ class Winner extends React.Component {
 
             }  catch (error) {
                 console.log("error while fetching winners: "+handleError(error));
-                // this.handleError("Something went wrong while fetching the scoreboard: ", error);
             }
     }
 
@@ -149,7 +148,6 @@ class Winner extends React.Component {
             this.setState({ping: false});
             this.props.history.push(`/dashboard`);
         }  catch (error) {
-            // alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
             this.handleError("Something went wrong while fetching the gameroom: ", error);
         }
     }
@@ -167,7 +165,6 @@ class Winner extends React.Component {
             this.setState({ping: false});
             this.props.history.push(`/gamerooms/overview/${roomId}`);
         }  catch (error) {
-            // alert(`Something went wrong while fetching the gameroom: \n${handleError(error)}`);
             this.handleError("Something went wrong while fetching the gameroom: ", error);
         }
     }

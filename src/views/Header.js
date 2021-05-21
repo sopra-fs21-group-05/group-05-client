@@ -78,7 +78,6 @@ const Header = props => {
                             >
                             {' '}
                             {/*Rules taken from: https://boardgamegeek.com/boardgame/284108/pictures*/}
-                            {/*Pictures*/}
                             <b>Introduction</b> <br />
                             <img src={logo} width={65} alt={""}/>
                             is a quick-playing family game with very simple rules. <br />

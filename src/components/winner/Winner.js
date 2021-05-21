@@ -86,19 +86,22 @@ class Winner extends React.Component {
 
             if(this.state.ping){
                 setTimeout(() => {
-                    this.displayScoreboard();
+                    if(this.state.userPoints == {}){
+                        this.displayScoreboard();
+                    }
                     this.getWinners();
 
                 }, 1000);
             }
 
         }  catch (error) {
-            this.handleError("Something went wrong while fetching the scoreboard: ", error);
+            this.handleError("Something went wrong while fetching the scoreboard (displayScoreboard Method): ", error);
         }
 
     }
 
     async getWinners(){
+        if(this.state.winners==null){
             try {
                 let gameId = sessionStorage.getItem("gameId");
                 let response = await api.get(gameId+"/winner");
@@ -116,8 +119,8 @@ class Winner extends React.Component {
                 //if there is only one winner, we display this user, else we create a string with the whole list
                 //Formatting should be correct.
                 if(winnerNames.length===1){
-                   let string = winnerNames[0]+" has won the game, congratulations!";
-                   this.setState({ winnerString: string});
+                    let string = winnerNames[0]+" has won the game, congratulations!";
+                    this.setState({ winnerString: string});
                 }else{
                     let string = "Users "+winnerNames[0];
                     for(let i = 1; i < winnerNames.length-1; i++) {
@@ -128,8 +131,9 @@ class Winner extends React.Component {
                 }
 
             }  catch (error) {
-                console.log("error while fetching winners: "+handleError(error));
+                console.log("error while fetching winners (getWinner Method): "+handleError(error));
             }
+        }
     }
 
     async leaveGame() {
@@ -156,8 +160,13 @@ class Winner extends React.Component {
         try{
             let roomId = sessionStorage.getItem('roomId');
 
-            const endpoint = '/gamerooms/' + roomId;
-            const response = await api.put(endpoint);
+            try{
+                const endpoint = '/gamerooms/' + roomId;
+                const response = await api.put(endpoint);
+            }catch (e) {
+                console.log("error while putting gameroom request: "+handleError(e));
+            }
+
 
             sessionStorage.removeItem('gameId');
             sessionStorage.removeItem('roundNr');

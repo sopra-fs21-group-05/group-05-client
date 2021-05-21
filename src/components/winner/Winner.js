@@ -90,12 +90,11 @@ class Winner extends React.Component {
                         this.displayScoreboard();
                     }
                     this.getWinners();
-
                 }, 1000);
             }
 
         }  catch (error) {
-            this.handleError("Something went wrong while fetching the scoreboard (displayScoreboard Method): ", error);
+            this.handleError("Something went wrong while fetching the scoreboard: ", error);
         }
 
     }
@@ -131,7 +130,7 @@ class Winner extends React.Component {
                 }
 
             }  catch (error) {
-                console.log("error while fetching winners (getWinner Method): "+handleError(error));
+                console.log("error while fetching winners: "+handleError(error));
             }
         }
     }

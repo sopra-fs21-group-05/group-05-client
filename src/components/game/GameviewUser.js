@@ -171,33 +171,33 @@ class GameviewUser extends React.Component {
         let hint = "Hint: You can now ";
         if (this.state.materialSet===1){ //Sticks and stones
             if (this.state.restricted){
-                return hint + " only choose up to four Sticks to recreate your Picture";
+                return hint + " only choose up to four Sticks to recreate your Picture.";
             }
-            return hint + " choose up to four Sticks and four Stones to recreate your Picture";
+            return hint + " choose up to four Sticks and four Stones to recreate your Picture.";
         }
         else if (this.state.materialSet===2){ //Cubes
             if (this.state.restricted){
-                return hint + " only choose 9 Cubes from the Brown, Grey, Black and White ones to recreate your Picture";
+                return hint + " only choose 9 Cubes from the Brown, Grey, Black and White ones to recreate your Picture.";
             }
-            return hint + " choose up to 9 Cubes to recreate your Picture";
+            return hint + " choose up to 9 Cubes to recreate your Picture.";
         }
         else if (this.state.materialSet===3){ //Blocks
             if (this.state.restricted){
-                return hint + " only choose a Triangle, a Square, and a Circle to recreate your Picture";
+                return hint + " only choose a Triangle, a Square, and a Circle to recreate your Picture.  Careful: Rotations count as the same Block!";
             }
             return hint + " choose up to six different Building Blocks to recreate your Picture. Careful: Rotations count as the same Block!";
         }
         else if (this.state.materialSet===4){ //Cards
             if (this.state.restricted){
-                return hint + " only choose two Cards to recreate your Picture";
+                return hint + " only choose two Cards to recreate your Picture.";
             }
-            return hint + " choose up to 5 Cards to recreate your Picture";
+            return hint + " choose up to 5 Cards to recreate your Picture.";
         }
         else if (this.state.materialSet===5){ //Laces
             if (this.state.restricted){
-                return hint + " only choose up to two Laces to recreate your Picture";
+                return hint + " only choose up to two Laces to recreate your Picture.";
             }
-            return hint + " choose up to 5 Laces to recreate your Picture";
+            return hint + " choose up to 5 Laces to recreate your Picture.";
         }
         return ""
     }

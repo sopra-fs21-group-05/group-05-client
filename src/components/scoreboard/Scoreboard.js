@@ -60,6 +60,12 @@ class Scoreboard extends React.Component {
         }
     }
 
+    confirmSubmitOverride(){
+        if (window.confirm("It seems not all users have submitted their recreation, are you sure you want to start the next round? \nIf you do so, a player might be left behind.")) {
+            this.updateGame();
+        }
+    }
+
     async componentDidMount() {
         let creator = sessionStorage.getItem('creator')
         this.setState({creator: creator})
@@ -180,17 +186,32 @@ class Scoreboard extends React.Component {
                     </Players>
                 </div>
                 <ButtonContainer>
-                    <ButtonWhite
-                        disabled={this.state.creator == null || this.state.allGuessed === false}
-                        width="100%"
-                        onClick={() => {
-                            this.updateGame();
-                        }}
-                    >
-                        Play next round
-                    </ButtonWhite>
+                    { this.state.allGuessed === false ? (
+                        <ButtonWhite
+                            disabled={this.state.creator == null}
+                            width="100%"
+                            style={ {
+                                // cursor: 'not-allowed',
+                                opacity: 0.4
+                            }}
+                            onClick={() => {
+                                this.confirmSubmitOverride();
+                            }}
+                        >
+                            Play next round
+                        </ButtonWhite>
+                    ): (
+                        <ButtonWhite
+                            disabled={this.state.creator == null}
+                            width="100%"
+                            onClick={() => {
+                                this.updateGame();
+                            }}
+                        >
+                            Play next round
+                        </ButtonWhite>
+                    )}
                 </ButtonContainer>
-
             </FormContainer>
         );
     }

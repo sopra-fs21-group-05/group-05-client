@@ -74,10 +74,10 @@ class Register extends React.Component {
 
             const response = await api.post('/users', requestBody);
 
-            console.log('request to:', response.request.responseURL);
-            console.log('status code:', response.status);
-            console.log('status text:', response.statusText);
-            console.log('requested data:', response.data);
+            // console.log('request to:', response.request.responseURL);
+            // console.log('status code:', response.status);
+            // console.log('status text:', response.statusText);
+            // console.log('requested data:', response.data);
 
             const newResponse = await api.put('/login', requestBody);
 

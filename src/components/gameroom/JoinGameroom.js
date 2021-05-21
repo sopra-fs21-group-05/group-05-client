@@ -85,10 +85,10 @@ class JoinGameroom extends React.Component {
 
             const response = await api.put(endpoint, requestBody);
 
-            console.log('request to:', response.request.responseURL);
-            console.log('status code:', response.status);
-            console.log('status text:', response.statusText);
-            console.log('requested data:', response.data);
+            // console.log('request to:', response.request.responseURL);
+            // console.log('status code:', response.status);
+            // console.log('status text:', response.statusText);
+            // console.log('requested data:', response.data);
 
             sessionStorage.setItem('roomId', roomId.toString());
 

@@ -150,7 +150,7 @@ class Scoreboard extends React.Component {
             let updateRoundNr = response.data;
 
             if(updateRoundNr.toString() !== actualRoundNr.toString()){
-                console.log("detected new roundNr, next round starting");
+                // console.log("detected new roundNr, next round starting");
                 sessionStorage.setItem('roundNr', updateRoundNr);
 
                 this.setState({ping: false});

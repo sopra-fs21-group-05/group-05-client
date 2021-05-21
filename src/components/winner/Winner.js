@@ -56,6 +56,7 @@ class Winner extends React.Component {
         super();
         this.state = {
             userPoints: {},
+            userNames: {},
             creator: null,
             ping: true,
             winners: null,
@@ -83,6 +84,7 @@ class Winner extends React.Component {
             const response = await api.get(endpoint);
 
             this.setState({userPoints: response.data.userPoints});
+            this.setState({userNames: response.data.userNames});
 
             if(this.state.ping){
                 setTimeout(() => {
@@ -183,17 +185,17 @@ class Winner extends React.Component {
                 <img src={logo} width={700} alt={""}/>
                 <h1>Final Ranking</h1>
                 {this.state.winnerString ? (<h1>{this.state.winnerString}</h1>): ("")}
-                <Form>
+                <div>
                     <Players>
                         {Object.entries(this.state.userPoints).sort(([,a],[,b]) => b-a).map(user => {
                             return (
                                 <PlayerContainer>
-                                    <PlayerElementWinner user={user}/>
+                                    <PlayerElementWinner user={user} userName={this.state.userNames[user[0]]}/>
                                 </PlayerContainer>
                             );
                         })}
                     </Players>
-                </Form>
+                </div>
                 <ButtonContainer>
                     <ButtonWhite
                         width="100%"

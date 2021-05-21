@@ -56,16 +56,14 @@ class StartGame extends React.Component {
             startedGame: null,
             creator: null,
             ping: true,
+            creatorId: null
         };
     }
 
     async componentDidMount() {
         // console.log("starting ComponentDidMount");
         this.pingPlayerCount(0);
-
-        let creator = sessionStorage.getItem('creator')
-        this.setState({creator: creator})
-
+        this.checkIfCreatorExists();
     }
 
     async pingPlayerCount(){
@@ -165,6 +163,32 @@ class StartGame extends React.Component {
             this.handleError(error);
         }
     }
+
+    async checkIfCreatorExists(){
+        try {
+            if(this.state.ping){
+                const pathname = this.props.location.pathname;
+                const response = await api.get(pathname);
+
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                this.setState({ CreatorId: response.data.creator});
+
+                let userId = sessionStorage.getItem('loginId');
+                if (userId.toString() === this.state.CreatorId.toString()){
+                    sessionStorage.setItem('creator', 'yes');
+                    this.setState({creator: sessionStorage.getItem('creator')})
+                }
+
+                setTimeout(() => {
+                    this.checkIfCreatorExists();
+                }, 750);
+            }
+
+        }  catch (error) {
+            this.handleError(error);
+        }
+    }
+
 
     render() {
         return (

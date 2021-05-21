@@ -50,7 +50,8 @@ class Scoreboard extends React.Component {
             winners: null,
             winnerString: null,
             pingAllGuessed: true,
-            allGuessed: false
+            allGuessed: false,
+            CreatorId: null
         };
     }
 
@@ -67,10 +68,9 @@ class Scoreboard extends React.Component {
     }
 
     async componentDidMount() {
-        let creator = sessionStorage.getItem('creator')
-        this.setState({creator: creator})
         this.displayScoreboard();
         this.allGuessed();
+        this.checkIfCreatorExists();
     }
 
     async displayScoreboard() {
@@ -164,6 +164,32 @@ class Scoreboard extends React.Component {
 
         }  catch (error) {
             this.handleError("Something went wrong while fetching the next round:", error);
+        }
+    }
+
+    async checkIfCreatorExists(){
+        try {
+            if(this.state.ping){
+                let roomId = sessionStorage.getItem('roomId');
+                const endpoint = "gamerooms/overview/" + roomId;
+                const response = await api.get(endpoint);
+
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                this.setState({ CreatorId: response.data.creator});
+
+                let userId = sessionStorage.getItem('loginId');
+                if (userId.toString() === this.state.CreatorId.toString()){
+                    sessionStorage.setItem('creator', 'yes');
+                    this.setState({creator: sessionStorage.getItem('creator')})
+                }
+
+                setTimeout(() => {
+                    this.checkIfCreatorExists();
+                }, 750);
+            }
+
+        }  catch (error) {
+            this.handleError(error);
         }
     }
 

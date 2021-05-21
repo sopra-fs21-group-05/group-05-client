@@ -61,7 +61,7 @@ class Scoreboard extends React.Component {
     }
 
     confirmSubmitOverride(){
-        if (window.confirm("It seems not all users have submitted their recreation, are you sure you want to start the next round? \nIf you do so, a player might be left behind.")) {
+        if (window.confirm("It seems not all users have submitted their guesses, are you sure you want to start the next round? \nIf you do so, these players might be left behind.")) {
             this.updateGame();
         }
     }

@@ -231,6 +231,7 @@ class GameviewUser extends React.Component {
                                             <InputField
                                             disabled={recreation[0] === this.state.userId}
                                             placeholder={recreation[0] === this.state.userId ? 'Your recreation' : 'Enter guess..'}
+                                            style = {recreation[0] === this.state.userId ? ({ cursor: 'not-allowed' }): ({ cursor: 'text' })}
                                             onChange={e => {
                                                 this.state.guesses[recreation[0]] = e.target.value;
                                             }}

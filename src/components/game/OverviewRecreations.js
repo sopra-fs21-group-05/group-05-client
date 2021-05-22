@@ -89,9 +89,7 @@ class GameviewUser extends React.Component {
             ping: true,
             guesses: {}
         }
-    };
-
-
+    }
 
     async getRecreations() {
         try {

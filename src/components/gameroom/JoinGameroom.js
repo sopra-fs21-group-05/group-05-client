@@ -82,16 +82,9 @@ class JoinGameroom extends React.Component {
             });
 
             const endpoint = 'gamerooms/list/' + roomId;
-
             const response = await api.put(endpoint, requestBody);
 
-            // console.log('request to:', response.request.responseURL);
-            // console.log('status code:', response.status);
-            // console.log('status text:', response.statusText);
-            // console.log('requested data:', response.data);
-
             sessionStorage.setItem('roomId', roomId.toString());
-
             this.props.history.push(`/gamerooms/overview/${roomId}`);
 
         } catch (error) {

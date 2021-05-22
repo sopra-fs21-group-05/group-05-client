@@ -61,32 +61,24 @@ class StartGame extends React.Component {
     }
 
     async componentDidMount() {
-        // console.log("starting ComponentDidMount");
         this.pingPlayerCount(0);
         this.checkIfCreatorExists();
     }
 
     async pingPlayerCount(){
-        console.log("creator: " +this.state.creator);
+        // console.log("creator: " +this.state.creator);
         try {
             if(this.state.ping){
                 const pathname = this.props.location.pathname;
                 const response = await api.get(pathname);
-                // console.log(response.data);
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 this.setState({ id: response.data.id, roomname: response.data.roomname, users: response.data.users, startedGame: response.data.startedGame});
-                // console.log(this.state.startedGame)
-                // console.log("playerCount updated");
-                // console.log("response data from get pathname call" +response.data);
-
 
                 if(this.state.startedGame!==null){
-                    // console.log("detected gameId, starting")
                     let gameId = response.data.startedGame
                     sessionStorage.setItem('gameId', gameId);
                     sessionStorage.setItem('roundNr', '1');
 
-                    // console.log("set game id to "+response.data.startedGame);
                     this.setState({ping: false});
                     this.props.history.push(`/game/view/grid/${gameId}`);
                 }
@@ -94,8 +86,6 @@ class StartGame extends React.Component {
                 if( this.state.users.length === 5 && this.state.creator !== null){
                     this.startGameCall();
                 }
-
-                // console.log("user id "+sessionStorage.getItem("loginId"));
 
                 //ping the gameroom over and over again
                 setTimeout(() => {
@@ -123,18 +113,13 @@ class StartGame extends React.Component {
     handleError(error){
         if (window.confirm("Something went wrong while fetching the gameroom: \n"+handleError(error)+"\n\nDo you want to go back to the Dashboard?")) {
             this.props.history.push(`/dashboard`);
-        } else {}
+        }
     }
 
     async startGameCall() {
         if(this.state.creator !== null){
             try{
                 const response = await api.put('/gamerooms/overview/'+this.state.id);
-
-                // console.log('request to:', response.request.responseURL);
-                // console.log('status code:', response.status);
-                // console.log('status text:', response.statusText);
-                // console.log('requested data:', response.data);
 
                 sessionStorage.setItem('gameId', response.data);
                 sessionStorage.setItem('roundNr', '1')

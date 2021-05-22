@@ -51,7 +51,8 @@ class Scoreboard extends React.Component {
             winnerString: null,
             pingAllGuessed: true,
             allGuessed: false,
-            CreatorId: null
+            CreatorId: null,
+            pingInterval: 750,
         };
     }
 
@@ -86,7 +87,7 @@ class Scoreboard extends React.Component {
             if(this.state.ping){
                 setTimeout(() => {
                     this.displayScoreboard();
-                }, 1000);
+                }, this.state.pingInterval);
             }
 
         }  catch (error) {
@@ -131,7 +132,7 @@ class Scoreboard extends React.Component {
         if(this.state.pingAllGuessed){
             setTimeout(() => {
                 this.allGuessed();
-            }, 1000);
+            }, this.state.pingInterval);
         }
 
         if(this.state.allGuessed === true){
@@ -185,7 +186,7 @@ class Scoreboard extends React.Component {
 
                 setTimeout(() => {
                     this.checkIfCreatorExists();
-                }, 750);
+                }, this.state.pingInterval);
             }
 
         }  catch (error) {
@@ -216,10 +217,7 @@ class Scoreboard extends React.Component {
                         <ButtonWhite
                             disabled={this.state.creator == null}
                             width="100%"
-                            style={ {
-                                // cursor: 'not-allowed',
-                                opacity: 0.4
-                            }}
+                            style={{opacity: 0.4}}
                             onClick={() => {
                                 this.confirmSubmitOverride();
                             }}

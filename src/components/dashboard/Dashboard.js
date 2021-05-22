@@ -72,10 +72,6 @@ class Dashboard extends React.Component {
 
             const response = await api.put('/logout', requestBody);
 
-            // console.log('request to:', response.request.responseURL);
-            // console.log('status code:', response.status);
-            // console.log('status text:', response.statusText);
-            // console.log('requested data:', response.data);
 
             sessionStorage.removeItem("token");
             sessionStorage.removeItem('loginId');

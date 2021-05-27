@@ -58,7 +58,7 @@ class GameroomList extends React.Component {
         this.pingGamerooms();
     }
 
-    async componentWillUnmount(){
+    componentWillUnmount(){
         this._isMounted = false;
     }
 

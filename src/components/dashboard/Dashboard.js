@@ -104,6 +104,10 @@ class Dashboard extends React.Component {
         sessionStorage.removeItem('creator');
         sessionStorage.removeItem('gameId');
         sessionStorage.removeItem('roundNr');
+
+        sessionStorage.removeItem("picture");
+        sessionStorage.removeItem("coordinate");
+        sessionStorage.removeItem("setId");
     }
 
     async leaveRoom() {

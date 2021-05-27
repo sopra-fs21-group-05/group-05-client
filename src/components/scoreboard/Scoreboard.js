@@ -72,6 +72,14 @@ class Scoreboard extends React.Component {
         this.displayScoreboard();
         this.allGuessed();
         this.checkIfCreatorExists();
+
+        sessionStorage.removeItem("picture");
+        sessionStorage.removeItem("coordinate");
+        sessionStorage.removeItem("setId");
+    }
+
+    componentWillUnmount(){
+        this.setState({ping: false});
     }
 
     async displayScoreboard() {

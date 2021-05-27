@@ -85,6 +85,10 @@ class GameviewUser extends React.Component {
         this.getImagesGrid();
     }
 
+    componentWillUnmount(){
+        this.setState({ping: false});
+    }
+
     handleInputChange(key, value) {
         this.setState({ [key]: value });
     }
@@ -98,7 +102,7 @@ class GameviewUser extends React.Component {
                     {!this.state.picturesGrid ? (
                         <Container fluid style={{ height: '400px' }}>
                             <Row justify="around"  >
-                                Fetching Images, please wait
+                                Generating random Images, please wait
                             </Row>
                             <Row justify="around"   >
                                 <Spinner />

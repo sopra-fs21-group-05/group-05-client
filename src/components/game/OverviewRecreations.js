@@ -158,6 +158,10 @@ class GameviewUser extends React.Component {
         this.setState({userId: userId})
     }
 
+    componentWillUnmount(){
+        this.setState({ping: false});
+    }
+
     handleInputChange(key, value) {
         this.setState({ [key]: value });
     }

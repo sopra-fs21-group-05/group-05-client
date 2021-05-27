@@ -65,6 +65,10 @@ class StartGame extends React.Component {
         this.checkIfCreatorExists();
     }
 
+    componentWillUnmount(){
+        this.setState({ping: false});
+    }
+
     async pingPlayerCount(){
         // console.log("creator: " +this.state.creator);
         try {

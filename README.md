@@ -1,23 +1,23 @@
-# SoPra FS21 - Client Template
+# SoPra FS21 - Pictures Client 
 
-## Getting started with React
+## Introduction
+Pictures is a quick-playing family game with very simple rules.
+Form the image on your secret picture card with one set of components,
+either shoelaces, color cubes, icon cards, sticks and stones or building blocks
+in such a way that the other players guess what image you have pictured.
 
-Read and go through those Tutorials, It will make your life easier!
+The implementation was done as a part of the 'SoPra' course at the University of Zurich.
 
-- Read the React [Docs](https://reactjs.org/docs/getting-started.html)
-- Do this React [Getting Started](https://reactjs.org/tutorial/tutorial.html) Tutorial (it doesn’t assume any existing React knowledge)
-- Get an Understanding of [CSS](http://localhost:3000) and [HTML](https://www.w3schools.com/html/html_intro.asp)!
+## Technologies
+-   React JS - User interface
+-   npm - Package management
+-   Heroku - Deployment
+-   SonarQube - Code Quality Control
 
-Once you have done all of this, in the template there are two main external dependencies that you should look at:
-
-- [styled-components](https://www.styled-components.com/docs)
-  It removes the mapping between components and styles (i.e. external css files). This means that when you're defining your styles, you're actually creating a normal React component, that has your styles attached to it
-* [react-router-dom](https://reacttraining.com/react-router/web/guides/quick-start) Declarative routing for React being a collection of navigational components that compose declaratively with your application. 
-* [react-hooks](https://reactrouter.com/web/api/Hooks) Let's you access the state of the router and perform navigation from inside your components.
+## High-level Components
 
 
-
-## Prerequisites and Installation
+## Launch & Development
 
 For your local development environment you'll need Node.js >= 8.10. You can download it [here](https://nodejs.org). All other dependencies including React get installed with:
 
@@ -50,9 +50,36 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## Learn More
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Illustrations
+
+![login](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Login.PNG)
+
+![registration](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Registration.png)
+
+![create Gameroom](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Gameroom_Creation.png)
+
+![join Gameroom](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Gameroom_Join.png)
+
+![Gameroom overview](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Gameroom_Overview.png)
+
+![setup](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Setup.png)
+
+![gameplay](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Gameplay.png)
+
+![recreations](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Recreations.png)
+
+![scoreboard](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Scoreboard.png)
+
+## Roadmap
+
+1. Make the items to recreate the picture rotatable
+2. Make the shoe lace items flexible
+
+## Authors and acknowledgement
 
 
->Thanks to Lucas Pelloni for the template
+
+## License
+
+

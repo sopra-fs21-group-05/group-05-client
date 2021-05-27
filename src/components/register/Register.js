@@ -56,12 +56,21 @@ const ButtonContainer = styled.div`
   background: rgba(255, 255, 255, 0.0);
 `;
 
+const Error = styled.label`
+  color: red;
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: 300;
+`;
+
+
 class Register extends React.Component {
     constructor() {
         super();
         this.state = {
             username: null,
             password: null,
+            errorMessage: null
         };
     }
 
@@ -80,14 +89,14 @@ class Register extends React.Component {
 
             // Store the token into the local storage.
             sessionStorage.setItem('token', user.token);
-            sessionStorage.setItem('loginId', user.id)
+            sessionStorage.setItem('loginId', user.id);
 
-            alert("You are registered now")
+            alert("You are now registered!")
 
             // Login successfully worked --> navigate to the route /game in the GameRouter
             this.props.history.push('/dashboard');
         } catch (error) {
-            alert(`Something went wrong during the registration. Try again: \n${handleError(error)}`);
+            this.setState({errorMessage: handleError(error)});
         }
     }
 
@@ -118,6 +127,8 @@ class Register extends React.Component {
                                 this.handleInputChange('password', e.target.value);
                             }}
                         />
+                        { this.state.errorMessage &&
+                        <Error>{this.state.errorMessage}</Error>}
                         <ButtonContainer>
                             <ButtonWhite
                                 disabled={!this.state.username || !this.state.password}

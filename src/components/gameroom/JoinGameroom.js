@@ -55,11 +55,19 @@ const ButtonContainer = styled.div`
   background: rgba(255, 255, 255, 0.0);
 `;
 
+const Error = styled.label`
+  color: red;
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: 300;
+`;
+
 class JoinGameroom extends React.Component {
     constructor() {
         super();
         this.state = {
             password: null,
+            errorMessage: null
         };
     }
 
@@ -88,7 +96,7 @@ class JoinGameroom extends React.Component {
             this.props.history.push(`/gamerooms/overview/${roomId}`);
 
         } catch (error) {
-            alert(`Something went wrong while joining the gameroom: \n${handleError(error)}`);
+            this.setState({errorMessage: handleError(error)});
         }
     }
 
@@ -110,6 +118,8 @@ class JoinGameroom extends React.Component {
                                 this.handleInputChange("password", e.target.value);
                             }}
                         />
+                        { this.state.errorMessage &&
+                        <Error>{this.state.errorMessage}</Error>}
                         <ButtonContainer>
                             <ButtonWhite
                                 disabled={!this.state.password}

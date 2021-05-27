@@ -130,7 +130,7 @@ class CreateGameroom extends React.Component {
                         <ButtonContainer>
                             <ButtonWhite
                                 disabled={!this.state.roomname || !this.state.password}
-                                width="80%"
+                                width="50%"
                                 onClick={() => {
                                     this.createGameroom();
                                 }}

@@ -63,7 +63,7 @@ class Scoreboard extends React.Component {
     }
 
     confirmSubmitOverride(){
-        if (window.confirm("It seems not all users have submitted their guesses, are you sure you want to start the next round? \nIf you do so, these players might be left behind.")) {
+        if (window.confirm("It seems not all users have submitted their guesses, are you sure you want to proceed? \nIf you do so, these players will be left behind.")) {
             this.updateGame();
         }
     }
@@ -140,6 +140,13 @@ class Scoreboard extends React.Component {
         }
     }
 
+    getRoundText(){
+        if(sessionStorage.getItem("roundNr") == 5){
+            return "Final Ranking"
+        }
+        return "Play next round"
+    }
+
     async pingNewRound(){
         try {
             let gameId = sessionStorage.getItem('gameId');
@@ -198,7 +205,7 @@ class Scoreboard extends React.Component {
         return (
             <FormContainer>
                 <img src={logo} width={700} alt={""}/>
-                <h1>Overview after Round {sessionStorage.getItem("roundNr")}</h1>
+                <h1>Overview of Round {sessionStorage.getItem("roundNr")}</h1>
                 {this.state.winnerString ? (<h1>{this.state.winnerString}</h1>): ("")}
 
                 <div>
@@ -222,7 +229,7 @@ class Scoreboard extends React.Component {
                                 this.confirmSubmitOverride();
                             }}
                         >
-                            Play next round
+                            {this.getRoundText()}
                         </ButtonWhite>
                     ): (
                         <ButtonWhite
@@ -232,7 +239,7 @@ class Scoreboard extends React.Component {
                                 this.updateGame();
                             }}
                         >
-                            Play next round
+                            {this.getRoundText()}
                         </ButtonWhite>
                     )}
                 </ButtonContainer>

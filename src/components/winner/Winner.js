@@ -140,7 +140,7 @@ class Winner extends React.Component {
             this.setState({ping: false});
             this.props.history.push(`/dashboard`);
         }  catch (error) {
-            this.handleError("Something went wrong while fetching the gameroom: ", error);
+            this.handleError("Something went wrong while leaving the game: ", error);
         }
     }
 

@@ -83,9 +83,9 @@ class StartGame extends React.Component {
                     this.props.history.push(`/game/view/grid/${gameId}`);
                 }
 
-                if( this.state.users.length === 5 && this.state.creator !== null){
-                    this.startGameCall();
-                }
+                // if( this.state.users.length === 5 && this.state.creator !== null){
+                //     this.startGameCall();
+                // }
 
                 //ping the gameroom over and over again
                 setTimeout(() => {
@@ -99,7 +99,7 @@ class StartGame extends React.Component {
     }
 
     //check how many players there are, if null or less than 3 we cant start,
-    //if 5 we start automatically, else the button is enabled and we can start if we want
+    //if 5 or less, we can
     canStart(){
         if( this.state.users === null){ //null check to prevent errors if the request has not yet returned at the start
             return false;

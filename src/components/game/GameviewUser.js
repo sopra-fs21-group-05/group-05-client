@@ -169,31 +169,31 @@ class GameviewUser extends React.Component {
 
     getHintText(){
         let hint = "Hint: You can now ";
-        if (this.state.materialSet===1){ //Sticks and stones
+        if (this.state.materialSet==1){ //Sticks and stones
             if (this.state.restricted){
                 return hint + " only choose up to four Sticks to recreate your Picture.";
             }
             return hint + " choose up to four Sticks and four Stones to recreate your Picture.";
         }
-        else if (this.state.materialSet===2){ //Cubes
+        else if (this.state.materialSet==2){ //Cubes
             if (this.state.restricted){
                 return hint + " only choose 9 Cubes from the Brown, Grey, Black and White ones to recreate your Picture.";
             }
             return hint + " choose up to 9 Cubes to recreate your Picture.";
         }
-        else if (this.state.materialSet===3){ //Blocks
+        else if (this.state.materialSet==3){ //Blocks
             if (this.state.restricted){
                 return hint + " only choose a Triangle, a Square, and a Circle to recreate your Picture.  Careful: Rotations count as the same Block!";
             }
             return hint + " choose up to six different Building Blocks to recreate your Picture. Careful: Rotations count as the same Block!";
         }
-        else if (this.state.materialSet===4){ //Cards
+        else if (this.state.materialSet==4){ //Cards
             if (this.state.restricted){
                 return hint + " only choose two Cards to recreate your Picture.";
             }
             return hint + " choose up to 5 Cards to recreate your Picture.";
         }
-        else if (this.state.materialSet===5){ //Laces
+        else if (this.state.materialSet==5){ //Laces
             if (this.state.restricted){
                 return hint + " only choose up to two Laces to recreate your Picture.";
             }
@@ -209,34 +209,52 @@ class GameviewUser extends React.Component {
     }
 
     async getPicture() {
-        try {
-            const pathname = this.props.location.pathname;
-            const pathname_str = pathname + "/picture";
+        if(sessionStorage.getItem('picture')==null && sessionStorage.getItem('coordinate')==null) {
+            try {
+                const pathname = this.props.location.pathname;
+                const pathname_str = pathname + "/picture";
 
-            const response = await api.get(pathname_str);
-            let coordinate = response.data.coordinate;
-            let picture = response.data.picture;
+                const response = await api.get(pathname_str);
+                let coordinate = response.data.coordinate;
+                let picture = response.data.picture;
 
-            this.setState({picture: picture, coordinate: coordinate})
-
-        } catch (error) {
-            this.handleError(error);
+                this.setState({picture: picture, coordinate: coordinate})
+                sessionStorage.setItem('picture', picture);
+                sessionStorage.setItem('coordinate', coordinate);
+            } catch (error) {
+                this.handleError(error);
+            }
+        }else{
+            let c = sessionStorage.getItem('coordinate');
+            let p = sessionStorage.getItem('picture');
+            this.setState({picture: p, coordinate: c})
         }
     }
 
 
     async getMaterialSet() {
-        try {
-            const pathname = this.props.location.pathname;
-            const pathname_str = pathname + "/set";
+        // console.log("getting materialset, storage: "+sessionStorage.getItem('setId') );
+        if ( sessionStorage.getItem('setId')==null ){
+            try {
+                const pathname = this.props.location.pathname;
+                const pathname_str = pathname + "/set";
 
-            const response_set = await api.get(pathname_str);
-            let setNr = response_set.data
+                const response_set = await api.get(pathname_str);
+                let setNr = response_set.data
 
-            this.setState({materialSet: setNr})
-            this.checkRestriction();
-        } catch (error) {
-            this.handleError(error);
+                console.log("received number: "+setNr);
+
+                this.setState({materialSet: setNr})
+                sessionStorage.setItem('setId', setNr);
+
+                this.checkRestriction();
+            } catch (error) {
+                this.handleError(error);
+            }
+        }else{
+            let setNumber = sessionStorage.getItem('setId');
+            console.log("using stored number: "+setNumber);
+            this.setState({materialSet: setNumber});
         }
     }
 
@@ -730,7 +748,7 @@ class GameviewUser extends React.Component {
                             </Row>
                         </Container>
                         <Form>
-                            {this.state.materialSet===1 ? (
+                            {this.state.materialSet==1 ? (
                                 <Container fluid style={{ width: '200px' }}>
                                     {/*https://www.npmjs.com/package/react-grid-system*/}
                                     {/*https://sealninja.github.io/react-grid-system/#col*/}
@@ -758,7 +776,7 @@ class GameviewUser extends React.Component {
                             ): ("")}
 
                             {/*display the set of togglebuttons for the ColouredCubes:*/}
-                            {this.state.materialSet===2 ? (
+                            {this.state.materialSet==2 ? (
                                 <Container fluid style={{ width: '200px' }}>
                                     <Row justify="around" style={{ height: '45px' }}>
                                         <img src={cubeBlack} height={40} alt="" onClick={() => {this.toggleColouredCubes(0)}} />
@@ -804,7 +822,7 @@ class GameviewUser extends React.Component {
                             ): ("")}
 
                             {/*display the set of Blocks:*/}
-                            {this.state.materialSet===3 ? (
+                            {this.state.materialSet==3 ? (
                                 <Container fluid style={{ width: '220px'}}>
                                     <Row justify="around" style={{ height: '80px' }}>
                                         <img src={archR1} height={75} alt="" onClick={() => {this.toggleBlocks(1)}}/>
@@ -833,7 +851,7 @@ class GameviewUser extends React.Component {
                             ): ("")}
 
                             {/*display the set of Cards:*/}
-                            {this.state.materialSet===4 ? (
+                            {this.state.materialSet==4 ? (
                                 <Container fluid style={{ width: '200px' }}>
                                     <Row justify="around" style={{ height: '60px' }}>
                                         <img src={ball} height={60} alt="" onClick={() => {this.toggleCards(0)}} />
@@ -869,7 +887,7 @@ class GameviewUser extends React.Component {
                             ): ("")}
 
                             {/*display the set of Laces:*/}
-                            {this.state.materialSet===5 ? (
+                            {this.state.materialSet==5 ? (
                                 <Container fluid style={{ width: '200px' }}>
                                     <Row justify="around" style={{ height: '50px' }}>
                                         <img src={l1} height={50} alt="" onClick={() => {this.toggleLaces(0)}} />

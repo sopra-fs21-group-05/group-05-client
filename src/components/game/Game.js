@@ -106,7 +106,7 @@ class Game extends React.Component {
                     {!this.state.picture ? (
                         <Container fluid style={{ height: '400px' }}>
                             <Row justify="around"  >
-                                Fetching Images, please wait
+                                Generating random Images, please wait
                             </Row>
                             <Row justify="around"   >
                                 <Spinner />

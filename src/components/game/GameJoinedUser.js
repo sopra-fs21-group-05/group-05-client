@@ -65,9 +65,7 @@ class GameviewUser extends React.Component {
                 // console.log("error while getting image: " + error);
             }
 
-            //ping the recreations again every two seconds
             setTimeout(() => {
-                // console.log("calling getImages")
                 this.getImagesGrid();
             }, 500);
         }

@@ -70,12 +70,11 @@ class StartGame extends React.Component {
     }
 
     async pingPlayerCount(){
-        // console.log("creator: " +this.state.creator);
         try {
             if(this.state.ping){
                 const pathname = this.props.location.pathname;
                 const response = await api.get(pathname);
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                // await new Promise(resolve => setTimeout(resolve, 1000));
                 this.setState({ id: response.data.id, roomname: response.data.roomname, users: response.data.users, startedGame: response.data.startedGame});
 
                 if(this.state.startedGame!==null){
@@ -86,10 +85,6 @@ class StartGame extends React.Component {
                     this.setState({ping: false});
                     this.props.history.push(`/game/view/grid/${gameId}`);
                 }
-
-                // if( this.state.users.length === 5 && this.state.creator !== null){
-                //     this.startGameCall();
-                // }
 
                 //ping the gameroom over and over again
                 setTimeout(() => {
@@ -129,6 +124,7 @@ class StartGame extends React.Component {
                 sessionStorage.setItem('roundNr', '1')
 
                 this.setState({ping: false});
+
                 //now redirect to the game
                 this.props.history.push(`/game`);
             }  catch (error) {
@@ -159,7 +155,7 @@ class StartGame extends React.Component {
                 const pathname = this.props.location.pathname;
                 const response = await api.get(pathname);
 
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                // await new Promise(resolve => setTimeout(resolve, 1000));
                 this.setState({ CreatorId: response.data.creator});
 
                 let userId = sessionStorage.getItem('loginId');
@@ -205,7 +201,6 @@ class StartGame extends React.Component {
                         )}
                     <ButtonContainer>
                         <ButtonWhite
-                            // we wait for a list of users that is not null and at least three players long
                             disabled={!this.canStart() || this.state.creator == null}
                             width="100%"
                             onClick={() => {

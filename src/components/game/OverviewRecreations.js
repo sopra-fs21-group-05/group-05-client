@@ -66,7 +66,13 @@ const ButtonContainer = styled.div`
   margin-top: 20px;
   margin-bottom: 20px;
   background: rgba(255, 255, 255, 0.2);
+`;
 
+const Error = styled.label`
+  color: red;
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: 300;
 `;
 
 /**
@@ -87,7 +93,8 @@ class GameviewUser extends React.Component {
             recreations: {},
             userNames: {},
             ping: true,
-            guesses: {}
+            guesses: {},
+            errorMessage: null
         }
     }
 
@@ -145,7 +152,7 @@ class GameviewUser extends React.Component {
             this.props.history.push(scoreboardEndpoint);
 
         } catch (error) {
-            console.log("error while posting the guesses: " + error);
+            this.setState({errorMessage: handleError(error)});
         }
     }
 
@@ -232,7 +239,7 @@ class GameviewUser extends React.Component {
                                         <Row>
                                             <InputField
                                             disabled={recreation[0] === this.state.userId}
-                                            placeholder={recreation[0] === this.state.userId ? 'Your recreation' : 'Enter guess..'}
+                                            placeholder={recreation[0] === this.state.userId ? 'Your recreation' : 'Enter guess.. e.g. A1'}
                                             style = {recreation[0] === this.state.userId ? ({ cursor: 'not-allowed' }): ({ cursor: 'text' })}
                                             onChange={e => {
                                                 this.state.guesses[recreation[0]] = e.target.value;
@@ -243,6 +250,8 @@ class GameviewUser extends React.Component {
                             })}
                         </Row>
                     </PictureContainer>
+                    { this.state.errorMessage &&
+                    <Error>{this.state.errorMessage}</Error>}
                 <ButtonContainer>
                     <ButtonWhite
                         width="100%"

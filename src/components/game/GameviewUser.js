@@ -233,7 +233,6 @@ class GameviewUser extends React.Component {
 
 
     async getMaterialSet() {
-        // console.log("getting materialset, storage: "+sessionStorage.getItem('setId') );
         if ( sessionStorage.getItem('setId')==null ){
             try {
                 const pathname = this.props.location.pathname;

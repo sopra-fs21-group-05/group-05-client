@@ -64,6 +64,10 @@ class Winner extends React.Component {
         this.displayScoreboard();
     }
 
+    componentWillUnmount(){
+        this.setState({ping: false});
+    }
+
     async displayScoreboard() {
         try {
             let gameId = sessionStorage.getItem("gameId");

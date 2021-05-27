@@ -74,6 +74,10 @@ class Scoreboard extends React.Component {
         this.checkIfCreatorExists();
     }
 
+    componentWillUnmount(){
+        this.setState({ping: false});
+    }
+
     async displayScoreboard() {
         try {
             const pathname = this.props.location.pathname;

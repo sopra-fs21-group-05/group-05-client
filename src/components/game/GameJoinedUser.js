@@ -85,6 +85,10 @@ class GameviewUser extends React.Component {
         this.getImagesGrid();
     }
 
+    componentWillUnmount(){
+        this.setState({ping: false});
+    }
+
     handleInputChange(key, value) {
         this.setState({ [key]: value });
     }

@@ -74,7 +74,6 @@ class StartGame extends React.Component {
             if(this.state.ping){
                 const pathname = this.props.location.pathname;
                 const response = await api.get(pathname);
-                // await new Promise(resolve => setTimeout(resolve, 1000));
                 this.setState({ id: response.data.id, roomname: response.data.roomname, users: response.data.users, startedGame: response.data.startedGame});
 
                 if(this.state.startedGame!==null){
@@ -155,9 +154,7 @@ class StartGame extends React.Component {
                 const pathname = this.props.location.pathname;
                 const response = await api.get(pathname);
 
-                // await new Promise(resolve => setTimeout(resolve, 1000));
                 this.setState({ CreatorId: response.data.creator});
-
                 let userId = sessionStorage.getItem('loginId');
                 if (userId.toString() === this.state.CreatorId.toString()){
                     sessionStorage.setItem('creator', 'yes');

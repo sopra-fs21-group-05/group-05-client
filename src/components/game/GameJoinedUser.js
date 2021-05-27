@@ -61,9 +61,7 @@ class GameviewUser extends React.Component {
                 const response = await api.get(endpoint);
 
                 this.setState({picturesGrid: response.data});
-            } catch (error) {
-                // console.log("error while getting image: " + error);
-            }
+            } catch (error) {}
 
             setTimeout(() => {
                 this.getImagesGrid();

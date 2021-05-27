@@ -108,7 +108,7 @@ const Header = props => {
                             Once you have a piece in your Building Area, you can use your preferred input method, either Touch or a Cursor, to drag them around freely.
                             The Building Area will handle any overflow that might occur, but make sure your final recreation is completely visible, as only a square image will be submitted
                             for you.
-                            When it is your turn to submit your guesses, make sure to enter them in the format "A1", otherwise you will not receive points for them.
+                            When it is your turn to submit your guesses, make sure to enter them in the format "A1".
 
 
                         </div>

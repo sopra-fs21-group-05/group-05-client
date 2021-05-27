@@ -101,7 +101,7 @@ class CreateGameroom extends React.Component {
         return (
             <BaseContainer>
                 <FormContainer>
-                    <img src={logo} width={300} alt={""} />
+                    <img src={logo} width={700} alt={""} />
                     <Form>
                         <Label>Roomname</Label>
                         <InputField

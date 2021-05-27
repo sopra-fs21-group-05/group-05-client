@@ -94,7 +94,7 @@ class GameroomList extends React.Component {
     render() {
         return (
             <FormContainer>
-                <img src={logo} width={500} alt={""} />
+                <img src={logo} width={700} alt={""} />
                 <h2>Gamerooms Overview </h2>
                 {!this.checkRooms() ? (
                     <Row  justify="around">

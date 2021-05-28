@@ -75,6 +75,8 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 1. Make the items to recreate the picture rotatable
 2. Make the shoe lace items flexible
+3. Players can "react" to other players recreations (e.g. through likes or emojis)
+4. After each round, the correct solutions (recreations and corresponding grid coordinates) are displayed
 
 ## Authors and acknowledgement
 

@@ -148,6 +148,8 @@ class GameviewUser extends React.Component {
             const scoreboardEndpoint = '/scoreboards/' + gameId;
             const responseScoreboard = await api.post(scoreboardEndpoint, requestBody);
 
+            sessionStorage.setItem('submitted', "true");
+
             this.setState({ping: false});
             this.props.history.push(scoreboardEndpoint);
 
@@ -158,11 +160,19 @@ class GameviewUser extends React.Component {
 
 
     componentDidMount() {
-        this.getImagesGrid();
-        this.getRecreations();
+        //if we have already submitted our guesses, redirect to the scoreboard
+        if(sessionStorage.getItem('submitted') == "true"){
+            let gameId = sessionStorage.getItem("gameId");
+            const scoreboardEndpoint = '/scoreboards/' + gameId;
+            this.setState({ping: false});
+            this.props.history.push(scoreboardEndpoint);
+        }else{
+            this.getImagesGrid();
+            this.getRecreations();
 
-        let userId = sessionStorage.getItem("loginId");
-        this.setState({userId: userId})
+            let userId = sessionStorage.getItem("loginId");
+            this.setState({userId: userId})
+        }
     }
 
     componentWillUnmount(){

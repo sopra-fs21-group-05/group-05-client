@@ -440,7 +440,9 @@ class GameviewUser extends React.Component {
         this.setState({reload: false});
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+        sessionStorage.removeItem("submitted");
+    }
 
     //ReactDraggable Stuff:
 //########################################################################

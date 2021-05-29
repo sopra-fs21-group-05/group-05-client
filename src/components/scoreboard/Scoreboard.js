@@ -57,9 +57,13 @@ class Scoreboard extends React.Component {
     }
 
     handleError(message, error){
-        if (window.confirm(message+" \n"+handleError(error)+"\n\nDo you want to go back to the Dashboard?")) {
-            this.props.history.push(`/dashboard`);
-        }
+        try {
+            if (window.confirm(message+" \n"+handleError(error)+"\n\nDo you want to go back to the Dashboard?")) {
+                this.props.history.push(`/dashboard`);
+            }
+        }  catch (error) {}
+        //catch will literally only happen if the user spams the back key in the browser, so we will ignore this, it will keep working nonetheless
+
     }
 
     confirmSubmitOverride(){
@@ -80,6 +84,10 @@ class Scoreboard extends React.Component {
 
     componentWillUnmount(){
         this.setState({ping: false});
+
+        if(sessionStorage.getItem('submitted')=="true" ){
+            window.location.reload();
+        }
     }
 
     async displayScoreboard() {

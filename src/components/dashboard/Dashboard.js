@@ -108,6 +108,7 @@ class Dashboard extends React.Component {
         sessionStorage.removeItem("picture");
         sessionStorage.removeItem("coordinate");
         sessionStorage.removeItem("setId");
+        sessionStorage.removeItem("submitted");
 
         //address potential background processes now:
         if(sessionStorage.getItem("reload" ) == "true"){

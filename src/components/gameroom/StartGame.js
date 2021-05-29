@@ -63,6 +63,7 @@ class StartGame extends React.Component {
     async componentDidMount() {
         this.pingPlayerCount(0);
         this.checkIfCreatorExists();
+        sessionStorage.removeItem("submitted");
 
         //address potential background processes now:
         if(sessionStorage.getItem("reload" ) == "true"){

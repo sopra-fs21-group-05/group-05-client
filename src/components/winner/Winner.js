@@ -53,6 +53,8 @@ class Winner extends React.Component {
 
     handleError(message, error){
         if (window.confirm(message+" \n"+handleError(error)+"\n\nDo you want to go back to the Dashboard?")) {
+            sessionStorage.setItem('reload', "true");
+
             this.setState({ping: false});
             this.props.history.push(`/dashboard`);
         }
@@ -62,6 +64,8 @@ class Winner extends React.Component {
         let creator = sessionStorage.getItem('creator')
         this.setState({creator: creator})
         this.displayScoreboard();
+
+        sessionStorage.setItem('reload', "true");
     }
 
     componentWillUnmount(){
@@ -87,7 +91,10 @@ class Winner extends React.Component {
             }
 
         }  catch (error) {
-            this.handleError("Something went wrong while fetching the scoreboard: ", error);
+            sessionStorage.setItem('reload', "true");
+
+            // this.handleError("Something went wrong while fetching the scoreboard: ", error);
+            console.log("Something went wrong while fetching the scoreboard")
         }
 
     }
@@ -123,6 +130,8 @@ class Winner extends React.Component {
                 }
 
             }  catch (error) {
+                sessionStorage.setItem('reload', "true");
+
                 console.log("error while fetching winners: "+handleError(error));
             }
         }
@@ -144,7 +153,12 @@ class Winner extends React.Component {
             this.setState({ping: false});
             this.props.history.push(`/dashboard`);
         }  catch (error) {
-            this.handleError("Something went wrong while leaving the game: ", error);
+            // this.handleError("Something went wrong while leaving the game: ", error);
+
+            sessionStorage.setItem('reload', "true");
+            console.log("Something went wrong while fetching the scoreboard")
+            this.setState({ping: false});
+            this.props.history.push(`/dashboard`);
         }
     }
 
@@ -166,7 +180,10 @@ class Winner extends React.Component {
             this.setState({ping: false});
             this.props.history.push(`/gamerooms/overview/${roomId}`);
         }  catch (error) {
-            this.handleError("Something went wrong while fetching the gameroom: ", error);
+            sessionStorage.setItem('reload', "true");
+
+            // this.handleError("Something went wrong while fetching the gameroom: ", error);
+            console.log("Something went wrong while proceeding back to the gameroom")
         }
     }
 

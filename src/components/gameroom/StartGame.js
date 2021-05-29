@@ -63,10 +63,17 @@ class StartGame extends React.Component {
     async componentDidMount() {
         this.pingPlayerCount(0);
         this.checkIfCreatorExists();
+
+        //address potential background processes now:
+        if(sessionStorage.getItem("reload" ) == true){
+            sessionStorage.removeItem("reload");
+            window.location.reload();
+        }
     }
 
     componentWillUnmount(){
         this.setState({ping: false});
+        sessionStorage.removeItem("reload");
     }
 
     async pingPlayerCount(){

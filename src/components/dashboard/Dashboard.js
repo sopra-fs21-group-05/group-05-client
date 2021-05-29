@@ -110,9 +110,9 @@ class Dashboard extends React.Component {
         sessionStorage.removeItem("setId");
 
         //address potential background processes now:
-        if(sessionStorage.getItem("reload" ) == true){
+        if(sessionStorage.getItem("reload" ) == "true"){
             sessionStorage.removeItem("reload");
-            window.location.reload();
+            window.location.reload(false);
         }
     }
 
@@ -171,19 +171,6 @@ class Dashboard extends React.Component {
                                 Logout
                             </ButtonWhite>
                         </ButtonContainer>
-
-
-                    <ButtonContainer>
-                        <ButtonWhite
-                            width="50%"
-                            onClick={() => {
-                                window.location.reload();
-                            }}
-                        >
-                            Reload
-                        </ButtonWhite>
-                    </ButtonContainer>
-
                     </Form>
                 </FormContainer>
             </BaseContainer>

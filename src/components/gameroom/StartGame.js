@@ -65,9 +65,9 @@ class StartGame extends React.Component {
         this.checkIfCreatorExists();
 
         //address potential background processes now:
-        if(sessionStorage.getItem("reload" ) == true){
+        if(sessionStorage.getItem("reload" ) == "true"){
             sessionStorage.removeItem("reload");
-            window.location.reload();
+            window.location.reload(false);
         }
     }
 

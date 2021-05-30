@@ -72,37 +72,38 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 
 ## Illustrations
-These are the first pages of the application, that show up when you open the application for the first time. 
+These are the first pages of the application, that show up when you open the application. 
 You can here register an account or login with an existing account, if have already registered one.
-After the login, you get redirected to the dashboard, where you can decide, if you want to create or join a gameroom.
+After the login, you get redirected to the dashboard, where you can decide, if you want to create or join a gameroom, or even log out again.
 
 ![login](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Login.PNG)
 
 ![registration](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Registration.png)
 
 This page is shown if you want to create a gameroom. 
-You can choose a roomname and a password in order to create a gameroom.
+You can choose a roomname and a password in order to create a gameroom, and these will then be used by other players to access your room.
 
 ![create Gameroom](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Gameroom_Creation.png)
 
 This page is shown if you want to join a gameroom. 
-You can here choose a gameroom by just clicking on the roomname. 
+You can choose a gameroom by just clicking on the roomname in the list of available gamerooms. 
 After that you will be promted to enter the password of the gameroom in order to join it.
 
 ![join Gameroom](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Gameroom_Join.png)
 
-fter creating or joining a gameroom, you will be seeing this page. 
-Here, all player that are in the gameroom are listed.
-If there are a minimum of three players, the creator of the gameroom can start the game. 
+After creating or joining a gameroom, you will be seeing this page. 
+Here, all players that are in the current gameroom are listed.
+If there are between three to five players, the creator of the gameroom can start the game.
+If the creator of the room leaves, a new creator is assigned randomly.
 
 ![Gameroom overview](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Gameroom_Overview.png)
 
-Once the game has started, you will get to this page, where the grid for the ongoing game is fetched. 
+Once the game has started, you will get to this page, where the grid for the ongoing game is fetched and presented. 
 
 ![setup](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Setup.png)
 
 At this point of the application, you actually get to play the game. 
-After getting your assigned picture and material set, you can try your best to recreate the picture.
+After getting your assigned picture and material set, you can try your best to recreate that picture.
 Once you have done that, you can click on submit to submit the picture and proceed to the guessing part. 
 
 ![gameplay](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Gameplay.png)

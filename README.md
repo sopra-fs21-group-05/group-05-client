@@ -15,7 +15,29 @@ The implementation was done as a part of the 'SoPra' course at the University of
 -   SonarQube - Code analysis
 
 ## High-level Components
+The most important components of our Pictures implementation are:
 
+- [AppRouter](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/src/components/shared/routers/AppRouter.js)
+Handles the routing of the application. 
+Ensures that only a logged in user can use the application and only users who have joined a gameroom can actually be in a game.
+
+- [Dashboard](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/src/components/dashboard/Dashboard.js)
+The Dashboard is where users decide if they want to create or join a gameroom. 
+It also represents the main entry point in case a problem occures within the application.
+
+- [StartGame](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/src/components/gameroom/StartGame.js)
+From here the actual game is started. 
+It lists all users that are in the gameroom and ensures that there are a minimum of three and a maximum of five users in a gameroom. 
+If a game is started by the creator of a gameroom, everyone gets redirected automatically to the game from here.
+
+- [Game](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/src/components/game/Game.js)
+The Game component sets up the game. 
+Furthermore, at this point the external API is called and the grid for the game (5 rounds) is fetched.
+
+- [GameViewUser](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/src/components/game/GameviewUser.js)
+The GameViewUser component is where the actual gameplay happens. The user is assigned a set and a picture here. 
+With the given set he can then recreate the picture by using simple Drag & Drop functionality. 
+Furthermore, here the recreation is submitted once the user clicks on submit.
 
 ## Launch & Development
 
@@ -52,22 +74,48 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 
 ## Illustrations
+These are the first pages of the application, that show up when you open the application for the first time. 
+You can here register an account or login with an existing account, if have already registered one.
+After the login, you get redirected to the dashboard, where you can decide, if you want to create or join a gameroom.
 
 ![login](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Login.PNG)
 
 ![registration](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Registration.png)
 
+This page is shown if you want to create a gameroom. 
+You can choose a roomname and a password in order to create a gameroom.
+
 ![create Gameroom](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Gameroom_Creation.png)
+
+This page is shown if you want to join a gameroom. 
+You can here choose a gameroom by just clicking on the roomname. 
+After that you will be promted to enter the password of the gameroom in order to join it.
 
 ![join Gameroom](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Gameroom_Join.png)
 
+fter creating or joining a gameroom, you will be seeing this page. 
+Here, all player that are in the gameroom are listed.
+If there are a minimum of three players, the creator of the gameroom can start the game. 
+
 ![Gameroom overview](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Gameroom_Overview.png)
+
+Once the game has started, you will get to this page, where the grid for the ongoing game is fetched. 
 
 ![setup](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Setup.png)
 
+At this point of the application, you actually get to play the game. 
+After getting your assigned picture and material set, you can try your best to recreate the picture.
+Once you have done that, you can click on submit to submit the picture and proceed to the guessing part. 
+
 ![gameplay](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Gameplay.png)
 
+Here, you have to find out which picture the other users have recreated.
+After submitting your guesses to the rereations of each user, you have finished your round. 
+
 ![recreations](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Recreations.png)
+
+Lastly, you get to see the scoreboard with the points of each user.
+As soon as every reach this stage of the game, the creator of the gameroom can start the next round. 
 
 ![scoreboard](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/Screenshots_Pictures/Scoreboard.png)
 

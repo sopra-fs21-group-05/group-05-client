@@ -34,7 +34,7 @@ const Users = ({ user }) => {
     return (
         <Container>
             <UserName>{user.username}</UserName>
-            <Id>Id: {user.id}</Id>
+            {/*<Id>Id: {user.id}</Id>*/}
         </Container>
     );
 };

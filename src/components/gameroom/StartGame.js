@@ -185,9 +185,9 @@ class StartGame extends React.Component {
                 <FormContainer>
                 <img src={logo} width={700} alt={""} />
                 <h1>Gameroom Overview</h1>
-                        <Boxes>
-                            {"Id:"}   {this.state.id}
-                        </Boxes>
+                        {/*<Boxes>*/}
+                        {/*    {"Id:"}   {this.state.id}*/}
+                        {/*</Boxes>*/}
                         <Boxes>
                             {"Roomname:"}   {this.state.roomname}
                         </Boxes>

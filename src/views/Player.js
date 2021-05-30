@@ -35,7 +35,7 @@ const GameroomElement = ({ gameroom }) => {
   return (
     <Container>
       <Roomname>Roomname: {gameroom.roomname}</Roomname>
-      <Id>Id: {gameroom.id}</Id>
+      {/*<Id>Id: {gameroom.id}</Id>*/}
     </Container>
   );
 };

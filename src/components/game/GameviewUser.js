@@ -241,8 +241,6 @@ class GameviewUser extends React.Component {
                 const response_set = await api.get(pathname_str);
                 let setNr = response_set.data
 
-                console.log("received number: "+setNr);
-
                 this.setState({materialSet: setNr})
                 sessionStorage.setItem('setId', setNr);
 

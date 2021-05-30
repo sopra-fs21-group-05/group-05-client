@@ -18,10 +18,6 @@ const Roomname = styled.div`
   margin-left: 10px;
 `;
 
-const Id = styled.div`
-  margin-left: auto;
-  margin-right: 10px;
-`;
 
 /**
  * This is an example of a Functional and stateless component (View) in React. Functional components are not classes and thus don't handle internal state changes.
@@ -35,7 +31,6 @@ const GameroomElement = ({ gameroom }) => {
   return (
     <Container>
       <Roomname>Roomname: {gameroom.roomname}</Roomname>
-      {/*<Id>Id: {gameroom.id}</Id>*/}
     </Container>
   );
 };

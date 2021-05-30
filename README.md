@@ -17,27 +17,25 @@ The implementation was done as a part of the 'SoPra' course at the University of
 ## High-level Components
 The most important components of our Pictures implementation are:
 
-- [AppRouter](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/src/components/shared/routers/AppRouter.js)
-Handles the routing of the application. 
-Ensures that only a logged in user can use the application and only users who have joined a gameroom can actually be in a game.
+- [AppRouter](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/src/components/shared/routers/AppRouter.js):
+It handles the routing of the application and makes sure that only a logged in user can use the application and only users who have joined a gameroom can actually be in a game.
 
-- [Dashboard](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/src/components/dashboard/Dashboard.js)
-The Dashboard is where users decide if they want to create or join a gameroom. 
-It also represents the main entry point in case a problem occures within the application.
+- [Dashboard](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/src/components/dashboard/Dashboard.js):
+The Dashboard is where users decide if they want to create or join a gameroom, or log out again. It also represents the main entry point in case a problem occures within the application.
 
-- [StartGame](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/src/components/gameroom/StartGame.js)
+- [StartGame](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/src/components/gameroom/StartGame.js):
 From here the actual game is started. 
-It lists all users that are in the gameroom and ensures that there are a minimum of three and a maximum of five users in a gameroom. 
+This component lists all users that are in the gameroom and ensures that the game can be started only if there between three to five users in a gameroom. 
 If a game is started by the creator of a gameroom, everyone gets redirected automatically to the game from here.
 
-- [Game](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/src/components/game/Game.js)
+- [Game](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/src/components/game/Game.js):
 The Game component sets up the game. 
 Furthermore, at this point the external API is called and the grid for the game (5 rounds) is fetched.
 
-- [GameViewUser](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/src/components/game/GameviewUser.js)
-The GameViewUser component is where the actual gameplay happens. The user is assigned a set and a picture here. 
-With the given set he can then recreate the picture by using simple Drag & Drop functionality. 
-Furthermore, here the recreation is submitted once the user clicks on submit.
+- [GameViewUser](https://github.com/sopra-fs21-group-05/group-05-client/blob/main/src/components/game/GameviewUser.js):
+The GameViewUser component is where the actual gameplay happens. The user is assigned a set of Building Materials and a Picture here. 
+With the given Set they can then recreate the picture by using simple Drag & Drop functionality. 
+Furthermore, the recreation is submitted once the user clicks on submit.
 
 ## Launch & Development
 
